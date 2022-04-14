@@ -28,49 +28,51 @@ public class EnumSwitch {
      * FIXME изменить на цикл / объединить условия в методы
      * FIXME убрать Магические числа
      */
-    public static void enumUse(int propertyIndex, int regionIndex) {
+    public static void enumUse(int regionIndex, int propertyIndex) {
+        //FIXME Вынести в сервлет чтобы суммировало
         int sum = propertyIndex + regionIndex;
         Selection day;
         switch (sum) {
-            case 0:
-            case 1:
+            case 10:
                 day = cityProperty.values()[0];
                 finalBid = day.Check();
                 break;
-            case 2:
+            case 11:
                 day = cityProperty.values()[1];
                 finalBid = day.Check();
                 break;
-            case 3:
+            case 12:
                 day = cityProperty.values()[2];
                 finalBid = day.Check();
                 break;
-            case 4:
-            case 8:
             case 13:
+            case 23:
+            case 33:
                 day = cityProperty.values()[3];
                 finalBid = day.Check();
                 break;
-            case 5:
+            case 20:
                 day = cityProperty.values()[4];
                 finalBid = day.Check();
                 break;
-            case 6:
-            case 7:
+            case 21:
+            case 22:
                 day = cityProperty.values()[5];
                 finalBid = day.Check();
                 break;
-            case 9:
-            case 10:
-            case 11:
+            case 30:
+            case 31:
                 day = cityProperty.values()[6];
                 finalBid = day.Check();
                 break;
-            case 12:
+            case 32:
                 day = cityProperty.values()[7];
                 finalBid = day.Check();
                 break;
-            case 14:
+            case 40:
+            case 41:
+            case 42:
+            case 43:
                 day = cityProperty.values()[8];
                 finalBid = day.Check();
                 break;
@@ -90,8 +92,18 @@ public class EnumSwitch {
 //        }
     }
 
+    public static void select() {
+
+    }
+
+    public static void creat(int x) {
+        Selection day;
+        day = cityProperty.values()[x];
+        finalBid = day.Check();
+    }
+
     /**
-     * Вложенный класс перечислений cityproperty, реализовывающий интерфейс Selection
+     * Вложенный класс перечислений cityProperty, реализовывающий интерфейс Selection
      */
     enum cityProperty implements Selection {
         /**
@@ -101,6 +113,7 @@ public class EnumSwitch {
 
             @Override
             public double Check() {
+                System.out.println("UfaRoom_UfaApartment");
                 //FIXME 100000000 ---> 10000000 УБРАЛ  ОДИН 0 для бывшего UfaRoom
                 if (cadastralValue <= 4000000) {
                     return 0.11;
@@ -120,6 +133,7 @@ public class EnumSwitch {
 
             @Override
             public double Check() {
+                System.out.println("UfaHouse");
                 if (cadastralValue <= 4000000) {
                     return 0.12;
                 } else if ((cadastralValue <= 7000000) & (4000000 < cadastralValue)) {
@@ -137,6 +151,7 @@ public class EnumSwitch {
 
             @Override
             public double Check() {
+                System.out.println("UfaCar");
                 if (cadastralValue > 300000000) {
                     return 2;
                 } else
@@ -151,6 +166,7 @@ public class EnumSwitch {
 
             @Override
             public double Check() {
+                System.out.println("UfaOthers_KazanOthers_MoscowOthers");
                 if (cadastralValue > 300000000) {
                     return 2;
                 } else
@@ -164,6 +180,7 @@ public class EnumSwitch {
 
             @Override
             public double Check() {
+                System.out.println("KazanRoom_KazanApartment");
                 if (cadastralValue > 300000000) {
                     return 2;
                 } else
@@ -179,6 +196,7 @@ public class EnumSwitch {
 
             @Override
             public double Check() {
+                System.out.println("KazanHouse_KazanCar");
                 if (cadastralValue > 300000000) {
                     return 2;
                 } else
@@ -192,6 +210,7 @@ public class EnumSwitch {
 
             @Override
             public double Check() {
+                System.out.println("MoscowRoom_MoscowApartment_MoscowHouse");
                 if (cadastralValue <= 10000000) {
                     return 0.1;
                 } else if ((cadastralValue <= 20000000) & (10000000 < cadastralValue)) {
@@ -209,6 +228,7 @@ public class EnumSwitch {
 
             @Override
             public double Check() {
+                System.out.println("MoscowCar");
                 if (cadastralValue > 300000000) {
                     return 2;
                 } else
@@ -219,6 +239,7 @@ public class EnumSwitch {
 
             @Override
             public double Check() {
+                System.out.println("Gorn");
                 if (cadastralValue > 300000000) {
                     return 0.7;
                 } else
