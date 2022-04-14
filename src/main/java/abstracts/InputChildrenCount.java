@@ -1,18 +1,19 @@
-package abstr;
+package abstracts;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 /**
  * Класс-наследник от абстрактного класса InputText, отвечающий за проверку введенных пользователем
- * значений в поле "Коэффициент периода владения"
+ * значений в поле "число несовершеннолетних детей"
  * @author group2
  * @version 1.0
  */
-public final class InputPortion extends InputText {
+public final class InputChildrenCount extends InputText {
     /**
      * Вызов конструктора родительского класса InputText
      * @param text - текст, введенный пользователем в проверяемое поле
      */
-    public InputPortion(String text) {
+    public InputChildrenCount(String text) {
         super(text);
     }
     /**
@@ -26,21 +27,14 @@ public final class InputPortion extends InputText {
      */
     @Override
     protected double parse() throws Exception {
-        final Pattern pattern = Pattern.compile("(1[//]\\d{1,4})|(1)"); //размер доли (1/2 или 1)
-        final Matcher matcher = pattern.matcher(super.getText());
-
+        Pattern pattern = Pattern.compile("\\d{1,2}");
+        Matcher matcher = pattern.matcher(super.getText());
 
         if (!matcher.matches()) {
-            throw new Exception("введите корректную обыкновенную дробь или 1");
+            throw new Exception("ведите число от 0 до 99");
         }
 
-        double portion = super.getText().equals("1") ? Double.parseDouble(super.getText()) : Double.parseDouble((super.getText().substring(2)));
-
-        if (portion == 0) {
-            throw new Exception("введите корректную обыкновенную дробь или 1");
-        } else {
-            return portion;
-        }
+        return Double.parseDouble(super.getText());
     }
     /**
      * Получение имени данного текстового поля
@@ -48,7 +42,8 @@ public final class InputPortion extends InputText {
      */
     @Override
     public String getFieldName() {
-        return "Размер доли";
+        return "Количество детей";
     }
 
 }
+

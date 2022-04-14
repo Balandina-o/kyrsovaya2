@@ -1,25 +1,22 @@
-package abstr;
+package abstracts;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 /**
  * Класс-наследник от абстрактного класса InputText, отвечающий за проверку введенных пользователем
- * значений в поле "число несовершеннолетних детей"
+ * значений в поле "размер льготы"
  * @author group2
  * @version 1.0
  */
-public final class InputChildrenCount extends InputText {
+public final class InputExemption extends InputText {
     /**
      * Вызов конструктора родительского класса InputText
      * @param text - текст, введенный пользователем в проверяемое поле
      */
-    public InputChildrenCount(String text) {
+    public InputExemption(String text) {
         super(text);
     }
     /**
      * Переопределенный абстрактный метод абстрактного класса InputText
      * реализующий в классе-наследнике проверку вводимых значений на соответствие допустимым.
-     * Параметр вводимых допустимых значений задан с помощью регулярного вырыражения
      *
      * @return value - корректно введенное значение
      * @throws Exception - исключение, выбрасывающееся при некорректных введенных параметрах
@@ -27,14 +24,22 @@ public final class InputChildrenCount extends InputText {
      */
     @Override
     protected double parse() throws Exception {
-        Pattern pattern = Pattern.compile("\\d{1,2}");
-        Matcher matcher = pattern.matcher(super.getText());
-
-        if (!matcher.matches()) {
-            throw new Exception("ведите число от 0 до 99");
+        double value;
+        try {
+            value = Double.parseDouble(super.getText());
+        } catch (Exception error) {
+            throw new Exception("введите вещественное число");
         }
 
-        return Double.parseDouble(super.getText());
+        if (value < 0 ) {
+            throw new Exception("значение не может быть меньше нуля");
+        }
+
+        if (value > 100) {
+            throw new Exception("значение не может быть больше 100");
+        }
+
+        return value;
     }
     /**
      * Получение имени данного текстового поля
@@ -42,8 +47,6 @@ public final class InputChildrenCount extends InputText {
      */
     @Override
     public String getFieldName() {
-        return "Количество детей";
+        return "Льгота";
     }
-
 }
-
