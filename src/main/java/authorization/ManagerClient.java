@@ -6,7 +6,7 @@ package authorization;
  */
 public class ManagerClient  {
     //Путь до "базы данных"
-    private static final String PATH_BASE = "./src/main/resources/7";
+    private static final String PATH_BASE = "./src/main/resources/BaseLogPass";
 
     /**
      * @param log - логин
