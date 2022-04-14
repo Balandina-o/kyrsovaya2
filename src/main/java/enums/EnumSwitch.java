@@ -1,5 +1,9 @@
 package enums;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author Artyom
  * @version 2.0
@@ -24,82 +28,20 @@ public class EnumSwitch {
     }
 
     /**
-     * из выпадающего списка -  сумма должна составлять опр. число указанное в case /TODO продумать
-     * FIXME изменить на цикл / объединить условия в методы
+     * //Поменять местами константы
      * FIXME убрать Магические числа
      */
     public static void enumUse(int regionIndex, int propertyIndex) {
         //FIXME Вынести в сервлет чтобы суммировало
         int sum = propertyIndex + regionIndex;
-        Selection day;
-        switch (sum) {
-            case 10:
-                day = cityProperty.values()[0];
-                finalBid = day.Check();
-                break;
-            case 11:
-                day = cityProperty.values()[1];
-                finalBid = day.Check();
-                break;
-            case 12:
-                day = cityProperty.values()[2];
-                finalBid = day.Check();
-                break;
-            case 13:
-            case 23:
-            case 33:
-                day = cityProperty.values()[3];
-                finalBid = day.Check();
-                break;
-            case 20:
-                day = cityProperty.values()[4];
-                finalBid = day.Check();
-                break;
-            case 21:
-            case 22:
-                day = cityProperty.values()[5];
-                finalBid = day.Check();
-                break;
-            case 30:
-            case 31:
-                day = cityProperty.values()[6];
-                finalBid = day.Check();
-                break;
-            case 32:
-                day = cityProperty.values()[7];
-                finalBid = day.Check();
-                break;
-            case 40:
-            case 41:
-            case 42:
-            case 43:
-                day = cityProperty.values()[8];
-                finalBid = day.Check();
-                break;
-        }
-        //TODO Старый код
-//        String[] massList = {"00", "01", "02", "03", "04", "10", "11", "12", "13", "14", "20", "21", "22", "23", "24", "30", "31", "32", "33", "34"};
-//        String[] massSelect = {propertyIndex, regionIndex};
-//        String yyyy = massSelect[0] + massSelect[1];
-//
-//        int x = Arrays.binarySearch(massList, yyyy);
-//        if ((15 <= x) & (x <= 19)) {
-//             day = cityProperty.values()[15];
-//            finalBid = day.Check();
-//        } else {
-//             day = cityProperty.values()[x];
-//            finalBid = day.Check();
-//        }
-    }
-
-    public static void select() {
+        creat(ReaderCoff.getMassCoff().get(sum));
 
     }
 
-    public static void creat(int x) {
+    public static void creat(int ordinal) {
         Selection day;
-        day = cityProperty.values()[x];
-        finalBid = day.Check();
+        day = cityProperty.values()[ordinal];
+        finalBid = day.changeFinalBid();
     }
 
     /**
@@ -112,7 +54,7 @@ public class EnumSwitch {
         UfaRoom_UfaApartment() { //0-1
 
             @Override
-            public double Check() {
+            public double changeFinalBid() {
                 System.out.println("UfaRoom_UfaApartment");
                 //FIXME 100000000 ---> 10000000 УБРАЛ  ОДИН 0 для бывшего UfaRoom
                 if (cadastralValue <= 4000000) {
@@ -132,7 +74,7 @@ public class EnumSwitch {
         UfaHouse { //2
 
             @Override
-            public double Check() {
+            public double changeFinalBid() {
                 System.out.println("UfaHouse");
                 if (cadastralValue <= 4000000) {
                     return 0.12;
@@ -150,7 +92,7 @@ public class EnumSwitch {
         UfaCar { //3
 
             @Override
-            public double Check() {
+            public double changeFinalBid() {
                 System.out.println("UfaCar");
                 if (cadastralValue > 300000000) {
                     return 2;
@@ -165,7 +107,7 @@ public class EnumSwitch {
         UfaOthers_KazanOthers_MoscowOthers { //4 8 13
 
             @Override
-            public double Check() {
+            public double changeFinalBid() {
                 System.out.println("UfaOthers_KazanOthers_MoscowOthers");
                 if (cadastralValue > 300000000) {
                     return 2;
@@ -179,7 +121,7 @@ public class EnumSwitch {
         KazanRoom_KazanApartment { //5
 
             @Override
-            public double Check() {
+            public double changeFinalBid() {
                 System.out.println("KazanRoom_KazanApartment");
                 if (cadastralValue > 300000000) {
                     return 2;
@@ -195,7 +137,7 @@ public class EnumSwitch {
         KazanHouse_KazanCar { //6
 
             @Override
-            public double Check() {
+            public double changeFinalBid() {
                 System.out.println("KazanHouse_KazanCar");
                 if (cadastralValue > 300000000) {
                     return 2;
@@ -209,7 +151,7 @@ public class EnumSwitch {
         MoscowRoom_MoscowApartment_MoscowHouse { //9 10 11
 
             @Override
-            public double Check() {
+            public double changeFinalBid() {
                 System.out.println("MoscowRoom_MoscowApartment_MoscowHouse");
                 if (cadastralValue <= 10000000) {
                     return 0.1;
@@ -227,7 +169,7 @@ public class EnumSwitch {
         MoscowCar { //12
 
             @Override
-            public double Check() {
+            public double changeFinalBid() {
                 System.out.println("MoscowCar");
                 if (cadastralValue > 300000000) {
                     return 2;
@@ -238,7 +180,7 @@ public class EnumSwitch {
         Gorn { //14
 
             @Override
-            public double Check() {
+            public double changeFinalBid() {
                 System.out.println("Gorn");
                 if (cadastralValue > 300000000) {
                     return 0.7;
