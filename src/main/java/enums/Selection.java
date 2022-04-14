@@ -9,6 +9,6 @@ public interface Selection {
 	 * Метод интерфейса, реализованный в классе EnumSwitch
 	 * @return the double - возвращает числовое значение ставки
 	 */
-	double Check();
+	double changeFinalBid();
 
 }
