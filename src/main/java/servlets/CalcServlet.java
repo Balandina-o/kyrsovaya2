@@ -12,8 +12,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import abstracts.RequestGenerator;
-
 /**
  * The Class CalcServlet.
  */
@@ -58,7 +56,7 @@ public class CalcServlet extends HttpServlet {
 		request.setAttribute("childrens", childrens);
 		request.setAttribute("benefit", benefit);
 		
-		RequestGenerator reqGen = new RequestGenerator(//УБРАТЬ этот класс впоследствии
+		RequestGenerator reqGen = new RequestGenerator(//уберу этот класс впоследствии
 				kadastr,
 				tax,
 				square,
@@ -70,11 +68,10 @@ public class CalcServlet extends HttpServlet {
 								Double.parseDouble(property)
 				);
 		
-		if(reqGen.check() != null) {//если строка с ошибками, возвращаемая методом reqGen не пуста - 
-									//отобразить список ошибок на форме
+		if(reqGen.check() != null) {//если строка, возвращаемая РеквестГенератором не пуста - отобразить список ошибок на форме
 			request.setAttribute("warnings", reqGen.check());
 			
-		}else {//иначе запустить метод, отвечающий за получение и передачу высчитанного результата
+		}else {//иначе запустить метод, отвечающий за счет
 			request.setAttribute("result", reqGen.count());
 			
 		}
