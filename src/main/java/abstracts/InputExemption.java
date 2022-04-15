@@ -31,6 +31,7 @@ public final class InputExemption extends InputText {
             throw new Exception("введите вещественное число");
         }
 
+        
         if (value < 0 ) {
             throw new Exception("значение не может быть меньше нуля");
         }

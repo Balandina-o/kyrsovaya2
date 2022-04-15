@@ -26,11 +26,11 @@ public class CalcServlet extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String kadastr, tax, square, part, period, childrens, benefit, town, property;
+		String kadastr, tax, square, part, period, childrens, benefit, regionIndex, propertyIndex;
 		response.setContentType("text/html");
 
-		town = request.getParameter("town");//получение данных из .джсп
-		property = request.getParameter("property");
+		regionIndex = request.getParameter("regionIndex");//получение данных из .джсп
+		propertyIndex = request.getParameter("propertyIndex");
 		kadastr = request.getParameter("kadastr");
 		tax = request.getParameter("tax");
 		square = request.getParameter("square");
@@ -61,10 +61,10 @@ public class CalcServlet extends HttpServlet {
 				square,
 				part,
 				period,
-				childrens != null ? childrens : "0",
-						benefit != null ? benefit : "0",
-								Double.parseDouble(town),
-								Double.parseDouble(property)
+				childrens != "" ? childrens : "0",
+						benefit != "" ? benefit : "0",
+								Double.parseDouble(regionIndex),
+								Double.parseDouble(propertyIndex)
 				);
 		
 		if(reqGen.check() != null) {//если строка, возвращаемая методом reqGen не пуста - 

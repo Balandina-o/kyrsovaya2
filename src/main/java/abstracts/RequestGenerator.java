@@ -6,7 +6,7 @@ import java.util.List;
 public final class RequestGenerator{
 	private TaxAmount taxamount;
 	
-	public RequestGenerator(String cadastralValueText, String inventoryTaxText, String squareText, String portionText, String holdingPeriodRatioText, String childrenCountText, String exemptionText, double town, double property) {
+	public RequestGenerator(String cadastralValueText, String inventoryTaxText, String squareText, String portionText, String holdingPeriodRatioText, String childrenCountText, String exemptionText, double regionIndex, double propertyIndex) {
 		
 		TaxAmount taxamount = new TaxAmount(//передача данных в TaxAmount, где они крутятся в validate()
 				cadastralValueText,
@@ -16,8 +16,8 @@ public final class RequestGenerator{
 				holdingPeriodRatioText,
 				childrenCountText != null ? childrenCountText : "0",
 						exemptionText != null ? exemptionText : "0",
-								town,
-								property
+								regionIndex,
+								propertyIndex
 				);
 	}
 

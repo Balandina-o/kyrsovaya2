@@ -15,10 +15,10 @@ import java.util.List;
 public final class TaxAmount{
 	
 	private static String cadastralValueText, inventoryTaxText, squareText, portionText, holdingPeriodRatioText, childrenCountText, exemptionText;
-	private static double cadastralValue, inventoryTax, square, portion, holdingPeriodRatio, childrenCount, reductionFactor, deduction, exemption;
+	private static double cadastralValue, inventoryTax, square, portion, holdingPeriodRatio, childrenCount, regionIndex, propertyIndex, exemption;
 
 
-	public TaxAmount(String cadastralValueText, String inventoryTaxText, String squareText, String portionText, String holdingPeriodRatioText, String childrenCountText, String exemptionText, double town, double property) {
+	public TaxAmount(String cadastralValueText, String inventoryTaxText, String squareText, String portionText, String holdingPeriodRatioText, String childrenCountText, String exemptionText, double regionIndex, double propertyIndex) {
 		TaxAmount.cadastralValueText = cadastralValueText;//кадастровая стоимость
 		TaxAmount.inventoryTaxText = inventoryTaxText;//инвентаризационный налог
 		TaxAmount.squareText = squareText;//площадь
@@ -26,9 +26,9 @@ public final class TaxAmount{
 		TaxAmount.holdingPeriodRatioText = holdingPeriodRatioText;//период владения
 		TaxAmount.childrenCountText = childrenCountText;//кол-во детей
 		TaxAmount.exemptionText = exemptionText;//льгота 
-		TaxAmount.reductionFactor = town; //коэфф. муниц. образования (понижающий коэффициент)
-		TaxAmount.deduction = property; //коэфф. типа недвижимости (вычет из площади в зависимости от типа недвижимости)
 		
+		TaxAmount.regionIndex = regionIndex; 
+		TaxAmount.propertyIndex = propertyIndex; 
 	}
 
     /**
@@ -99,22 +99,26 @@ public final class TaxAmount{
 	    }
 
 
-		if (TaxAmount.deduction < TaxAmount.square) { //если площадь меньше вычета (по тиму имущества)
-			//то все норм
-		} else{
-			String message = "";
-			if((int)TaxAmount.deduction == 10){// если коэфф = 10 - выбрана комната
-				message="комнаты";
-				
-			}else if((int)TaxAmount.deduction == 20){
-				message = "квартиры";
-				
-			}else if((int)TaxAmount.deduction == 50){
-				message = "жилого дома";
-			}
-
-				errors.add(new InputError(square.getFieldName(), "Площадь для " + message + " должна быть больше "+ TaxAmount.deduction +" м"));
-		}
+	    //А ВОТ ТУТ У КОМНТЫ И КВАРТИРЫ ДРУГИЕ КОЭФФЫ. НАДО ЗАНЧИТ УБРАТЬ 2 НУЛЯ в enum 
+	    //И ПОСТАВИТЬ УНИКАЛЬНЫЕ ЦИФРЫ.. 
+	    //ПОТОМ В if else устанавливать значение deduction в зависимости от propertyIndex
+	    //ИЛИ УБРАТЬ ЭТУ ПРОВЕРКУ ВОВСЕ
+	    //ТОГДА ПРИ МАЛЕНЬКИХ ВВЕДЕННЫХ ДАННЫХ БУДЕТ ВЫДАВАТЬСЯ 0
+	    
+		
+		/*
+		 * if (TaxAmount.deduction < TaxAmount.square) { //если площадь меньше вычета
+		 * (по тиму имущества) //то все норм } else{ String message = "";
+		 * if((int)TaxAmount.deduction == 10){// если коэфф = 10 - выбрана комната
+		 * message="комнаты";
+		 * 
+		 * }else if((int)TaxAmount.deduction == 20){ message = "квартиры";
+		 * 
+		 * }else if((int)TaxAmount.deduction == 50){ message = "жилого дома"; }
+		 * 
+		 * errors.add(new InputError(square.getFieldName(), "Площадь для " + message +
+		 * " должна быть больше "+ TaxAmount.deduction +" м")); }
+		 */
 
 
 		if(TaxAmount.cadastralValue > TaxAmount.inventoryTax) {//если кадастр больше налога
@@ -137,44 +141,66 @@ public final class TaxAmount{
 		//EnumSwitch enswitch = new EnumSwitch();
 		
 		double evaporater = 0;//вычет за ребенка (после 4-го ребенка включительно)
+		
+		double reductionFactor = 1; //коэфф. муниц. образования (понижающий коэффициент)
+									//для всех, кроме Горн. А. = 1
+		double deduction = 0; //коэфф. типа недвижимости (вычет из площади в зависимости от типа недвижимости)
+		
+		
+		if (TaxAmount.regionIndex == 10) {
+			reductionFactor = 1;
+			
+		}else if (TaxAmount.regionIndex == 20){ 								
+			reductionFactor = 2;
+			
+		}else if (TaxAmount.regionIndex == 30){
+			reductionFactor = 5;
+			
+		}else if (TaxAmount.regionIndex == 40){
+			reductionFactor = 0.6;
+			
+		}
+		
+
+		
+		if (TaxAmount.propertyIndex == 0) {
+			deduction = 10;
+			
+		//}if else (TaxAmount.propertyIndex == 0){ //Я про это: нельзя определить что именно выбрано
+													//комната или квартира
+		//	deduction = 20;
+			
+		}else if (TaxAmount.propertyIndex == 1){//если дом выбран
+			deduction = 50;
+			
+		}
+		
+		
 		double finalbid;
 		double finalExemption=TaxAmount.exemption;
-
 		BigDecimal finalbidbig;
-		BigDecimal finalDeductionbig=BigDecimal.valueOf(TaxAmount.deduction);
+		BigDecimal finalDeductionbig=BigDecimal.valueOf(deduction);
 		BigDecimal finalExemptionbig=BigDecimal.valueOf(TaxAmount.exemption);
 		BigDecimal Deductionbig;
 		BigDecimal childrenCountbig;
 		BigDecimal evaporaterCountbig;
-
-
-		//enswitch.setPropertyIndex(Integer.toString(combo_region.getSelectionModel().getSelectedIndex()));
-		//enswitch.setRegionIndex(Integer.toString(combo_property.getSelectionModel().getSelectedIndex()));
-		//enswitch.setCadastralValue(cadastralValue);
-		//enswitch.enumuse();
 		
-		//finalbid= enswitch.getFinalbid();
-		
-		finalbid= 0.11;
-		finalbidbig = BigDecimal.valueOf(finalbid);
-		
-		
-		if((int)TaxAmount.deduction == 10) {//если выбрана квартира
+		if((int)deduction == 10) {//если выбрана квартира
 			evaporater = 5;//вычет за ребенка из площади - 5 (за каждого после 4-х детей)
 
-		}else if((int)TaxAmount.deduction == 20) {//если выбрана комната
+		}else if((int)deduction == 20) {//если выбрана комната
 			evaporater = 5;
 
-		}else if((int)TaxAmount.deduction == 50) {//если выбран дом
+		}else if((int)deduction == 50) {//если выбран дом
 			evaporater = 7;
 
-		}else if((int)TaxAmount.deduction == 0) {
+		}else if((int)deduction == 0) {
 			evaporater = 0;
 			
 		}else {
 			evaporater = 0;
 		}
-
+		
 		
 		if (childrenCount >= 3) {//если детей больше 3-х
 			Deductionbig=BigDecimal.valueOf(deduction);
@@ -188,7 +214,19 @@ public final class TaxAmount{
 			finalExemption = 0;//льгота аннулируется
 			finalExemptionbig = BigDecimal.valueOf(finalExemption);
 		}
+		
 
+		//enswitch.setPropertyIndex(Integer.toString(combo_region.getSelectionModel().getSelectedIndex()));
+		//enswitch.setRegionIndex(Integer.toString(combo_property.getSelectionModel().getSelectedIndex()));
+		//enswitch.setCadastralValue(cadastralValue);
+		//enswitch.enumuse();
+		
+		//finalbid= enswitch.getFinalbid();
+		
+		finalbid= 0.11; //ЭТО ЗНАЧЕНИЕ Я ПОСТАВИЛА, ПОКА НЕТ enum, НАДО УБРАТЬ И ИСПОЛЬЗОВАТЬ ВЕРХНУЮ СТРОЧКУ
+		finalbidbig = BigDecimal.valueOf(finalbid);
+		
+	
 		BigDecimal cadastralValuebig=BigDecimal.valueOf(cadastralValue);
 		BigDecimal squarebig=BigDecimal.valueOf(square);
 		BigDecimal inventoryTaxbig=BigDecimal.valueOf(inventoryTax);

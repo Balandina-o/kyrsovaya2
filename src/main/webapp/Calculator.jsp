@@ -11,22 +11,22 @@
 	<h3>Введите данные для расчёта</h3>
 	<form name="calcform" action="CalcServlet" method="POST">
 		<div class="form-input">
-			<label for="">Муницип. образование</label> <select name="town">
-				<option value="1" selected="selected">г.Уфа 02</option>
-				<option value="1">г.Казань 16</option>
-				<option value="1">г.Москва 77</option>
-				<option value="0.6">г.Горно-Алтайск 04</option>
+			<label for="">Муницип. образование</label> <select name="regionIndex">
+				<option value="10" selected="selected">г.Уфа 02</option>
+				<option value="20">г.Казань 16</option>
+				<option value="30">г.Москва 77</option>
+				<option value="40">г.Горно-Алтайск 04</option>
 			</select>
 		</div>
 
 		<div class="form-input" id="selectprop">
-			<label for="">Тип недвижимости</label> <select name="property"
+			<label for="">Тип недвижимости</label> <select name="propertyIndex"
 				id="property">
-				<option value="10" selected="selected">Комната</option>
-				<option value="20">Квартира</option>
-				<option value="50">Жилой дом</option>
-				<option value="0">Машино-место</option>
-				<option value="0">Иное сдание / сооружение</option>
+				<option value="0" selected="selected">Комната</option>
+				<option value="0">Квартира</option>
+				<option value="1">Жилой дом</option>
+				<option value="2">Машино-место</option>
+				<option value="3">Иное сдание / сооружение</option>
 			</select>
 		</div>
 
@@ -61,19 +61,7 @@
 		</div>
 
 		<div class="form-input">
-			<label for="">Имеются ли у вас льготы?</label>
-			<div class="lgots">
-				<div class="radio">
-					<label for="">Да</label> <input type="radio" name="lgots" id="">
-				</div>
-				<div class="radio">
-					<label for="">Нет</label> <input type="radio" name="lgots" id="">
-				</div>
-			</div>
-		</div>
-
-		<div class="form-input">
-			<label for="">Введите размер льготы (%)</label> <input type="text"
+			<label for="">Введите размер льготы, если таковая имеется (%)</label> <input type="text"
 				name="benefit" min="0" max="100" value="${benefit}" />
 		</div>
 
