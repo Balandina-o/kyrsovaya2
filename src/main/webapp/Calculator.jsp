@@ -22,11 +22,12 @@
 		<div class="form-input" id="selectprop">
 			<label for="">Тип недвижимости</label> <select name="propertyIndex"
 				id="property">
+			        <%--Изменены кофф--%>
 				<option value="0" selected="selected">Комната</option>
-				<option value="0">Квартира</option>
-				<option value="1">Жилой дом</option>
-				<option value="2">Машино-место</option>
-				<option value="3">Иное сдание / сооружение</option>
+				<option value="1">Квартира</option>
+				<option value="2">Жилой дом</option>
+				<option value="3">Машино-место</option>
+				<option value="4">Иное сдание / сооружение</option>
 			</select>
 		</div>
 
