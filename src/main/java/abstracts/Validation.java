@@ -2,10 +2,16 @@ package abstracts;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class Validation {
-
-    private String cadastralValueText, inventoryTaxText, squareText, portionText, holdingPeriodRatioText, childrenCountText, exemptionText, result;
+    InputNumber cadastralValueErr, inventoryTaxErr, squareErr;
+    InputPortion portionErr;
+    InputHoldingPeriodRatio holdingPeriodRatioErr;
+    InputChildrenCount childrenCountErr;
+    InputExemption exemptionErr;
+    List<InputError> errors;
+    private String  squareText, result; //TODO squareText не используется птмч он в init
     private double cadastralValue, inventoryTax, square, portion, holdingPeriodRatio, childrenCount, exemption, deduction, reductionFactor, evaporater;
     private int regionIndex, propertyIndex;
 
@@ -19,99 +25,29 @@ public class Validation {
      *
      * @return the list - список из экземпляров InputError
      */
-    public Validation(String cadastralValueText, String inventoryTaxText, String squareText, String portionText, String holdingPeriodRatioText, String childrenCountText, String exemptionText, int regionIndex, int propertyIndex) {
-        this.cadastralValueText = cadastralValueText;//кадастровая стоимость
-        this.inventoryTaxText = inventoryTaxText;//инвентаризационный налог
-        this.squareText = squareText;//площадь
-        this.portionText = portionText;//доля в собственности
-        this.holdingPeriodRatioText = holdingPeriodRatioText;//период владения
-        this.childrenCountText = childrenCountText;//кол-во детей
-        this.exemptionText = exemptionText;//льгота
+    public Validation(String cadastralValueText, String inventoryTaxText, String squareText,
+                      String portionText, String holdingPeriodRatioText, String childrenCountText,
+                      String exemptionText, int regionIndex, int propertyIndex) {
+
+        init(cadastralValueText, inventoryTaxText, squareText, portionText, holdingPeriodRatioText, childrenCountText, exemptionText);
 
         this.regionIndex = regionIndex;
         this.propertyIndex = propertyIndex;
     }
 
     public final String validate() {
+        ArrayList<InputText> samples = new ArrayList(List.of(cadastralValueErr, inventoryTaxErr, squareErr, portionErr,
+                holdingPeriodRatioErr, childrenCountErr, exemptionErr));
         String messages = "";
-        List<InputError> errors = new ArrayList<>();
-
-        InputNumber cadastralValueErr = new InputNumber("Кадастровая стоимость", this.cadastralValueText);
-        InputNumber inventoryTaxErr = new InputNumber("Инвентаризационный налог", this.inventoryTaxText);
-        InputNumber squareErr = new InputNumber("Площадь", this.squareText);
-        InputPortion portionErr = new InputPortion(this.portionText);
-        InputHoldingPeriodRatio holdingPeriodRatioErr = new InputHoldingPeriodRatio(this.holdingPeriodRatioText);
-        InputChildrenCount childrenCountErr = new InputChildrenCount(this.childrenCountText);
-        InputExemption exemptionErr = new InputExemption(this.exemptionText);
-
-        //List <Double> values = Arrays.asList(TaxAmount.cadastralValu1e, TaxAmount.inventoryTax, TaxAmount.square, TaxAmount.portion, TaxAmount.holdingPeriodRatio, TaxAmount.childrenCount, TaxAmount.exemption);
-        //List <Object> samples = Arrays.asList(cadastralValu1e, inventoryTax, square, portion, holdingPeriodRatio, childrenCount, exemption);
-
-        try {
-            this.cadastralValue = cadastralValueErr.getValue();
-        } catch (Exception error) {
-            errors.add(new InputError(cadastralValueErr.getFieldName(), error.getMessage()));
+        errors = new ArrayList<>();
+        for (int i = 0; i < 7; i++) {
+            testTry(i, samples.get(i));
         }
-
-        try {
-            this.inventoryTax = inventoryTaxErr.getValue();
-        } catch (Exception error) {
-            errors.add(new InputError(inventoryTaxErr.getFieldName(), error.getMessage()));
-        }
-
-        try {
-            this.square = squareErr.getValue();
-        } catch (Exception error) {
-            errors.add(new InputError(squareErr.getFieldName(), error.getMessage()));
-        }
-
-        try {
-            this.portion = portionErr.getValue();
-        } catch (Exception error) {
-            errors.add(new InputError(portionErr.getFieldName(), error.getMessage()));
-        }
-
-        try {
-            this.holdingPeriodRatio = holdingPeriodRatioErr.getValue();
-        } catch (Exception error) {
-            errors.add(new InputError(holdingPeriodRatioErr.getFieldName(), error.getMessage()));
-        }
-
-        try {
-            this.childrenCount = childrenCountErr.getValue();
-        } catch (Exception error) {
-            errors.add(new InputError(childrenCountErr.getFieldName(), error.getMessage()));
-        }
-
-        try {
-            this.exemption = exemptionErr.getValue();
-        } catch (Exception error) {
-            errors.add(new InputError(exemptionErr.getFieldName(), error.getMessage()));
-        }
-
-//		TODO  метод надо вынести отсюда. логика примерна таже. А также какой класс InputText или InputError как тип.
-//		ArrayList <InputText> samples = new ArrayList(List.of(cadastralValu1e, inventoryTax, square, portion, holdingPeriodRatio, childrenCount, exemption));
-//
-//		for (var x: samples) {
-//			testTry(errors,x); TODO передавать каждый раз массив не нужно нужно его вынести в переменные класса.
-//		}
-//		TODO      метод для цикла                    Тут полиморфизм применяется.
-//		public static void testTry(List<InputError> error,InputText rightSide){
-//			try {
-        //     TODO надо  понять что слева поменять <--TaxAmount.exemption-->.
-//				TaxAmount.exemption = rightSide.getValue();
-//			} catch (Exception e) {
-//				error.add(new InputError(rightSide.getFieldName(), e.getMessage()));
-//			}
-//		}
-
-
         if (this.cadastralValue <= this.inventoryTax & this.cadastralValue != 0) {//если кадастр меньше или = налогу
             errors.add(new InputError(inventoryTaxErr.getFieldName(), "Налог от инвентариз. стоимости должен быть меньше кадастровой стоимости"));
         }
-
         correlate(); // вызывается метод-установщик значений, чтобы могла выполнится проверка ниже
-
+                                            //TODO squareText пустой теперь??
         if (this.deduction >= this.square & this.squareText != "") { //если площадь меньше вычета(по тиму имущества) то все норм
             String message = "";
 
@@ -125,16 +61,13 @@ public class Validation {
                 message = "жилого дома";
             }
 
-            errors.add(new InputError(squareErr.getFieldName(), "Площадь для " + message +
-                    " должна быть больше " + this.deduction + " м"));
-
+            errors.add(new InputError(squareErr.getFieldName(),
+                    String.format(Locale.ROOT,"Площадь для %s должна быть больше %.1f м", message, this.deduction)));
         }
-
         if (errors.size() > 0) {
             for (int i = 0; i < errors.size(); i++) {
                 messages += errors.get(i).getName() + ": " + errors.get(i).getMessage() + "\n";
             }
-
         } else {
             TaxAmount tax = new TaxAmount(//
                     this.cadastralValue,
@@ -148,7 +81,6 @@ public class Validation {
                     this.reductionFactor,
                     this.evaporater
             );
-
             tax.calculate();
             this.result = ((tax.getResult()).toString());
         }
@@ -160,49 +92,82 @@ public class Validation {
         //В if else устанавливать значение deduction в зависимости от propertyIndex
         if (this.propertyIndex == 0) {
             this.deduction = 10;
-
         } else if (this.propertyIndex == 1) {
             this.deduction = 20;
-
         } else if (this.propertyIndex == 2) {
             this.deduction = 50;
-
         } else {
             this.deduction = 0;
         }
-
         if (this.regionIndex == 10) {
             this.reductionFactor = 1;
-
         } else if (this.regionIndex == 20) {//почему 2? По закону тут должен быть 1
             this.reductionFactor = 2;
-
         } else if (this.regionIndex == 30) {//почему 5? По закону тут должен быть 1
             this.reductionFactor = 5;
-
         } else if (this.regionIndex == 40) {
             this.reductionFactor = 0.6;
-
         }
-
         if (this.deduction == 10) {//если выбрана квартира
             this.evaporater = 5;//вычет за ребенка из площади - 5 (за каждого после 4-х детей)
-
         } else if (this.deduction == 20) {//если выбрана комната
             this.evaporater = 5;
-
         } else if (this.deduction == 50) {//если выбран дом
             this.evaporater = 7;
-
         } else {
             this.evaporater = 0;
         }
-
     }
 
     public String getResult() {
         return this.result;
-
     }
+    /**
+     * метод для инициализации Текста из сервлета. ЧТО ДЕЛАТЬ С squareText хз.
+    **/
+    private void init(String cadastralValueText, String inventoryTaxText, String squareText, String portionText,
+                      String holdingPeriodRatioText, String childrenCountText, String exemptionText) {
 
+        cadastralValueErr = new InputNumber("Кадастровая стоимость", cadastralValueText);
+        inventoryTaxErr = new InputNumber("Инвентаризационный налог", inventoryTaxText);
+        squareErr = new InputNumber("Площадь", squareText);
+        portionErr = new InputPortion(portionText);
+        holdingPeriodRatioErr = new InputHoldingPeriodRatio(holdingPeriodRatioText);
+        childrenCountErr = new InputChildrenCount(childrenCountText);
+        exemptionErr = new InputExemption(exemptionText);
+    }
+    //Совмещение try из validate()
+    private void testTry(int index, InputText rightSide) {
+        try {
+            Check(index, rightSide);
+        } catch (Exception e) {
+            errors.add(new InputError(rightSide.getFieldName(), e.getMessage()));
+        }
+    }
+// индекс из цикла для понимания что сейчас будет проверятся. Вызывает testTry
+    private void Check(int index, InputText rightSide) throws Exception {
+        switch (index) {
+            case 0:
+                cadastralValue = rightSide.getValue();
+                break;
+            case 1:
+                inventoryTax = rightSide.getValue();
+                break;
+            case 2:
+                square = rightSide.getValue();
+                break;
+            case 3:
+                portion = rightSide.getValue();
+                break;
+            case 4:
+                holdingPeriodRatio = rightSide.getValue();
+                break;
+            case 5:
+                childrenCount = rightSide.getValue();
+                break;
+            case 6:
+                exemption = rightSide.getValue();
+                break;
+        }
+    }
 }
