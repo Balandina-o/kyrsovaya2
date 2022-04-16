@@ -29,7 +29,7 @@ public class AuthoServlet extends HttpServlet {
 		login = request.getParameter("login"); //.trim(); <-- оно работает
 		password = request.getParameter("password"); //.trim();
 
-		if (!login.contains(" ") & !password.contains(" ")) { //Проверять на ";"?
+		if (!login.contains(" ") & !password.contains(" ")) { //Проверять на ";"? /TODO уже ;
 			
 			//Здесь
 			//передача логина и пароля в Менеджер
