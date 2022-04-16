@@ -1,8 +1,6 @@
 package abstracts;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 public class Validation {
     InputNumber cadastralValueErr, inventoryTaxErr, squareErr;
@@ -48,7 +46,7 @@ public class Validation {
         }
         correlate(); // вызывается метод-установщик значений, чтобы могла выполнится проверка ниже
                                             //TODO squareText пустой теперь??
-        if (this.deduction >= this.square & this.squareText != "") { //если площадь меньше вычета(по тиму имущества) то все норм
+        if (this.deduction >= this.square & !Objects.equals(this.squareText, "")) { //если площадь меньше вычета(по тиму имущества) то все норм
             String message = "";
 
             if (this.deduction == 10) {// если коэфф = 10 - выбрана комната
@@ -92,12 +90,16 @@ public class Validation {
         //В if else устанавливать значение deduction в зависимости от propertyIndex
         if (this.propertyIndex == 0) {
             this.deduction = 10;
+            this.evaporater = 5;//вычет за ребенка из площади - 5 (за каждого после 4-х детей)
         } else if (this.propertyIndex == 1) {
             this.deduction = 20;
+            this.evaporater = 5;
         } else if (this.propertyIndex == 2) {
             this.deduction = 50;
+            this.evaporater = 7;
         } else {
             this.deduction = 0;
+            this.evaporater = 0;
         }
         if (this.regionIndex == 10) {
             this.reductionFactor = 1;
@@ -107,15 +109,6 @@ public class Validation {
             this.reductionFactor = 5;
         } else if (this.regionIndex == 40) {
             this.reductionFactor = 0.6;
-        }
-        if (this.deduction == 10) {//если выбрана квартира
-            this.evaporater = 5;//вычет за ребенка из площади - 5 (за каждого после 4-х детей)
-        } else if (this.deduction == 20) {//если выбрана комната
-            this.evaporater = 5;
-        } else if (this.deduction == 50) {//если выбран дом
-            this.evaporater = 7;
-        } else {
-            this.evaporater = 0;
         }
     }
 
