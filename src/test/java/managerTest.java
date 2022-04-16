@@ -1,7 +1,7 @@
 import authorization.ManagerClient;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class managerTest {
     /**
@@ -10,15 +10,15 @@ public class managerTest {
      * @see ManagerClient
      */
 
-    public static class managertest {
         @Test
         public void authentication() {
-            assertTrue(ManagerClient.apiAuthZ("test", "test"));
+            String temp = "Вы вошли";
+            assertEquals(temp,ManagerClient.apiAuthZ("test","test"));
         }
 
         @Test
         public void checkLogin() {
-            assertFalse(ManagerClient.apiReg("test", "test"));
+            String temp ="Логин занят";
+            assertEquals(temp,ManagerClient.apiReg("test","test"));
         }
-    }
 }
