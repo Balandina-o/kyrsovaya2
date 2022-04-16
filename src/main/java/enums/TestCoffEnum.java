@@ -1,12 +1,10 @@
 package enums;
 
 
-import java.io.BufferedReader;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Locale;
 
 public enum TestCoffEnum {
     cMIN, cMAX, cAV, CA, CB;
@@ -27,7 +25,7 @@ public enum TestCoffEnum {
             String strLine;
             while ((strLine = br.readLine()) != null) {
                 String[] tempArr = strLine.split(";");
-                TestCoffEnum.values()[i].setValue(Double.parseDouble(tempArr[1]));
+                TestCoffEnum.values()[i].setValue(Double.valueOf(tempArr[1]));
                 i++;
             }
         } catch (NumberFormatException e) {
@@ -37,17 +35,30 @@ public enum TestCoffEnum {
             System.out.println("Нет файла для чтения ReaderCoff");
         }
     }
-    public static void changeCoffADMIN(String testCoffEnum, double coff){
-        cMIN.setValue(3.0); //реализация без файла
+
+    public static void changeCoffADMIN() {
+        //FIXME это нужно админу
+        //сначала изменяются в java потом ниже заносятся в файл
+        cMIN.setValue(0.1);
+        cMAX.setValue(0.2);
+        cAV.setValue(0.3);
+        CA.setValue(0.4);
+        CB.setValue(0.5);
+//Считывает константы в 11 строке в файл
+        try (PrintWriter writer = new PrintWriter(PATH)) {
+            for (int i = 0; i < TestCoffEnum.values().length; i++) {
+                String nameCoff = values()[i].name();
+                double valueCoff = values()[i].getValue();
+                writer.println(String.format(Locale.ROOT, "%s;%.3f", nameCoff, valueCoff));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
+
     public static void main(String[] args) {
         TestCoffEnum.fill();
-        System.out.println(cMIN.getValue());
-        System.out.println(cMAX.getValue());
-        System.out.println(cMIN.getValue());
-        System.out.println("------------------");
-
-        changeCoffADMIN(cMIN.name(),666.0);
-        System.out.println(cMIN.getValue());
+        TestCoffEnum.changeCoffADMIN();
     }
 }

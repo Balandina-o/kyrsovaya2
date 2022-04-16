@@ -4,6 +4,7 @@ package authorization;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.Objects;
 
  interface Authorized {
@@ -48,7 +49,7 @@ import java.util.Objects;
     static boolean createNew(String login, String password,String path) {
         boolean ind = checkLoginInBase(login,path);
         if (ind) { // запись в базу если не занят логин
-            try (var br = new OutputStreamWriter(new FileOutputStream(path, true))) {
+            try (var br = Files.newBufferedWriter(Path.of(path), StandardOpenOption.APPEND)) {
                 br.write("\n" + login + ";" + password);
             } catch (Exception e) {
                 System.out.println("нет файла для записи");
