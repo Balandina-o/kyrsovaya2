@@ -1,8 +1,6 @@
 package abstracts;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 public class Validation {
     InputNumber cadastralValueErr, inventoryTaxErr, squareErr;
@@ -28,8 +26,8 @@ public class Validation {
     public Validation(String cadastralValueText, String inventoryTaxText, String squareText,
                       String portionText, String holdingPeriodRatioText, String childrenCountText,
                       String exemptionText, int regionIndex, int propertyIndex) {
-
-        init(cadastralValueText, inventoryTaxText, squareText, portionText, holdingPeriodRatioText, childrenCountText, exemptionText);
+        this.squareText=squareText;
+        init(cadastralValueText, inventoryTaxText, portionText, holdingPeriodRatioText, childrenCountText, exemptionText);
 
         this.regionIndex = regionIndex;
         this.propertyIndex = propertyIndex;
@@ -43,26 +41,26 @@ public class Validation {
         for (int i = 0; i < 7; i++) {
             testTry(i, samples.get(i));
         }
-        if (this.cadastralValue <= this.inventoryTax & this.cadastralValue != 0) {//если кадастр меньше или = налогу
+        if (cadastralValue <= inventoryTax & cadastralValue != 0) {//если кадастр меньше или = налогу
             errors.add(new InputError(inventoryTaxErr.getFieldName(), "Налог от инвентариз. стоимости должен быть меньше кадастровой стоимости"));
         }
         correlate(); // вызывается метод-установщик значений, чтобы могла выполнится проверка ниже
                                             //TODO squareText пустой теперь??
-        if (this.deduction >= this.square & this.squareText != "") { //если площадь меньше вычета(по тиму имущества) то все норм
+        if (deduction >= square & !Objects.equals(squareText, "")) { //если площадь меньше вычета(по тиму имущества) то все норм
             String message = "";
 
-            if (this.deduction == 10) {// если коэфф = 10 - выбрана комната
+            if (deduction == 10) {// если коэфф = 10 - выбрана комната
                 message = "комнаты";
 
-            } else if (this.deduction == 20) {
+            } else if (deduction == 20) {
                 message = "квартиры";
 
-            } else if (this.deduction == 50) {
+            } else if (deduction == 50) {
                 message = "жилого дома";
             }
 
             errors.add(new InputError(squareErr.getFieldName(),
-                    String.format(Locale.ROOT,"Площадь для %s должна быть больше %.1f м", message, this.deduction)));
+                    String.format(Locale.ROOT,"Площадь для %s должна быть больше %.1f м", message, deduction)));
         }
         if (errors.size() > 0) {
             for (int i = 0; i < errors.size(); i++) {
@@ -70,19 +68,19 @@ public class Validation {
             }
         } else {
             TaxAmount tax = new TaxAmount(//
-                    this.cadastralValue,
-                    this.inventoryTax,
-                    this.square,
-                    this.portion,
-                    this.holdingPeriodRatio,
-                    this.childrenCount,
-                    (this.cadastralValue <= 300000000) ? this.exemption : 0,
-                    this.deduction,
-                    this.reductionFactor,
-                    this.evaporater
+                    cadastralValue,
+                    inventoryTax,
+                    square,
+                    portion,
+                    holdingPeriodRatio,
+                    childrenCount,
+                    (cadastralValue <= 300000000) ? exemption : 0,
+                    deduction,
+                    reductionFactor,
+                    evaporater
             );
             tax.calculate();
-            this.result = ((tax.getResult()).toString());
+            result = ((tax.getResult()).toString());
         }
 
         return messages;
@@ -90,42 +88,37 @@ public class Validation {
 
     public final void correlate() {
         //В if else устанавливать значение deduction в зависимости от propertyIndex
-        if (this.propertyIndex == 0) {
-            this.deduction = 10;
-        } else if (this.propertyIndex == 1) {
-            this.deduction = 20;
-        } else if (this.propertyIndex == 2) {
-            this.deduction = 50;
+        if (propertyIndex == 0) {
+            deduction = 10;
+            evaporater = 5;//вычет за ребенка из площади - 5 (за каждого после 4-х детей)
+        } else if (propertyIndex == 1) {
+            deduction = 20;
+            evaporater = 5;
+        } else if (propertyIndex == 2) {
+            deduction = 50;
+            evaporater = 7;
         } else {
-            this.deduction = 0;
+            deduction = 0;
+            evaporater = 0;
         }
-        if (this.regionIndex == 10) {
-            this.reductionFactor = 1;
-        } else if (this.regionIndex == 20) {//почему 2? По закону тут должен быть 1
-            this.reductionFactor = 2;
-        } else if (this.regionIndex == 30) {//почему 5? По закону тут должен быть 1
-            this.reductionFactor = 5;
-        } else if (this.regionIndex == 40) {
-            this.reductionFactor = 0.6;
-        }
-        if (this.deduction == 10) {//если выбрана квартира
-            this.evaporater = 5;//вычет за ребенка из площади - 5 (за каждого после 4-х детей)
-        } else if (this.deduction == 20) {//если выбрана комната
-            this.evaporater = 5;
-        } else if (this.deduction == 50) {//если выбран дом
-            this.evaporater = 7;
-        } else {
-            this.evaporater = 0;
+        if (regionIndex == 10) {
+            reductionFactor = 1;
+        } else if (regionIndex == 20) {//почему 2? По закону тут должен быть 1
+            reductionFactor = 2;
+        } else if (regionIndex == 30) {//почему 5? По закону тут должен быть 1
+            reductionFactor = 5;
+        } else if (regionIndex == 40) {
+            reductionFactor = 0.6;
         }
     }
 
     public String getResult() {
-        return this.result;
+        return result;
     }
     /**
      * метод для инициализации Текста из сервлета. ЧТО ДЕЛАТЬ С squareText хз.
     **/
-    private void init(String cadastralValueText, String inventoryTaxText, String squareText, String portionText,
+    private void init(String cadastralValueText, String inventoryTaxText, String portionText,
                       String holdingPeriodRatioText, String childrenCountText, String exemptionText) {
 
         cadastralValueErr = new InputNumber("Кадастровая стоимость", cadastralValueText);
