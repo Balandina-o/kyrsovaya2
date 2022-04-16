@@ -12,22 +12,23 @@
 	<form name="calcform" action="CalcServlet" method="POST">
 		<div class="form-input">
 			<label for="">Муницип. образование</label> <select name="regionIndex">
-				<option value="10" selected="selected">г.Уфа 02</option>
-				<option value="20">г.Казань 16</option>
-				<option value="30">г.Москва 77</option>
-				<option value="40">г.Горно-Алтайск 04</option>
+				<option value="10" ${regionIndex=="10"?"selected":""}> г.Уфа 02</option>
+				<option value="20" ${regionIndex=="20"?"selected":""}> г.Казань 16</option>
+				<option value="30" ${regionIndex=="30"?'selected':""}>г.Москва 77</option>
+				<option value="40" ${regionIndex=="40"?'selected':""}>г.Горно-Алтайск 04</option>
 			</select>
 		</div>
 
 		<div class="form-input" id="selectprop">
 			<label for="">Тип недвижимости</label> <select name="propertyIndex"
 				id="property">
-			        <%--Изменены кофф--%>
-				<option value="0" selected="selected">Комната</option>
-				<option value="1">Квартира</option>
-				<option value="2">Жилой дом</option>
-				<option value="3">Машино-место</option>
-				<option value="4">Иное сдание / сооружение</option>
+
+				<%--Изменены кофф--%>
+				<option value="0" ${propertyIndex=="0"?"selected":""}>Комната</option>
+				<option value="1" ${propertyIndex=="1"?"selected":""}>Квартира</option>
+				<option value="2" ${propertyIndex=="2"?"selected":""}>Жилой дом</option>
+				<option value="3" ${propertyIndex=="3"?"selected":""}>Машино-место</option>
+				<option value="4" ${propertyIndex=="4"?"selected":""}>Иное сдание / сооружение</option>
 			</select>
 		</div>
 
@@ -62,8 +63,9 @@
 		</div>
 
 		<div class="form-input">
-			<label for="">Введите размер льготы, если таковая имеется (%)</label> <input type="text"
-				name="benefit" min="0" max="100" value="${benefit}" />
+			<label for="">Введите размер льготы (%)</label>
+			<input type="text" name="benefit" min="0" max="100"
+				value="${benefit}" />
 		</div>
 
 		<div class="form-input">
@@ -77,7 +79,8 @@
 		</div>
 
 		<div class="buttons">
-			<button>Сгенерировать PDF-файл</button>
-			<button class="enterb">Расчитать</button>
+			<button type="submit" name="button" value="pdfButton">Сгенерировать PDF-файл</button>
+			<button type="submit" name="button" value="calcButton">Расчитать</button>
+			<button type="submit" name="button" value="exitButton">Выйти из аккаунта</button>
 		</div>
 	</form>

@@ -26,7 +26,7 @@
 		</div>
 
 		<div class="form-input">
-			<input type="" name="error" value="${error}" />
+			<span name="error">${error}</span>
 		</div>
 
 	</form>

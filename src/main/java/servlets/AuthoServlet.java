@@ -39,7 +39,7 @@ public class AuthoServlet extends HttpServlet {
 			
 		}else {
 			page = "/Authorisator.jsp";//Авторизация,пользователь останется на той же странице
-			request.setAttribute("error", "Error");
+			request.setAttribute("error", "Логин и пароль не должны содержать пробелы!");
 			
 		}
 
