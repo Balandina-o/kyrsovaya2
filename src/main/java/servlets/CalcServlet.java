@@ -1,9 +1,6 @@
 package servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.math.BigDecimal;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +8,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import abstracts.Validation;
+import document.GeneratePdf;
 
 /**
  * The Class CalcServlet.
@@ -22,16 +22,14 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/CalcServlet")
 public class CalcServlet extends HttpServlet {
 
-
 	private static final long serialVersionUID = 1L;
 
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String kadastr, tax, square, part, period, childrens, benefit, town, property;
+		String kadastr, tax, square, part, period, childrens, benefit, regionIndex, propertyIndex;
 		response.setContentType("text/html");
 
-		town = request.getParameter("town");//получение данных из .джсп
-		property = request.getParameter("property");
+		regionIndex = request.getParameter("regionIndex");//получение данных из .джсп
+		propertyIndex = request.getParameter("propertyIndex");
 		kadastr = request.getParameter("kadastr");
 		tax = request.getParameter("tax");
 		square = request.getParameter("square");
@@ -46,41 +44,55 @@ public class CalcServlet extends HttpServlet {
 		request.setAttribute("part", part);
 		request.setAttribute("period", period);
 		request.setAttribute("childrens", childrens);
-		request.setAttribute("benefit", benefit);
-
-		request.setAttribute("kadastr", kadastr);
-		request.setAttribute("tax", tax);
-		request.setAttribute("square", square);
-		request.setAttribute("part", part);
-		request.setAttribute("period", period);
-		request.setAttribute("childrens", childrens);
-		request.setAttribute("benefit", benefit);
+		request.setAttribute("benefit", benefit);	
 		
-		RequestGenerator reqGen = new RequestGenerator(//уберу этот класс впоследствии
+		request.setAttribute("regionIndex", regionIndex);	
+		request.setAttribute("propertyIndex", propertyIndex);	
+		
+		//РЕШИТЬ, КАК УСТАНАВЛИВАТЬ ЗНАЧЕНИЯ СПИСКОВ ОБРАТНО
+		//ПОЛУЧИЛОСЬ!
+		//И ОЧИЩАТЬ НЕПРАВИЛЬНО ЗАПОЛНЕННЫЕ ПОЛЯ
+
+		Validation valid = new Validation(//
 				kadastr,
 				tax,
 				square,
 				part,
 				period,
-				childrens != null ? childrens : "0",
-						benefit != null ? benefit : "0",
-								Double.parseDouble(town),
-								Double.parseDouble(property)
+				childrens != "" ? childrens : "0",
+						benefit != "" ? benefit : "0",
+								Integer.parseInt(regionIndex),
+								Integer.parseInt(propertyIndex)
 				);
-		
-		if(reqGen.check() != null) {//если строка, возвращаемая РеквестГенератором не пуста - отобразить список ошибок на форме
-			request.setAttribute("warnings", reqGen.check());
-			
-		}else {//иначе запустить метод, отвечающий за счет
-			request.setAttribute("result", reqGen.count());
-			
+
+		if (valid.validate() != "") { // если строка ошибок не пуста
+			request.setAttribute("warnings", valid.validate()); // установить их на форму
+
+		}else { // иначе получить посчитанный результат и поставить его на форму
+			valid.getResult();
+			request.setAttribute("result", valid.getResult());
+
 		}
+		
+		if (request.getParameter("button").equals("pdfButton")) { // если нажата кнопка генерации док-та
+			if(valid.getResult() != null) { // если результат посчитался
+				GeneratePdf genPdf = new GeneratePdf (); 
+				System.out.print("Нормальный Новый документ"); // сгенерировать документ
+				
+			}else { // иначе закинуть вместо данных строки "----"
+				// GeneratePdf genPdf = new GeneratePdf ("---", "0"); 
+				System.out.print("Документ с ------");
+			}
+		}
+		
+		if (request.getParameter("button").equals("exitButton")) { // если нажата кнопка генерации док-та
+			RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/Authorisator.jsp");
+			requestDispatcher.forward(request, response);
+		}
+			
 		//перенаправление, чтобы юзер остался на той же форме
 		RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/Calculator.jsp");
 		requestDispatcher.forward(request, response);
 
 	}
-	
-	
-	
 }
