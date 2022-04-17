@@ -39,6 +39,7 @@ public enum TestCoffEnum {
     public static void changeCoffADMIN() {
         //FIXME это нужно админу
         //сначала изменяются в java потом ниже заносятся в файл
+        //заменить на цикл
         cMIN.setValue(0.1);
         cMAX.setValue(0.2);
         cAV.setValue(0.3);
@@ -49,6 +50,7 @@ public enum TestCoffEnum {
             for (int i = 0; i < TestCoffEnum.values().length; i++) {
                 String nameCoff = values()[i].name();
                 double valueCoff = values()[i].getValue();
+                //печать в файл с новой строки
                 writer.println(String.format(Locale.ROOT, "%s;%.3f", nameCoff, valueCoff));
             }
         } catch (IOException e) {
