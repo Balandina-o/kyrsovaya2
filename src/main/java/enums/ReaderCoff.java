@@ -15,12 +15,13 @@ public class ReaderCoff {
 
     private ReaderCoff() {
     }
+
     private static void readCoff() {
         PairFromFile files = new PairFromFile();
         var readPair = files.readFileAsPair(Path.of(PATH));
-            for (var entry : readPair.entrySet()) {
-                coff.put(Integer.valueOf(entry.getKey()), Integer.valueOf(entry.getValue()));
-            }
+        for (var entry : readPair.entrySet()) {
+            coff.put(Integer.valueOf(entry.getKey()), Integer.valueOf(entry.getValue()));
+        }
     }
 
     /**

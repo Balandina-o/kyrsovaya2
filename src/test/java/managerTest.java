@@ -10,15 +10,15 @@ public class managerTest {
      * @see ManagerClient
      */
 
-        @Test
-        public void authentication() {
-            String temp = "Вы вошли";
-            assertEquals(temp,ManagerClient.apiAuthZ("test","test"));
-        }
+    @Test
+    public void authentication() {
+        String temp = "Вы вошли";
+        assertEquals(temp, ManagerClient.apiAuthZ("test", "test"));
+    }
 
-        @Test
-        public void checkLogin() {
-            String temp ="Логин занят";
-            assertEquals(temp,ManagerClient.apiReg("test","test"));
-        }
+    @Test
+    public void checkLogin() {
+        String temp = "Логин занят";
+        assertEquals(temp, ManagerClient.apiReg("test", "test"));
+    }
 }

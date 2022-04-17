@@ -27,6 +27,7 @@ public class ManagerClient {
     public static String apiReg(String log, String pass) {
         return checkReg(log, pass);
     }
+
     //В этом методе возвращать массив - строка + bool?
     private static String checkAuthZ(String log, String pass) {
         return Authorized.authentication(log, pass, PATH_BASE) ? messTrueAuthZ : messFalseAuthZ;

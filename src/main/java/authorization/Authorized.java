@@ -1,15 +1,11 @@
 package authorization;
 
 import UtilFiles.PairFromFile;
-import enums.TestCoffEnum;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
-import java.util.Locale;
 import java.util.Objects;
 
 interface Authorized {
@@ -40,8 +36,8 @@ interface Authorized {
      **/
     static boolean createNew(String login, String password, String path) {
         boolean ind = findByLogin(login, path);
-        if(ind) {
-            try (PrintWriter writer = new PrintWriter(new FileWriter(path,true))) {
+        if (ind) {
+            try (PrintWriter writer = new PrintWriter(new FileWriter(path, true))) {
                 //печать в файл с новой строки
                 writer.println(String.format("%s;%s", login, password));
             } catch (IOException e) {
@@ -49,15 +45,6 @@ interface Authorized {
             }
         }
         return ind;
-////        boolean ind = findByLogin(login, path);
-////        if (ind) { // запись в базу если не занят логин
-////            try (var br = Files.newBufferedWriter(Path.of(path), StandardOpenOption.APPEND)) {
-////                br.write("\n" + login + ";" + password);
-////            } catch (Exception e) {
-////                System.out.println("нет файла для записи");
-////            }
-////        }
-//        return ind;
     }
 
     /**
