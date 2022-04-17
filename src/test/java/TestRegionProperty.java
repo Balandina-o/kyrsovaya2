@@ -65,8 +65,7 @@ public class TestRegionProperty {
 
 
     public static String correlate(int regionIndex, int propertyIndex) {
-        testLink.setPropertyIndex(propertyIndex);
-        testLink.setRegionIndex(regionIndex);
+        RegionProperty.getInstance().setInitRegionPropertyIndex(regionIndex,propertyIndex);
         return ss(testLink.getDeduction(), testLink.getEvaporater(), testLink.getReductionFactor());
 
     }

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import abstracts.RegionProperty;
 import abstracts.Validation;
 import document.GeneratePdf;
 
@@ -54,6 +55,9 @@ public class CalcServlet extends HttpServlet {
 		//ПОЛУЧИЛОСЬ!
 		//И ОЧИЩАТЬ НЕПРАВИЛЬНО ЗАПОЛНЕННЫЕ ПОЛЯ
 
+		//Новая функция региона /TODO зачем parseInt
+		RegionProperty.getInstance().setInitRegionPropertyIndex(Integer.parseInt(regionIndex),Integer.parseInt(propertyIndex));
+
 		Validation valid = new Validation(//
 				kadastr,
 				tax,
@@ -61,10 +65,7 @@ public class CalcServlet extends HttpServlet {
 				part,
 				period,
 				childrens != "" ? childrens : "0",
-						benefit != "" ? benefit : "0",
-								Integer.parseInt(regionIndex),
-								Integer.parseInt(propertyIndex)
-				);
+						benefit != "" ? benefit : "0");
 
 		if (valid.validate() != "") { // если строка ошибок не пуста
 			request.setAttribute("warnings", valid.validate()); // установить их на форму

@@ -14,23 +14,16 @@ public class RegionProperty {
 
     private RegionProperty() {
     }
-
     /**
      * Инициализация индекс Региона и параметров Deduction Evaporater зависящих от него.
-     *
-     * @param regionIndex - индекса региона
+     * Инициализация индекса Настроек и Параметра ReductionFactor зависящего от него.
+     * @param regionIndex -  - индекса региона
+     * @param propertyIndex - propertyIndex - индекс Настроек
      */
-    public void setRegionIndex(int regionIndex) {
+    public void setInitRegionPropertyIndex(int regionIndex, int propertyIndex){
         this.regionIndex = regionIndex;
         Dependencies.setReductionFactor(regionIndex);
-    }
 
-    /**
-     * Инициализация индекса Настроек и Параметра ReductionFactor зависящего от него.
-     *
-     * @param propertyIndex - индекс Настроек
-     */
-    public void setPropertyIndex(int propertyIndex) {
         this.propertyIndex = propertyIndex;
         Dependencies.setDeductionEvaporater(propertyIndex);
     }

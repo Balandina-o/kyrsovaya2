@@ -10,12 +10,13 @@ public class Validation {
     InputExemption exemptionErr;
     List<InputError> errors;
     private String squareText, result; //TODO squareText не используется птмч он в init
-    private double cadastralValue, inventoryTax, square, portion, holdingPeriodRatio, childrenCount, exemption, deduction, reductionFactor, evaporater;
-    private int regionIndex, propertyIndex;
+    private double cadastralValue, inventoryTax, square, portion, holdingPeriodRatio, childrenCount, exemption;
+
 //TODO Вместо индексов
     /**
      * @see RegionProperty
      */
+
     /**
      * Метод, утверждающий введенные пользователем значения.
      * В нем создаются экземпляры абстрактных классов, куда передаются параметры, введенные пользователем.
@@ -28,12 +29,9 @@ public class Validation {
      */
     public Validation(String cadastralValueText, String inventoryTaxText, String squareText,
                       String portionText, String holdingPeriodRatioText, String childrenCountText,
-                      String exemptionText, int regionIndex, int propertyIndex) {
+                      String exemptionText) {
         this.squareText = squareText;
         init(cadastralValueText, inventoryTaxText, portionText, holdingPeriodRatioText, childrenCountText, exemptionText);
-
-        this.regionIndex = regionIndex;
-        this.propertyIndex = propertyIndex;
     }
 
     public final String validate() {
@@ -47,8 +45,9 @@ public class Validation {
         if (cadastralValue <= inventoryTax & cadastralValue != 0) {//если кадастр меньше или = налогу
             errors.add(new InputError(inventoryTaxErr.getFieldName(), "Налог от инвентариз. стоимости должен быть меньше кадастровой стоимости"));
         }
-        correlate(); // вызывается метод-установщик значений, чтобы могла выполнится проверка ниже
+        //correlate(); // вызывается метод-установщик значений, чтобы могла выполнится проверка ниже
         //TODO squareText пустой теперь??
+        double deduction= RegionProperty.getInstance().getDeduction();
         if (deduction >= square & !Objects.equals(squareText, "")) { //если площадь меньше вычета(по тиму имущества) то все норм
             String message = "";
 
@@ -77,11 +76,7 @@ public class Validation {
                     portion,
                     holdingPeriodRatio,
                     childrenCount,
-                    (cadastralValue <= 300000000) ? exemption : 0,
-                    deduction,
-                    reductionFactor,
-                    evaporater
-            );
+                    (cadastralValue <= 300000000) ? exemption : 0);
             tax.calculate();
             result = ((tax.getResult()).toString());
         }
@@ -93,31 +88,6 @@ public class Validation {
     /**
      * @see RegionProperty
      */
-    public final void correlate() {
-        //В if else устанавливать значение deduction в зависимости от propertyIndex
-        if (propertyIndex == 0) {
-            deduction = 10; // 10*1
-            evaporater = 5;//вычет за ребенка из площади - 5 (за каждого после 4-х детей)
-        } else if (propertyIndex == 1) {
-            deduction = 20; //10*2
-            evaporater = 5;
-        } else if (propertyIndex == 2) {
-            deduction = 50;  //10*5
-            evaporater = 7;
-        } else {
-            deduction = 0;
-            evaporater = 0;
-        }
-        if (regionIndex == 10) {
-            reductionFactor = 1; // 1*1
-        } else if (regionIndex == 20) {//почему 2? По закону тут должен быть 1
-            reductionFactor = 2; // 1*2
-        } else if (regionIndex == 30) {//почему 5? По закону тут должен быть 1
-            reductionFactor = 5; // 1*5
-        } else if (regionIndex == 40) {
-            reductionFactor = 0.6;
-        }
-    }
 
     public String getResult() {
         return result;

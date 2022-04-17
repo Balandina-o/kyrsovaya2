@@ -10,12 +10,12 @@ import java.math.RoundingMode;
  */
 public final class TaxAmount {
 
-	private static double cadastralValue, inventoryTax, square, portion, holdingPeriodRatio, childrenCount, exemption, deduction, reductionFactor, evaporater;
+	private static double cadastralValue, inventoryTax, square, portion, holdingPeriodRatio, childrenCount, exemption,
+			deduction, reductionFactor, evaporater;
 	private static BigDecimal result;
 
 	public TaxAmount(double cadastralValue, double inventoryTax, double square, double portion,
-			double holdingPeriodRatio, double childrenCount, double exemption, double deduction,
-			double reductionFactor, double evaporater) {
+			double holdingPeriodRatio, double childrenCount, double exemption) {
 
 		TaxAmount.cadastralValue = cadastralValue;//кадастровая стоимость
 		TaxAmount.inventoryTax = inventoryTax;//инвентаризационный налог
@@ -24,11 +24,11 @@ public final class TaxAmount {
 		TaxAmount.holdingPeriodRatio = holdingPeriodRatio;//период владения
 		TaxAmount.childrenCount = childrenCount;//кол-во детей
 		TaxAmount.exemption = exemption;//льгота
-
-		TaxAmount.deduction = deduction; //коэфф. типа недвижимости (вычет из площади в зависимости от типа недвижимости)
-		TaxAmount.reductionFactor = reductionFactor; //коэфф. муниц. образования (понижающий коэффициент)
+		//TODO новые RegionProperty
+		TaxAmount.deduction = RegionProperty.getInstance().getDeduction(); //коэфф. типа недвижимости (вычет из площади в зависимости от типа недвижимости)
+		TaxAmount.reductionFactor = RegionProperty.getInstance().getReductionFactor(); //коэфф. муниц. образования (понижающий коэффициент)
 		//для всех, кроме Горн. А. = 1
-		TaxAmount.evaporater = evaporater; //вычет за ребенка (после 4-го ребенка включительно)
+		TaxAmount.evaporater = RegionProperty.getInstance().getEvaporater(); //вычет за ребенка (после 4-го ребенка включительно)
 	}
 
 
