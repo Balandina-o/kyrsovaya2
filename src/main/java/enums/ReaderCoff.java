@@ -1,10 +1,9 @@
 package enums;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.nio.file.Files;
+import UtilFiles.PairFromFile;
+
 import java.nio.file.Path;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 /**
  * Класс для чтения пары - сумма из ComboBox и номера константы
@@ -12,28 +11,24 @@ import java.util.HashMap;
  */
 public class ReaderCoff {
     private static final String PATH = "./src/main/resources/enumSumFromComboBox";
-    private static HashMap<Integer, Integer> coff = null;
+    private static LinkedHashMap<Integer, Integer> coff = null;
 
     private ReaderCoff() {
     }
     private static void readCoff() {
-        try (BufferedReader br = Files.newBufferedReader(Path.of(PATH))) {
-            String strLine;
-            while ((strLine = br.readLine()) != null) {
-                String[] tempArr = strLine.split(";");
-                coff.put(Integer.valueOf(tempArr[0]), Integer.valueOf(tempArr[1]));
+        PairFromFile files = new PairFromFile();
+        var readPair = files.readFileAsPair(Path.of(PATH));
+            for (var entry : readPair.entrySet()) {
+                coff.put(Integer.valueOf(entry.getKey()), Integer.valueOf(entry.getValue()));
             }
-        } catch (IOException e) {
-            System.out.println("Нет файла для чтения ReaderCoff");
-        }
     }
 
     /**
      * @return - Возвращает ссылку на массив суммой
      */
-    protected static HashMap<Integer, Integer> getMassCoff() {
+    protected static LinkedHashMap<Integer, Integer> getMassCoff() {
         if (coff == null) {
-            coff = new HashMap<>();
+            coff = new LinkedHashMap<>();
             readCoff();
         }
         return coff;

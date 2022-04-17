@@ -1,9 +1,5 @@
 package enums;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * @author Artyom
  * @version 2.0
@@ -35,7 +31,6 @@ public class EnumSwitch {
         //FIXME Вынести в сервлет чтобы суммировало
         int sum = propertyIndex + regionIndex;
         creat(ReaderCoff.getMassCoff().get(sum));
-
     }
 
     public static void creat(int ordinal) {
@@ -187,7 +182,7 @@ public class EnumSwitch {
                 } else
                     return 0.3;
             }
-        };
+        }
     }
 }
 

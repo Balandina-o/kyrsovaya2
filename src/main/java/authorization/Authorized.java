@@ -1,10 +1,15 @@
 package authorization;
 
-import UtilFiles.ChangeFiles;
+import UtilFiles.PairFromFile;
+import enums.TestCoffEnum;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
+import java.util.Locale;
 import java.util.Objects;
 
 interface Authorized {
@@ -18,7 +23,7 @@ interface Authorized {
      **/
     static boolean authentication(String log, String password, String path) {
 //        boolean abb = isCorrectAuth(log, password); //FIXME при абстрактном
-        ChangeFiles files = new ChangeFiles();
+        PairFromFile files = new PairFromFile();
         var readPair = files.readFileAsPair(Path.of(path));
         for (var entry : readPair.entrySet()) {
             if (Objects.equals(entry.getKey(), log) & (Objects.equals(entry.getValue(), password))) {
@@ -27,21 +32,32 @@ interface Authorized {
         }
         return CORRECT_AUTH;   //& abb;
     }
+
     /**
      * Метод регистрации в базе
      * / FIXME:  11.04.2022 изменить при добавлении базы данных
      * / TODO Вынести сообщения в отдельный метод / пропускать чтение если false
      **/
     static boolean createNew(String login, String password, String path) {
-        boolean ind = checkLoginInBase(login, path);
-        if (ind) { // запись в базу если не занят логин
-            try (var br = Files.newBufferedWriter(Path.of(path), StandardOpenOption.APPEND)) {
-                br.write("\n" + login + ";" + password);
-            } catch (Exception e) {
-                System.out.println("нет файла для записи");
+        boolean ind = findByLogin(login, path);
+        if(ind) {
+            try (PrintWriter writer = new PrintWriter(new FileWriter(path,true))) {
+                //печать в файл с новой строки
+                writer.println(String.format("%s;%s", login, password));
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
         return ind;
+////        boolean ind = findByLogin(login, path);
+////        if (ind) { // запись в базу если не занят логин
+////            try (var br = Files.newBufferedWriter(Path.of(path), StandardOpenOption.APPEND)) {
+////                br.write("\n" + login + ";" + password);
+////            } catch (Exception e) {
+////                System.out.println("нет файла для записи");
+////            }
+////        }
+//        return ind;
     }
 
     /**
@@ -49,10 +65,9 @@ interface Authorized {
      * / FIXME изменить при добавлении базы данных
      * / TODO  изменить чтение строки на символы. читать до разделителя /поменять тип на String
      */
-    private static boolean checkLoginInBase(String login, String path) {
+    private static boolean findByLogin(String login, String path) {
         int count = 0; // count служит переменной уникальностью
-
-        ChangeFiles files = new ChangeFiles();
+        PairFromFile files = new PairFromFile();
         var readPair = files.readFileAsPair(Path.of(path));
         for (String LogInFile : readPair.keySet()) {
             if (Objects.equals(LogInFile, login)) {

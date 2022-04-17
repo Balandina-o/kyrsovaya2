@@ -1,15 +1,15 @@
 package enums;
 
+import UtilFiles.PairFromFile;
 
 import java.io.*;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Locale;
+import java.util.*;
 
 public enum TestCoffEnum {
     cMIN, cMAX, cAV, CA, CB;
     private double value;
-    private static String PATH = "./src/main/resources/coffForAdmin";
+    private static final String PATH = "./src/main/resources/coffForAdmin";
 
     public double getValue() {
         return value;
@@ -20,19 +20,12 @@ public enum TestCoffEnum {
     }
 
     public static void fill() {
-        int i = 0;
-        try (BufferedReader br = Files.newBufferedReader(Path.of(PATH))) {
-            String strLine;
-            while ((strLine = br.readLine()) != null) {
-                String[] tempArr = strLine.split(";");
-                TestCoffEnum.values()[i].setValue(Double.valueOf(tempArr[1]));
-                i++;
-            }
-        } catch (NumberFormatException e) {
-            System.out.println("TestCoffEnum навернулся из-за преобразования в число");
-
-        } catch (IOException e) {
-            System.out.println("Нет файла для чтения ReaderCoff");
+        PairFromFile files = new PairFromFile();
+        LinkedHashMap<String, String> readPair = new LinkedHashMap<>(files.readFileAsPair(Path.of(PATH)));
+        for (var LogInFile : readPair.entrySet()) {
+            String Key = (LogInFile.getKey());
+            double Value = Double.parseDouble(LogInFile.getValue());
+            TestCoffEnum.valueOf(Key).setValue(Value);
         }
     }
 
@@ -45,7 +38,7 @@ public enum TestCoffEnum {
         cAV.setValue(0.3);
         CA.setValue(0.4);
         CB.setValue(0.5);
-//Считывает константы в 11 строке в файл
+//Считывает константы в 24 строке в файл
         try (PrintWriter writer = new PrintWriter(PATH)) {
             for (int i = 0; i < TestCoffEnum.values().length; i++) {
                 String nameCoff = values()[i].name();
@@ -56,11 +49,13 @@ public enum TestCoffEnum {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     public static void main(String[] args) {
         TestCoffEnum.fill();
+        for (var x : TestCoffEnum.values()) {
+            System.out.println(x.getValue());
+        }
         TestCoffEnum.changeCoffADMIN();
     }
 }

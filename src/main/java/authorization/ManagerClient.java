@@ -1,6 +1,5 @@
 package authorization;
 
-import java.util.HashMap;
 
 /**
  * @author Artyom
@@ -26,19 +25,17 @@ public class ManagerClient {
     }
 
     public static String apiReg(String log, String pass) {
-        return checkReg(log,pass);
+        return checkReg(log, pass);
+    }
+    //В этом методе возвращать массив - строка + bool?
+    private static String checkAuthZ(String log, String pass) {
+        return Authorized.authentication(log, pass, PATH_BASE) ? messTrueAuthZ : messFalseAuthZ;
     }
 
-    private static String checkAuthZ(String log, String pass) {
-         if(Authorized.authentication(log, pass, PATH_BASE)) {
-             return  messTrueAuthZ;
-         }
-         return messFalseAuthZ;
-    }
-    private static String checkReg(String log,String pass){
-        if(Authorized.createNew(log,pass,PATH_BASE)){
+    private static String checkReg(String log, String pass) {
+        if (Authorized.createNew(log, pass, PATH_BASE)) {
             return messTrueReg;
         }
-        return  messFalseReg;
+        return messFalseReg;
     }
 }

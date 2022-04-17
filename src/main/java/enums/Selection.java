@@ -4,6 +4,7 @@ package enums;
  * @author group2
  * @version 1.0
  */
+@FunctionalInterface
 public interface Selection {
 	/**
 	 * Метод интерфейса, реализованный в классе EnumSwitch

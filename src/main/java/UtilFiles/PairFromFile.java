@@ -5,7 +5,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 
-public class ChangeFiles implements ReadWriter{
+public class PairFromFile implements ReadFile {
+    /**
+     * Метод чтение строки из файла
+     * @param path - путь
+     * @return Список строк
+     */
     @Override
     public List<String> readFileAsString(String path) {
         List<String> strings= new ArrayList<>();
@@ -16,13 +21,14 @@ public class ChangeFiles implements ReadWriter{
         }
         return strings;
     }
-
-    @Override
-    public void write(String path) {
-
-    }
-    public  Map<String,String> readFileAsPair(Path path){
-        Map<String,String> map = new HashMap<>();
+    /**
+     *
+     * @param path - Путь
+     * @return - Пары элементов разделенные ;
+     */
+    //TODO порядок . поменять на LINKED MAP
+    public  LinkedHashMap<String,String> readFileAsPair(Path path){
+        LinkedHashMap<String,String> map = new LinkedHashMap<>();
         for (var x : readFileAsString((String.valueOf(path)))) {
             String[] xx =x.split(";");
             map.put(xx[0],xx[1]);
