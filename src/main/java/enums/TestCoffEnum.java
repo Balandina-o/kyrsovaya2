@@ -7,7 +7,7 @@ import java.nio.file.Path;
 import java.util.*;
 
 public enum TestCoffEnum {
-    cMIN, cMAX, cAV, CA, CB;
+    UFA_COFF, Kazan_COFF, Moscow_COFF, Gorn_COFF;
     private double value;
     private static final String PATH = "./src/main/resources/coffForAdmin";
 
@@ -33,11 +33,10 @@ public enum TestCoffEnum {
         //FIXME это нужно админу
         //сначала изменяются в java потом ниже заносятся в файл
         //заменить на цикл
-        cMIN.setValue(0.1);
-        cMAX.setValue(0.2);
-        cAV.setValue(0.3);
-        CA.setValue(0.4);
-        CB.setValue(0.5);
+        UFA_COFF.setValue(0.1);
+        Kazan_COFF.setValue(0.2);
+        Moscow_COFF.setValue(0.3);
+        Gorn_COFF.setValue(0.4);
 //Считывает константы в 24 строке в файл
         try (PrintWriter writer = new PrintWriter(PATH)) {
             for (int i = 0; i < TestCoffEnum.values().length; i++) {
