@@ -21,7 +21,7 @@ public class Validation {
      * Метод, утверждающий введенные пользователем значения.
      * В нем создаются экземпляры абстрактных классов, куда передаются параметры, введенные пользователем.
      * Затем корректные значения, возвращаемые общим методом классов-наследников, записываются в числовые переменные, которые
-     * и учавствуют в расчетах.
+     * и участвуют в расчетах.
      * Кроме того в данном методе создается список из экземпляров InputError, который возвращается в класс ControllerMain и
      * используется для определения, в каком поле возникла ошибка.
      *
@@ -33,7 +33,9 @@ public class Validation {
         this.squareText = squareText;
         init(cadastralValueText, inventoryTaxText, portionText, holdingPeriodRatioText, childrenCountText, exemptionText);
     }
-
+//        for (var inpErr:samples) {
+//        testTry(inpErr);
+//    }
     public final String validate() {
         ArrayList<InputText> samples = new ArrayList(List.of(cadastralValueErr, inventoryTaxErr, squareErr, portionErr,
                 holdingPeriodRatioErr, childrenCountErr, exemptionErr));
@@ -43,12 +45,12 @@ public class Validation {
             testTry(i, samples.get(i));
         }
         if (cadastralValue <= inventoryTax & cadastralValue != 0) {//если кадастр меньше или = налогу
-            errors.add(new InputError(inventoryTaxErr.getFieldName(), "Налог от инвентариз. стоимости должен быть меньше кадастровой стоимости"));
+            errors.add(new InputError(inventoryTaxErr.getFieldName(), "Налог от инвентаре. стоимости должен быть меньше кадастровой стоимости"));
         }
         //correlate(); // вызывается метод-установщик значений, чтобы могла выполнится проверка ниже
         //TODO squareText пустой теперь??
         double deduction= RegionProperty.getInstance().getDeduction();
-        if (deduction >= square & !Objects.equals(squareText, "")) { //если площадь меньше вычета(по тиму имущества) то все норм
+        if (deduction >= square & !Objects.equals(squareText, "")) { //если площадь меньше вычета(по тиму имущества), то все норм
             String message = "";
 
             if (deduction == 10) {// если коэфф = 10 - выбрана комната
@@ -70,13 +72,13 @@ public class Validation {
             }
         } else {
             TaxAmount tax = new TaxAmount(//
-                    cadastralValue,
-                    inventoryTax,
-                    square,
-                    portion,
-                    holdingPeriodRatio,
-                    childrenCount,
-                    (cadastralValue <= 300000000) ? exemption : 0);
+                    cadastralValue, //кадастровая стоимость
+                    inventoryTax, //инвентаризационный налог
+                    square, //площадь
+                    portion, //доля в собственности
+                    holdingPeriodRatio, //период владения
+                    childrenCount, //кол-во детей
+                    (cadastralValue <= 300000000) ? exemption : 0); //льгота
             tax.calculate();
             result = ((tax.getResult()).toString());
         }
@@ -94,7 +96,7 @@ public class Validation {
     }
 
     /**
-     * метод для инициализации Текста из сервлета. ЧТО ДЕЛАТЬ С squareText хз.
+     * Метод для инициализации Текста из сервлета. ЧТО ДЕЛАТЬ С squareText хз.
      **/
     private void init(String cadastralValueText, String inventoryTaxText, String portionText,
                       String holdingPeriodRatioText, String childrenCountText, String exemptionText) {
@@ -117,7 +119,7 @@ public class Validation {
         }
     }
 
-    // индекс из цикла для понимания что сейчас будет проверятся. Вызывает testTry
+    // Индекс из цикла для понимания что сейчас будет провериться. Вызывает testTry
     private void Check(int index, InputText rightSide) throws Exception {
         switch (index) {
             case 0:

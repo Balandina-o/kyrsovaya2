@@ -5,104 +5,97 @@ import java.math.RoundingMode;
 
 /**
  * ГЛАВНЫЙ КЛАСС
+ *
  * @author group2
  * @version 1.0
  */
 public final class TaxAmount {
+    private BigDecimal  finalDeductionBig, evaporaterCountBig, reductionFactorBig;
+    private BigDecimal inventoryTaxBig, squareBig, portionBig, holdingPeriodRatioBig, finalExemptionBig;
+    BigDecimal DEC_100 = new BigDecimal(100), DEC_12 = new BigDecimal(12), DEC_1 = new BigDecimal(1);
 
-	private static double cadastralValue, inventoryTax, square, portion, holdingPeriodRatio, childrenCount, exemption,
-			deduction, reductionFactor, evaporater;
-	private static BigDecimal result;
+    private double cadastralValue, childrenCount;
+    private BigDecimal result;
 
-	public TaxAmount(double cadastralValue, double inventoryTax, double square, double portion,
-			double holdingPeriodRatio, double childrenCount, double exemption) {
+    public TaxAmount(double cadastralValue, double inventoryTax, double square, double portion,
+                     double holdingPeriodRatio, double childrenCount, double exemption) {
 
-		TaxAmount.cadastralValue = cadastralValue;//кадастровая стоимость
-		TaxAmount.inventoryTax = inventoryTax;//инвентаризационный налог
-		TaxAmount.square = square;//площадь
-		TaxAmount.portion = portion;//доля в собственности
-		TaxAmount.holdingPeriodRatio = holdingPeriodRatio;//период владения
-		TaxAmount.childrenCount = childrenCount;//кол-во детей
-		TaxAmount.exemption = exemption;//льгота
-		//TODO новые RegionProperty
-		TaxAmount.deduction = RegionProperty.getInstance().getDeduction(); //коэфф. типа недвижимости (вычет из площади в зависимости от типа недвижимости)
-		TaxAmount.reductionFactor = RegionProperty.getInstance().getReductionFactor(); //коэфф. муниц. образования (понижающий коэффициент)
-		//для всех, кроме Горн. А. = 1
-		TaxAmount.evaporater = RegionProperty.getInstance().getEvaporater(); //вычет за ребенка (после 4-го ребенка включительно)
-	}
+        initValue(inventoryTax, square, portion, holdingPeriodRatio, exemption);
 
+        //В параметры calculate()
+        this.childrenCount = childrenCount;//кол-во детей
+        this.cadastralValue = cadastralValue;//кадастровая стоимость
 
-	/**
-	 * Метод, отвечающий за непосредственно расчет суммы налога, необходимой к уплате
-	 * по заданным в нем формулам
-	 *
-	 */
-	public static void calculate() {
-		double finalbid;
-		BigDecimal finalbidbig;
-		BigDecimal finalDeductionbig=BigDecimal.valueOf(deduction);
-		BigDecimal finalExemptionbig=BigDecimal.valueOf(TaxAmount.exemption);
-		BigDecimal Deductionbig;
-		BigDecimal childrenCountbig;
-		BigDecimal evaporaterCountbig;
+    }
 
-		if (childrenCount >= 3) {//если детей больше или = 3
-			Deductionbig=BigDecimal.valueOf(deduction); //так, если детей меньше 3-х, вычет будет равен 0
-			childrenCountbig=BigDecimal.valueOf(childrenCount);
-			evaporaterCountbig=BigDecimal.valueOf(evaporater);//присвоить вычет
-			finalDeductionbig= Deductionbig.add(childrenCountbig.multiply(evaporaterCountbig));
-		}
+    /**
+     * Метод, отвечающий за непосредственно расчет суммы налога, необходимой к уплате
+     * по заданным в нем формулам
+     */
+    public void calculate() {
+        double finalBid;
 
-		/*
-		 * if (cadastralValue > 300000000) {//если кадастровая стоимость больше 300000000
-		 * finalExemption = 0;//льгота аннулируется finalExemptionbig =
-		 * BigDecimal.valueOf(finalExemption); }
-		 */
-		//finalExemptionbig = BigDecimal.valueOf(finalExemption);
+        BigDecimal finalBidBig;
+
+        //TODO вынести в параметры метода
+        BigDecimal childrenCountBig = BigDecimal.valueOf(childrenCount);
+        BigDecimal cadastralValueBig = new BigDecimal(cadastralValue);
+
+        //ToDO новое
+//		RegionProperty ABOBA =RegionProperty.getInstance();
+//		finalBid=EnumSwitch.enumUse(ABOBA.getRegionIndex(), ABOBA.getPropertyIndex(),cadastralValue);
+//Todo убрать
+        finalBid = 0.11; //ЭТО ЗНАЧЕНИЕ Я ПОСТАВИЛА, ПОКА НЕТ enum, НАДО УБРАТЬ И ИСПОЛЬЗОВАТЬ ВЕРХНУЮ СТРОЧКУ
+        finalBidBig = BigDecimal.valueOf(finalBid);
 
 
+        if (childrenCount >= 3) {
+            finalDeductionBig = finalDeductionBig.add(childrenCountBig.multiply(evaporaterCountBig));
+        }
 
-		//EnumSwitch enswitch = new EnumSwitch();
 
-		//enswitch.setPropertyIndex(Integer.toString(combo_region.getSelectionModel().getSelectedIndex()));
-		//enswitch.setRegionIndex(Integer.toString(combo_property.getSelectionModel().getSelectedIndex()));
-		//enswitch.setCadastralValue(cadastralValue);
-		//enswitch.enumuse();
+        //Считается финальную сумму. Формула из ргрки
+        BigDecimal taxBaseBig = cadastralValueBig.subtract((cadastralValueBig.divide(squareBig, 8,
+                RoundingMode.HALF_UP)).multiply(finalDeductionBig));
 
-		//finalbid= enswitch.getFinalbid();
-		finalbid= 0.11; //ЭТО ЗНАЧЕНИЕ Я ПОСТАВИЛА, ПОКА НЕТ enum, НАДО УБРАТЬ И ИСПОЛЬЗОВАТЬ ВЕРХНУЮ СТРОЧКУ
-		finalbidbig = BigDecimal.valueOf(finalbid);
+        BigDecimal sumWithoutExemptionBig1 = ((
+                taxBaseBig.divide(DEC_100, 8, RoundingMode.HALF_UP)
+                        .multiply(finalBidBig)
+                        .subtract(inventoryTaxBig)).multiply(reductionFactorBig)
+                .add(inventoryTaxBig))
+                .multiply(holdingPeriodRatioBig.divide(DEC_12, 8, RoundingMode.HALF_UP))
+                .multiply((DEC_1).divide(portionBig, 8, RoundingMode.HALF_UP));
 
-		BigDecimal cadastralValuebig=BigDecimal.valueOf(cadastralValue);
-		BigDecimal squarebig=BigDecimal.valueOf(square);
-		BigDecimal inventoryTaxbig=BigDecimal.valueOf(inventoryTax);
-		BigDecimal holdingPeriodRatiobig=BigDecimal.valueOf(holdingPeriodRatio);
-		BigDecimal portionbig=BigDecimal.valueOf(portion);
-		BigDecimal reductionFactorbig = BigDecimal.valueOf(reductionFactor);
-		BigDecimal taxBasebig = cadastralValuebig.subtract((cadastralValuebig.divide(squarebig, 8,
-				RoundingMode.HALF_UP)).multiply(finalDeductionbig));
-		
-		BigDecimal hundredbbig = BigDecimal.valueOf(100);
-		BigDecimal twelvebig = BigDecimal.valueOf(12);
-		BigDecimal onebig = BigDecimal.valueOf(1);
-		
-		BigDecimal sumWithoutExemptionbig1=((taxBasebig.divide(hundredbbig, 8, RoundingMode.HALF_UP).multiply(finalbidbig)
-				.subtract(inventoryTaxbig)).multiply(reductionFactorbig).add(inventoryTaxbig)).multiply(holdingPeriodRatiobig.divide(twelvebig, 8, RoundingMode.HALF_UP))
-				.multiply((onebig).divide(portionbig, 8, RoundingMode.HALF_UP));
+        BigDecimal sumBig =
+                sumWithoutExemptionBig1.subtract((
+                        sumWithoutExemptionBig1)
+                        .multiply((finalExemptionBig)
+                                .divide(DEC_100, 8, RoundingMode.HALF_UP)));
 
-		BigDecimal sumbig =
-				sumWithoutExemptionbig1.subtract((sumWithoutExemptionbig1).multiply((finalExemptionbig).divide(hundredbbig, 8, RoundingMode.HALF_UP)));
 
-		BigDecimal CheckNull=BigDecimal.valueOf(1);
-		if(sumbig.compareTo(CheckNull)==-1){
-			sumbig=BigDecimal.valueOf(0);
-		}
+        //Проверка
+        BigDecimal CheckNull = BigDecimal.valueOf(1);
+        if (sumBig.compareTo(CheckNull) == -1) {
+            sumBig = BigDecimal.valueOf(0);
+        }
 
-		result = sumbig.setScale(0, RoundingMode.HALF_UP);
+        result = sumBig.setScale(0, RoundingMode.HALF_UP);
 
-	}
+    }
 
-	public BigDecimal getResult() {
-		return result;
-	}
+    private void initValue(double inventoryTax, double square, double portion, double holdingPeriodRatio, double exemption) {
+        this.inventoryTaxBig = BigDecimal.valueOf(inventoryTax);
+        this.squareBig = BigDecimal.valueOf(square);
+        this.holdingPeriodRatioBig = BigDecimal.valueOf(holdingPeriodRatio);
+        this.finalExemptionBig = BigDecimal.valueOf(exemption);
+        this.portionBig = BigDecimal.valueOf(portion);
+
+        this.finalDeductionBig = BigDecimal.valueOf(RegionProperty.getInstance().getDeduction());
+        this.evaporaterCountBig = BigDecimal.valueOf(RegionProperty.getInstance().getEvaporater());
+        this.reductionFactorBig = BigDecimal.valueOf(RegionProperty.getInstance().getReductionFactor());
+    }
+
+    public BigDecimal getResult() {
+        return result;
+    }
 }

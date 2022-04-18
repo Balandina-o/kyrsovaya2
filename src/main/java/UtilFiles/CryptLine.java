@@ -35,9 +35,9 @@ public class CryptLine implements CipherText {
     /**
      * @param text - текст который нужно зашифровать UTF-8 кодировка
      * @return зашифрованный текст в кодировке Base64 для файла
-     * @throws InvalidKeyException        недопустимых ключей (неверная кодировка, неправильная длина).
+     * @throws InvalidKeyException недопустимых ключей (неверная кодировка, неправильная длина).
      * @throws IllegalBlockSizeException, а длина данных не соответствует размеру блока шифра.
-     * @throws BadPaddingException        данные не заполняются должным образом.
+     * @throws BadPaddingException данные не заполняются должным образом.
      */
     @Override
     public String encrypt(String text) throws InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
@@ -50,9 +50,9 @@ public class CryptLine implements CipherText {
     /**
      * @param text - текст который нужно расшифровать UTF-8 кодировка
      * @return полностью расшифрованный текст в кодировке UTF-8
-     * @throws InvalidKeyException       недопустимых ключей (неверная кодировка, неправильная длина).
+     * @throws InvalidKeyException недопустимых ключей (неверная кодировка, неправильная длина).
      * @throws IllegalBlockSizeException длина данных не соответствует размеру блока шифра.
-     * @throws BadPaddingException       данные не заполняются должным образом.
+     * @throws BadPaddingException данные не заполняются должным образом.
      */
     @Override
     public String decrypt(String text) throws InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
