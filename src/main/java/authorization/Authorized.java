@@ -1,9 +1,10 @@
 package authorization;
 
+import UtilFiles.CipherText;
+import UtilFiles.CryptLine;
 import UtilFiles.PairFromFile;
 
 import java.io.FileWriter;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Path;
 import java.util.Objects;
@@ -21,10 +22,16 @@ interface Authorized {
 //        boolean abb = isCorrectAuth(log, password); //FIXME при абстрактном
         PairFromFile files = new PairFromFile();
         var readPair = files.readFileAsPair(Path.of(path));
-        for (var entry : readPair.entrySet()) {
-            if (Objects.equals(entry.getKey(), log) & (Objects.equals(entry.getValue(), password))) {
-                return !CORRECT_AUTH;
+        CipherText line = new CryptLine();
+        try {
+            for (var entry : readPair.entrySet()) {
+                String check = line.decrypt(entry.getValue());
+                if (Objects.equals(entry.getKey(), log) & (Objects.equals(check, password))) {
+                    return !CORRECT_AUTH;
+                }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return CORRECT_AUTH;   //& abb;
     }
@@ -38,9 +45,12 @@ interface Authorized {
         boolean ind = findByLogin(login, path);
         if (ind) {
             try (PrintWriter writer = new PrintWriter(new FileWriter(path, true))) {
+                CipherText line = new CryptLine();
+                //Шифрование пароля при создании.
+                String cipherPass = line.encrypt(password);
                 //печать в файл с новой строки
-                writer.println(String.format("%s;%s", login, password));
-            } catch (IOException e) {
+                writer.println(String.format("%s;%s", login, cipherPass));
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
