@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import abstracts.RegionProperty;
 import abstracts.Validation;
-import document.GeneratePdf;
+import document.GeneratePdfWeb;
 
 /**
  * The Class CalcServlet.
@@ -78,11 +78,11 @@ public class CalcServlet extends HttpServlet {
 		
 		if (request.getParameter("button").equals("pdfButton")) { // если нажата кнопка генерации док-та
 			if(valid.getResult() != null) { // если результат посчитался
-				GeneratePdf genPdf = new GeneratePdf (); 
+				GeneratePdfWeb genPdf = new GeneratePdfWeb();
 				System.out.print("Нормальный Новый документ"); // сгенерировать документ
 				
 			}else { // иначе закинуть вместо данных строки "----"
-				// GeneratePdf genPdf = new GeneratePdf ("---", "0"); 
+				// GeneratePdfWeb genPdf = new GeneratePdfWeb ("---", "0");
 				System.out.print("Документ с ------");
 			}
 		}
