@@ -3,12 +3,12 @@ package abstracts;
 import java.util.*;
 
 public class Validation {
-    InputNumber cadastralValueErr, inventoryTaxErr, squareErr;
-    InputPortion portionErr;
-    InputHoldingPeriodRatio holdingPeriodRatioErr;
-    InputChildrenCount childrenCountErr;
-    InputExemption exemptionErr;
-    List<InputError> errors;
+    private InputNumber cadastralValueErr, inventoryTaxErr, squareErr;
+    private InputPortion portionErr;
+    private InputHoldingPeriodRatio holdingPeriodRatioErr;
+    private InputChildrenCount childrenCountErr;
+    private InputExemption exemptionErr;
+    private List<InputError> errors;
     private String squareText, result; //TODO squareText не используется птмч он в init
     private double cadastralValue, inventoryTax, square, portion, holdingPeriodRatio, childrenCount, exemption;
 

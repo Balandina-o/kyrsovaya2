@@ -48,22 +48,22 @@ public class EnumSwitch {
 
             public double changeFinalBid() {
                 System.out.println("UfaRoom_UfaApartment");
-                double finalBidNoMagic_0_165 = 0.165;
-                double finalBidNoMagic_0_198 = 0.198;
-                double finalBidNoMagic_0_22 = 0.22;
+                double finalBid_0_165 = 0.165;
+                double finalBid_0_198 = 0.198;
+                double finalBid_0_22 = 0.22;
                 //FIXME 100000000 ---> 10000000 УБРАЛ  ОДИН 0 для бывшего UfaRoom
-                return UfaRoom_UfaApartment_UfaHouse(finalBid_0_11, finalBidNoMagic_0_165, finalBidNoMagic_0_198, finalBidNoMagic_0_22);
+                return UfaRoom_UfaApartment_UfaHouse(finalBid_0_11, finalBid_0_165, finalBid_0_198, finalBid_0_22);
             }
         },
         UfaHouse { //2
 
             public double changeFinalBid() {
                 System.out.println("UfaHouse");
-                double finalBidNoMagic_0_12 = 0.12;
-                double finalBidNoMagic_0_18 = 0.18;
-                double finalBidNoMagic_0_216 = 0.216;
-                double finalBidNoMagic_0_24 = 0.24;
-                return UfaRoom_UfaApartment_UfaHouse(finalBidNoMagic_0_12, finalBidNoMagic_0_18, finalBidNoMagic_0_216, finalBidNoMagic_0_24);
+                double finalBid_0_12 = 0.12;
+                double finalBid_0_18 = 0.18;
+                double finalBid_0_216 = 0.216;
+                double finalBid_0_24 = 0.24;
+                return UfaRoom_UfaApartment_UfaHouse(finalBid_0_12, finalBid_0_18, finalBid_0_216, finalBid_0_24);
             }
         },
         UfaCar { //3
@@ -77,8 +77,8 @@ public class EnumSwitch {
 
             public double changeFinalBid() {
                 System.out.println("UfaOthers_KazanOthers_MoscowOthers");
-                double finalBidNoMagic_0_5 = 0.5; //1
-                return UfaCar_UfaOthers_KazanOthers_MoscowOthers(finalBid_2, finalBidNoMagic_0_5);
+                double finalBid_0_5 = 0.5; //1
+                return UfaCar_UfaOthers_KazanOthers_MoscowOthers(finalBid_2, finalBid_0_5);
             }
         },
         KazanRoom_KazanApartment { //5
@@ -98,13 +98,13 @@ public class EnumSwitch {
         MoscowRoom_MoscowApartment_MoscowHouse { //9 10 11
 
             public double changeFinalBid() {
-                double finalBidNoMagic_0_15 = 0.15; //1
+                double finalBid_0_15 = 0.15; //1
 
                 System.out.println("MoscowRoom_MoscowApartment_MoscowHouse");
                 if (cadastralValue <= condition_10000000) {
                     return finalBid_0_1;
                 } else if ((cadastralValue <= condition_20000000) & (condition_10000000 < cadastralValue)) {
-                    return finalBidNoMagic_0_15;
+                    return finalBid_0_15;
                 } else if ((cadastralValue <= condition_50000000) & (condition_20000000 < cadastralValue)) {
                     return finalBid_0_2;
                 } else if ((cadastralValue <= condition_300000000) & (condition_50000000 < cadastralValue)) {
@@ -125,8 +125,8 @@ public class EnumSwitch {
 
             public double changeFinalBid() {
                 System.out.println("Gorn");
-                double finalBidNoMagic_0_7 = 0.7;
-                return UfaCar_UfaOthers_KazanOthers_MoscowOthers(finalBidNoMagic_0_7, finalBid_0_3);
+                double finalBid_0_7 = 0.7;
+                return UfaCar_UfaOthers_KazanOthers_MoscowOthers(finalBid_0_7, finalBid_0_3);
             }
         };
 
