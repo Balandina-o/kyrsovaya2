@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.io.OutputStream;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -78,8 +79,30 @@ public class CalcServlet extends HttpServlet {
 		
 		if (request.getParameter("button").equals("pdfButton")) { // если нажата кнопка генерации док-та
 			if(valid.getResult() != null) { // если результат посчитался
-				GeneratePdfWeb genPdf = new GeneratePdfWeb();
+				response.setContentType("application/octet-stream");
+				response.setHeader("Content-Disposition", "attachment; filename=DocumentGroup2.pdf");
+
+				try (OutputStream out = response.getOutputStream()) {
+					out.write(GeneratePdfWeb.generate(
+							kadastr,
+							tax,
+							square,
+							part,
+							period,
+							childrens != "" ? childrens : "0",
+							benefit != "" ? benefit : "0",
+							Integer.parseInt(regionIndex),
+							Integer.parseInt(propertyIndex)
+					));
+
+					response.flushBuffer();
+
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+				}
+
 				System.out.print("Нормальный Новый документ"); // сгенерировать документ
+				return;
 				
 			}else { // иначе закинуть вместо данных строки "----"
 				// GeneratePdfWeb genPdf = new GeneratePdfWeb ("---", "0");
