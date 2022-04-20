@@ -46,7 +46,7 @@ public class AuthoServlet extends HttpServlet {
 
 		RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher(page);
 		requestDispatcher.forward(request, response);//код перенаправления
-
+		return;
 	}
 
 }

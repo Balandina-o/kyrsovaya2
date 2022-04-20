@@ -115,11 +115,13 @@ public class CalcServlet extends HttpServlet {
 		if (request.getParameter("button").equals("exitButton")) { // если нажата кнопка генерации док-та
 			RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/Authorisator.jsp");
 			requestDispatcher.forward(request, response);
+			return;
 		}
 			
 		//перенаправление, чтобы юзер остался на той же форме
 		RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/Calculator.jsp");
 		requestDispatcher.forward(request, response);
+		return;
 
 	}
 }
