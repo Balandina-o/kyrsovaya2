@@ -26,7 +26,7 @@
 
                 <div class="input-box input-box__one-column">
                     <label for="">Муницип. образование</label>
-                    <select>
+                    <select name="regionIndex">
                         <option value="10" ${regionIndex=="10"?"selected":""}> г.Уфа 02</option>
 						<option value="20" ${regionIndex=="20"?"selected":""}> г.Казань 16</option>
 						<option value="30" ${regionIndex=="30"?'selected':""}>г.Москва 77</option>
@@ -36,7 +36,7 @@
 
                 <div class="input-box input-box__one-column">
                     <label for="">Тип недвижимости</label>
-                    <select>
+                    <select name="propertyIndex">
                         <%--Изменены кофф--%>
 						<option value="0" ${propertyIndex=="0"?"selected":""}>Комната</option>
 						<option value="1" ${propertyIndex=="1"?"selected":""}>Квартира</option>

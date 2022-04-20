@@ -22,7 +22,6 @@ import com.itextpdf.text.pdf.PdfWriter;
 public class GeneratePdfWeb {
     private static String cadastralValue, inventoryTax, square, portion, holdingPeriodRatio, 
     childrenCount, exemption, deduction, reductionFactor, evaporater;
-    private static int regionIndex, propertyIndex;
     
     private static String result;
 
@@ -30,7 +29,8 @@ public class GeneratePdfWeb {
 
     public static byte[] generate(String cadastralValue, String inventoryTax, String square,
                                   String portion, String holdingPeriodRatio, String childrenCount,
-                                  String exemption, int region, int property, String result) {
+                                  String exemption, String regionIndex, String propertyIndex, 
+                                  String result) {
 
         GeneratePdfWeb.cadastralValue = cadastralValue;//кадастровая стоимость
         GeneratePdfWeb.inventoryTax = inventoryTax;//инвентаризационный налог
@@ -39,33 +39,17 @@ public class GeneratePdfWeb {
         GeneratePdfWeb.holdingPeriodRatio = holdingPeriodRatio;//период владения
         GeneratePdfWeb.childrenCount = childrenCount;//кол-во детей
         GeneratePdfWeb.exemption = exemption;//льгота
-        GeneratePdfWeb.regionIndex = region; //коэфф. типа недвижимости (вычет из площади в зависимости от типа недвижимости)
-        GeneratePdfWeb.propertyIndex = property; //вычет за ребенка (после 4-го ребенка включительно) 
+        //GeneratePdfWeb.regionIndex = region; //коэфф. типа недвижимости (вычет из площади в зависимости от типа недвижимости)
+       // GeneratePdfWeb.propertyIndex = property; //вычет за ребенка (после 4-го ребенка включительно) 
         GeneratePdfWeb.result = result;
         
         try {
             Document document = new Document();
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             PdfWriter.getInstance(document, stream);
-			/*
-			 * String filepath = new File("").getCanonicalPath();
-			 * 
-			 * String[] parsfilepath = filepath.split("/"); int lengthpath =
-			 * parsfilepath.length; String abspath=""; for(int i=0;i<(lengthpath-1);i++) {
-			 * abspath=abspath+parsfilepath[i]+"/"; }
-			 * 
-			 * abspath = abspath.replaceAll("Desktop", "git");
-			 * 
-			 * filepath=abspath+"/kyrsovaya2/src/main/webapp/Check.pdf";
-			 * 
-			 * String imagepath=abspath+"/kyrsovaya2/src/main/webapp/picture/ugatu.png";
-			 * 
-			 * String fontpath =abspath+"/kyrsovaya2/src/main/webapp/fonts/times.ttf";
-			 */
 
             document.open();
-
-
+            
             try {
                 times = BaseFont.createFont("/fonts/times.ttf", "cp1251", BaseFont.EMBEDDED, true);
             } catch (DocumentException | IOException e) {

@@ -56,7 +56,7 @@ public class CalcServlet extends HttpServlet {
 		
 
 		//Новая функция региона /TODO зачем parseInt
-		//RegionProperty.getInstance().setInitRegionPropertyIndex(Integer.parseInt(regionIndex),Integer.parseInt(propertyIndex));
+		RegionProperty.getInstance().setInitRegionPropertyIndex(Integer.parseInt(regionIndex),Integer.parseInt(propertyIndex));
 
 		Validation valid = new Validation(//
 				kadastr,
@@ -90,8 +90,8 @@ public class CalcServlet extends HttpServlet {
 							period,
 							childrens != "" ? childrens : "0",
 							benefit != "" ? benefit : "0",
-							1, //Integer.parseInt(regionIndex), //NE RABOTAYET
-							2, //Integer.parseInt(propertyIndex),
+							regionIndex,
+							propertyIndex,
 							valid.getResult()
 					));
 
@@ -115,8 +115,8 @@ public class CalcServlet extends HttpServlet {
 							"---",
 							"---",
 							"---",
-							0,
-							0,
+							"---",
+							"---",
 							"0 Руб."
 					));
 
