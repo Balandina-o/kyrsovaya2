@@ -68,7 +68,7 @@ public class CalcServlet extends HttpServlet {
 						benefit != "" ? benefit : "0");
 
 		if (valid.validate() != "") { // если строка ошибок не пуста
-			//request.setAttribute("warnings", valid.validate()); // установить их на форму
+			request.setAttribute("errors", valid.validate()); // установить их на форму
 
 		}else { // иначе получить посчитанный результат и поставить его на форму
 			valid.getResult();
