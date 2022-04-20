@@ -41,7 +41,7 @@ public class CalcServletTest {
 
 		final ServletContext servletContext = mock(ServletContext.class);
 		RequestDispatcher dispatcher = mock(RequestDispatcher.class);// Имитация перенаправления
-		when(servletContext.getRequestDispatcher("/Calculator.jsp")).thenReturn(dispatcher);
+		when(servletContext.getRequestDispatcher("/Calc.jsp")).thenReturn(dispatcher);
 
 		servlet = new CalcServlet() {
 			private static final long serialVersionUID = 1L;
