@@ -54,12 +54,9 @@ public class CalcServlet extends HttpServlet {
 		request.setAttribute("regionIndex", regionIndex);	
 		request.setAttribute("propertyIndex", propertyIndex);	
 		
-		//РЕШИТЬ, КАК УСТАНАВЛИВАТЬ ЗНАЧЕНИЯ СПИСКОВ ОБРАТНО
-		//ПОЛУЧИЛОСЬ!
-		//И ОЧИЩАТЬ НЕПРАВИЛЬНО ЗАПОЛНЕННЫЕ ПОЛЯ
 
 		//Новая функция региона /TODO зачем parseInt
-		RegionProperty.getInstance().setInitRegionPropertyIndex(Integer.parseInt(regionIndex),Integer.parseInt(propertyIndex));
+		//RegionProperty.getInstance().setInitRegionPropertyIndex(Integer.parseInt(regionIndex),Integer.parseInt(propertyIndex));
 
 		Validation valid = new Validation(//
 				kadastr,
@@ -71,7 +68,7 @@ public class CalcServlet extends HttpServlet {
 						benefit != "" ? benefit : "0");
 
 		if (valid.validate() != "") { // если строка ошибок не пуста
-			request.setAttribute("warnings", valid.validate()); // установить их на форму
+			//request.setAttribute("warnings", valid.validate()); // установить их на форму
 
 		}else { // иначе получить посчитанный результат и поставить его на форму
 			valid.getResult();
@@ -93,8 +90,9 @@ public class CalcServlet extends HttpServlet {
 							period,
 							childrens != "" ? childrens : "0",
 							benefit != "" ? benefit : "0",
-							Integer.parseInt(regionIndex),
-							Integer.parseInt(propertyIndex)
+							1, //Integer.parseInt(regionIndex), //NE RABOTAYET
+							2, //Integer.parseInt(propertyIndex),
+							valid.getResult()
 					));
 
 					response.flushBuffer();
@@ -102,24 +100,43 @@ public class CalcServlet extends HttpServlet {
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
 				}
-
-				System.out.print("Нормальный Новый документ"); // сгенерировать документ
 				return;
 				
 			}else { // иначе закинуть вместо данных строки "----"
-				// GeneratePdfWeb genPdf = new GeneratePdfWeb ("---", "0");
-				System.out.print("Документ с ------");
+				response.setContentType("application/octet-stream");
+				response.setHeader("Content-Disposition", "attachment; filename=DocumentGroup2.pdf");
+
+				try (OutputStream out = response.getOutputStream()) {
+					out.write(GeneratePdfWeb.generate(
+							"---",
+							"---",
+							"---",
+							"---",
+							"---",
+							"---",
+							"---",
+							0,
+							0,
+							"0 Руб."
+					));
+
+					response.flushBuffer();
+
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+				}
+				return;
 			}
 		}
 		
 		if (request.getParameter("button").equals("exitButton")) { // если нажата кнопка генерации док-та
-			RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/Authorisator.jsp");
+			RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/Aut.jsp");
 			requestDispatcher.forward(request, response);
 			return;
 		}
 			
 		//перенаправление, чтобы юзер остался на той же форме
-		RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/Calculator.jsp");
+		RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/Calc.jsp");
 		requestDispatcher.forward(request, response);
 		return;
 

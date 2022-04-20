@@ -20,23 +20,17 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
 public class GeneratePdfWeb {
-    private static String cadastralValue;
-    private static String inventoryTax;
-    private static String square;
-    private static String portion;
-    private static String holdingPeriodRatio;
-    private static String childrenCount;
-    private static String exemption;
-    private static String deduction;
-    private static String reductionFactor;
-    private static String evaporater;
+    private static String cadastralValue, inventoryTax, square, portion, holdingPeriodRatio, 
+    childrenCount, exemption, deduction, reductionFactor, evaporater;
     private static int regionIndex, propertyIndex;
+    
+    private static String result;
 
     private static BaseFont times = null;
 
     public static byte[] generate(String cadastralValue, String inventoryTax, String square,
                                   String portion, String holdingPeriodRatio, String childrenCount,
-                                  String exemption, int region, int property) {
+                                  String exemption, int region, int property, String result) {
 
         GeneratePdfWeb.cadastralValue = cadastralValue;//кадастровая стоимость
         GeneratePdfWeb.inventoryTax = inventoryTax;//инвентаризационный налог
@@ -46,38 +40,34 @@ public class GeneratePdfWeb {
         GeneratePdfWeb.childrenCount = childrenCount;//кол-во детей
         GeneratePdfWeb.exemption = exemption;//льгота
         GeneratePdfWeb.regionIndex = region; //коэфф. типа недвижимости (вычет из площади в зависимости от типа недвижимости)
-        GeneratePdfWeb.propertyIndex = property; //вычет за ребенка (после 4-го ребенка включительно)
-
+        GeneratePdfWeb.propertyIndex = property; //вычет за ребенка (после 4-го ребенка включительно) 
+        GeneratePdfWeb.result = result;
+        
         try {
             Document document = new Document();
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             PdfWriter.getInstance(document, stream);
-//document.open();
-
-
-            String filepath = new File("").getCanonicalPath();
-
-            String[] parsfilepath = filepath.split("/");
-            int lengthpath = parsfilepath.length;
-            String abspath="";
-            for(int i=0;i<(lengthpath-1);i++) {
-                abspath=abspath+parsfilepath[i]+"/";
-            }
-
-            abspath = abspath.replaceAll("Desktop", "git");
-
-
-            filepath=abspath+"/kyrsovaya2/src/main/webapp/Check.pdf";
-
-            String imagepath=abspath+"/kyrsovaya2/src/main/webapp/picture/ugatu.png";
-
-            String fontpath =abspath+"/kyrsovaya2/src/main/webapp/fonts/times.ttf";
+			/*
+			 * String filepath = new File("").getCanonicalPath();
+			 * 
+			 * String[] parsfilepath = filepath.split("/"); int lengthpath =
+			 * parsfilepath.length; String abspath=""; for(int i=0;i<(lengthpath-1);i++) {
+			 * abspath=abspath+parsfilepath[i]+"/"; }
+			 * 
+			 * abspath = abspath.replaceAll("Desktop", "git");
+			 * 
+			 * filepath=abspath+"/kyrsovaya2/src/main/webapp/Check.pdf";
+			 * 
+			 * String imagepath=abspath+"/kyrsovaya2/src/main/webapp/picture/ugatu.png";
+			 * 
+			 * String fontpath =abspath+"/kyrsovaya2/src/main/webapp/fonts/times.ttf";
+			 */
 
             document.open();
 
 
             try {
-                times = BaseFont.createFont(fontpath, "cp1251", BaseFont.EMBEDDED, true);
+                times = BaseFont.createFont("/fonts/times.ttf", "cp1251", BaseFont.EMBEDDED, true);
             } catch (DocumentException | IOException e) {
                 e.printStackTrace();
             }
@@ -107,7 +97,7 @@ public class GeneratePdfWeb {
 
             Image img = null;
 
-            try { img = Image.getInstance(imagepath);
+            try {img = Image.getInstance(GeneratePdfWeb.class.getClassLoader().getResource("/picture/ugatu.png"));;
 
             } catch (BadElementException e2) {
 

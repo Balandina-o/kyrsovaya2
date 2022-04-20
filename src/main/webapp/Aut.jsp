@@ -6,7 +6,7 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="./style.css" />
+        <link rel="stylesheet" href="./style/style.css" />
         <title>Document</title>
     </head>
     <body>
@@ -17,19 +17,19 @@
                     Расчет налога на имущество физических лиц
                 </h2>
             </div>
-            <img src="./img/logo.png" alt="Логотип УГАТУ" />
+            <img src="./picture/usatu.png" alt="Логотип УГАТУ" />
         </header>
 
         <main>
-            <form class="container">
+            <form class="container" name="authoForm" action="AuthoServlet" method="GET">
                 <h2>Вход</h2>
                 <div class="input-box">
                     <label for="login">Логин</label>
-                    <input type="text" id="login" />
+                    <input type="text" name="login" required/>
                 </div>
                 <div class="input-box">
                     <label for="password">Пароль</label>
-                    <input type="password" id="password" />
+                    <input type="password" name="password" required/>
                 </div>
                 <div class="button-box">
                     <button type="button">Зарегистрироваться</button>
