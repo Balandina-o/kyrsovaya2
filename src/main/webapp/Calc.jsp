@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
@@ -75,19 +75,7 @@
                     <input type="number" />
                 </div>
 
-                <div class="input-box input-box__one-column">
-                    <label for="">Имеются ли у вас льготы?</label>
-                    <div class="lgots">
-                        <div class="radio">
-                            <label for="">Да</label>
-                            <input type="radio" name="lgots" id="" />
-                        </div>
-                        <div class="radio">
-                            <label for="">Нет</label>
-                            <input type="radio" name="lgots" id="" />
-                        </div>
-                    </div>
-                </div>
+                
 
                 <div class="input-box input-box__one-column">
                     <label for="">Введите размер льготы (%)</label>
