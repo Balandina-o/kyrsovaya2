@@ -7,7 +7,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="./style/style.css" />
-        <title>Document</title>
+        <title>Изменение коэффициентов</title>
     </head>
     <body>
         <header>
@@ -25,26 +25,26 @@
                 <h2>Панель изменения коэффициентов</h2>
                 <div class="input-box input-box__one-column">
                     <label for="">Региональный коэффициент для налоговой ставки в г. Уфе</label>
-                    <input type="number" />
+                     <input type="number" name="coeffUfa" value="${coeffUfa}" max="3" step="0.001" min="0.001"/>
                 </div>
 
                 <div class="input-box input-box__one-column">
                     <label for="">Региональный коэффициент для налоговой ставки в г. Казани</label>
-                    <input type="number" max="3" min="1" />
+                    <input type="number" name="coeffKazan" value="${coeffKazan}" max="3" step="0.001" min="0.001"/>
                 </div>
 
                 <div class="input-box input-box__one-column">
                     <label for="">Региональный коэффициент для налоговой ставки в г. Москве</label>
-                    <input type="number" />
+                    <input type="number" name="coeffMoscow" value="${coeffMoscow}" max="3" step="0.001" min="0.001"/>
                 </div>
 
                 <div class="input-box input-box__one-column">
                     <label for="">Региональный коэффициент для налоговой ставки в г. Горно-Алтайске</label>
-                    <input type="text" />
+                    <input type="number" name="coeffGorn" value="${coeffGorn}" max="3" step="0.001" min="0.001"/>
                 </div>
                 <div class="button-box">
-                    <button type="button">Выход</button>
-                    <button type="submit">Изменить</button>
+                    <button name="exitButton" value="exitButton">Выход</button>
+                    <button type="submit" name="button" value="changeButton">Изменить</button>
                 </div>
             </form>
         </main>

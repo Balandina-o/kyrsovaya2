@@ -32,15 +32,16 @@ public class AuthoServlet extends HttpServlet {
 
 		if (!login.contains(" ") & !password.contains(" ")) { //Проверять на ";"? /TODO уже ;
 			
-			if (login.equals("admin") & password.equals("admin")) {
-				page = "/Calc.jsp";
-			}
-			
 			//Здесь
 			//передача логина и пароля в Менеджер
 			//Тут будет условие: если админ - на форму админа, юзер - в калькулятор
 			
-			page = "/Calc.jsp"; //Форма, на которую будет перенаправление. Калькулятор
+			if (login.equals("admin") & password.equals("admin")) {
+				page = "/Dashboard.jsp";
+			} else {
+				page = "/Calc.jsp"; //Форма, на которую будет перенаправление. Калькулятор
+			}
+			
 			
 		}else {
 			page = "/Aut.jsp";//Авторизация,пользователь останется на той же странице
