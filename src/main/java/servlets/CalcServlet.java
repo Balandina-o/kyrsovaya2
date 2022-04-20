@@ -76,7 +76,7 @@ public class CalcServlet extends HttpServlet {
 
 		}
 		
-		if (request.getParameter("button").equals("pdfButton")) { // если нажата кнопка генерации док-та
+		if (request.getParameter("pdfButton") != null) { // если нажата кнопка генерации док-та
 			if(valid.getResult() != null) { // если результат посчитался
 				response.setContentType("application/octet-stream");
 				response.setHeader("Content-Disposition", "attachment; filename=DocumentGroup2.pdf");
@@ -129,7 +129,7 @@ public class CalcServlet extends HttpServlet {
 			}
 		}
 		
-		if (request.getParameter("button").equals("exitButton")) { // если нажата кнопка генерации док-та
+		if (request.getParameter("exitButton") != null) { // если нажата кнопка генерации док-та
 			RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/Aut.jsp");
 			requestDispatcher.forward(request, response);
 			return;

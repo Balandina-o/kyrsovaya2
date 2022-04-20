@@ -87,9 +87,9 @@
                 </div>
 
                 <div class="button-box">
-                    <button type="submit" name="button" value="pdfButton">Сгенерировать PDF-файл</button>
+                    <button name="pdfButton" value="pdfButton">Сгенерировать PDF-файл</button>
+					<button name="exitButton" value="exitButton">Выйти из аккаунта</button>
 					<button type="submit" name="button" value="calcButton">Расчитать</button>
-					<button type="submit" name="button" value="exitButton">Выйти из аккаунта</button>
                 </div>
             </form>
         </main>
