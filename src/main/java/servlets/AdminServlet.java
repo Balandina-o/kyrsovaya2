@@ -1,5 +1,8 @@
 package servlets;
 
+import abstracts.RegionProperty;
+import abstracts.TaxAmount;
+
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
@@ -43,9 +46,11 @@ public class AdminServlet extends HttpServlet {
 		if (request.getParameter("exitButton") != null) { // если нажата кнопка выхода из аккаунта
 			RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/Aut.jsp");
 			requestDispatcher.forward(request, response);
+			//RegionProperty.getInstance().setInitRegionPropertyIndex(-5,-5);
+			//FIXME вынести в интерфейс- --> дублируется ?
 			return;
 		}
-			
+		//FIXME вынести в интерфейс- --> дублируется ?
 		//перенаправление, чтобы юзер остался на той же форме
 		RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/Dashboard.jsp");
 		requestDispatcher.forward(request, response);

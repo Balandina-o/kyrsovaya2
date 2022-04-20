@@ -66,6 +66,7 @@ public class CalcServlet extends HttpServlet {
 				period,
 				childrens != "" ? childrens : "0",
 						benefit != "" ? benefit : "0");
+		//FIXME условия вынести в методы
 
 		if (valid.validate() != "") { // если строка ошибок не пуста
 			request.setAttribute("errors", valid.validate()); // установить их на форму
@@ -90,8 +91,8 @@ public class CalcServlet extends HttpServlet {
 							period,
 							childrens != "" ? childrens : "0",
 							benefit != "" ? benefit : "0",
-							regionIndex,
-							propertyIndex,
+							regionIndex, //TODO не нужно передавать
+							propertyIndex, //TODO не нужно передавать
 							valid.getResult()
 					));
 
@@ -132,12 +133,14 @@ public class CalcServlet extends HttpServlet {
 		if (request.getParameter("exitButton") != null) { // если нажата кнопка выхода из аккаунта
 			RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/Aut.jsp");
 			requestDispatcher.forward(request, response);
+			//FIXME вынести в интерфейс- --> дублируется ?
 			return;
 		}
 			
 		//перенаправление, чтобы юзер остался на той же форме
 		RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/Calc.jsp");
 		requestDispatcher.forward(request, response);
+		//FIXME вынести в интерфейс- --> дублируется ?
 		return;
 
 	}

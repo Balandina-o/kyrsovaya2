@@ -80,8 +80,9 @@ public class GeneratePdfWeb {
             }
 
             Image img = null;
-
-            try {img = Image.getInstance(GeneratePdfWeb.class.getClassLoader().getResource("/picture/ugatu.png"));;
+            //Fixme Оно не работает?
+            try {
+                img = Image.getInstance(GeneratePdfWeb.class.getClassLoader().getResource("/picture/ugatu.png"));
 
             } catch (BadElementException e2) {
 
@@ -93,7 +94,9 @@ public class GeneratePdfWeb {
 
             img.setAbsolutePosition(90, 500);
 
-            try { document.add(img); } catch (DocumentException e) { e.printStackTrace();
+            try { document.add(img);
+            } catch (DocumentException e) {
+                e.printStackTrace();
             }
 
             paragraph.clear();
@@ -130,7 +133,7 @@ public class GeneratePdfWeb {
         String cell2 = inventoryTax;
         String cell3 = square;
         String cell4 = childrenCount;
-
+        //TODO повторяется
         table.addCell((new Phrase(cell1, new Font(times,14))));
         table.addCell((new Phrase(cell2, new Font(times,14))));
         table.addCell((new Phrase(cell3, new Font(times,14))));

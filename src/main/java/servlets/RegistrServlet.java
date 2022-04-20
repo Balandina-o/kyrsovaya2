@@ -1,5 +1,7 @@
 package servlets;
 
+import authorization.ManagerClient;
+
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
@@ -24,7 +26,7 @@ public class RegistrServlet extends HttpServlet{
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 
-		String login, password, page;
+		String login, password, page="/Reg.jsp";
 		response.setContentType("text/html");
 
 		login = request.getParameter("login"); //.trim(); <-- оно работает
@@ -35,20 +37,29 @@ public class RegistrServlet extends HttpServlet{
 			//Здесь
 			//передача логина и пароля в Менеджер
 			//Тут будет условие: если админ - на форму админа, юзер - в калькулятор
-
-			if (login.equals("admin") & password.equals("admin")) {
-				page = "/Dashboard.jsp";
-			} else {
+			//TODO все будет работать. только на кнопку не нажимается
+			String messageAuthZ = ManagerClient.apiReg(login, password);
+			System.out.println(messageAuthZ);
+			if ("Зарегистрирован".equals(messageAuthZ)) {
 				page = "/Calc.jsp"; //Форма, на которую будет перенаправление. Калькулятор
+			}else{
+				// Тут ставить сообщение в форму ошибки без перенаправления
+				//	.set(messageAuthZ) "Логин занят"
 			}
 
-
-		}else {
-			page = "/Aut.jsp";//Авторизация,пользователь останется на той же странице
-			//request.setAttribute("error", "Логин и пароль не должны содержать пробелы!");
+//			if (login.equals("admin") & password.equals("admin")) {
+//				page = "/Dashboard.jsp";
+//			} else {
+//				page = "/Calc.jsp"; //Форма, на которую будет перенаправление. Калькулятор
+//			}
+//
+//
+//		}else {
+//			page = "/Aut.jsp";//Авторизация,пользователь останется на той же странице
+//			//request.setAttribute("error", "Логин и пароль не должны содержать пробелы!");
 
 		}
-
+		//FIXME вынести в интерфейс- --> дублируется ?
 		RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher(page);
 		requestDispatcher.forward(request, response);//код перенаправления
 		return;

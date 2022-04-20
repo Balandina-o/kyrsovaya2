@@ -32,16 +32,20 @@ public class AuthoServlet extends HttpServlet {
 		login = request.getParameter("login"); //.trim(); <-- оно работает
 		password = request.getParameter("password"); //.trim();
 
+		//1 раз поставил в самой 1 форме и все
+
 		if (!login.contains(" ") & !password.contains(" ")) { //Проверять на ";"? /TODO уже ;
 
+			this.setPath(request);
 			//Здесь
 			//передача логина и пароля в Менеджер
 			//Тут будет условие: если админ - на форму админа, юзер - в калькулятор
 
+
 			//Установка пути
 			String messageAuthZ = ManagerClient.apiAuthZ(login, password);
 			if ("Вы вошли".equals(messageAuthZ)) {
-				page = "Calc.jsp"; //Форма, на которую будет перенаправление. Калькулятор
+				page = "/Calc.jsp"; //Форма, на которую будет перенаправление. Калькулятор
 			}else{
 				// Тут ставить сообщение в форму ошибки без перенаправления
 				//	.set(messageAuthZ)
@@ -59,10 +63,17 @@ public class AuthoServlet extends HttpServlet {
 //			//request.setAttribute("error", "Логин и пароль не должны содержать пробелы!");
 //
 //		}
-
+			//FIXME вынести в интерфейс- --> дублируется ?
 			RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher(page);
 			requestDispatcher.forward(request, response);//код перенаправления
 			return;
 		}
+	}
+	private void setPath(HttpServletRequest request){
+		String path = "/resources/";
+
+		AccessResourcePath.PATH_resources.setPath(request.getServletContext().getRealPath(path)); // .PropertyTaxWebApp/
+		System.out.println(AccessResourcePath.PATH_resources.toString());
+
 	}
 }
