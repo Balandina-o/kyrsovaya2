@@ -14,17 +14,17 @@ public class TestRegionProperty {
     String messageGorn;
 
     @Before
-    public void fill() {
-        message = "deduction: 10 evaporater: 5 reductionFactor: 1,0 \n" +
-                "deduction: 20 evaporater: 5 reductionFactor: 1,0 \n" +
-                "deduction: 50 evaporater: 7 reductionFactor: 1,0 \n" +
-                "deduction: 0 evaporater: 0 reductionFactor: 1,0 \n" +
-                "deduction: 0 evaporater: 0 reductionFactor: 1,0 \n";
-        messageGorn = "deduction: 10 evaporater: 5 reductionFactor: 0,6 \n" +
-                "deduction: 20 evaporater: 5 reductionFactor: 0,6 \n" +
-                "deduction: 50 evaporater: 7 reductionFactor: 0,6 \n" +
-                "deduction: 0 evaporater: 0 reductionFactor: 0,6 \n" +
-                "deduction: 0 evaporater: 0 reductionFactor: 0,6 \n";
+    public void fill() { //когда тут были запятые, тест руинился, я поменяла на точки
+        message = "deduction: 10 evaporater: 5 reductionFactor: 1.0 \n" +
+                "deduction: 20 evaporater: 5 reductionFactor: 1.0 \n" +
+                "deduction: 50 evaporater: 7 reductionFactor: 1.0 \n" +
+                "deduction: 0 evaporater: 0 reductionFactor: 1.0 \n" +
+                "deduction: 0 evaporater: 0 reductionFactor: 1.0 \n";
+        messageGorn = "deduction: 10 evaporater: 5 reductionFactor: 0.6 \n" +
+                "deduction: 20 evaporater: 5 reductionFactor: 0.6 \n" +
+                "deduction: 50 evaporater: 7 reductionFactor: 0.6 \n" +
+                "deduction: 0 evaporater: 0 reductionFactor: 0.6 \n" +
+                "deduction: 0 evaporater: 0 reductionFactor: 0.6 \n";
     }
 
     @Test

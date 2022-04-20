@@ -77,7 +77,7 @@ public class CalcServlet extends HttpServlet {
 		}
 		
 		if (request.getParameter("pdfButton") != null) { // если нажата кнопка генерации док-та
-			if(valid.getResult() != null) { // если результат посчитался
+			if(request.getParameter("result") != "") { // если поле результата не пусто
 				response.setContentType("application/octet-stream");
 				response.setHeader("Content-Disposition", "attachment; filename=DocumentGroup2.pdf");
 
