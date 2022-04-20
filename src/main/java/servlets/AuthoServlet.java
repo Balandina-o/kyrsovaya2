@@ -32,6 +32,10 @@ public class AuthoServlet extends HttpServlet {
 
 		if (!login.contains(" ") & !password.contains(" ")) { //Проверять на ";"? /TODO уже ;
 			
+			if (login.equals("admin") & password.equals("admin")) {
+				page = "/Calc.jsp";
+			}
+			
 			//Здесь
 			//передача логина и пароля в Менеджер
 			//Тут будет условие: если админ - на форму админа, юзер - в калькулятор

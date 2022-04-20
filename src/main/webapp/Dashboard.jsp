@@ -21,25 +21,25 @@
         </header>
 
         <main>
-            <form class="container">
-                <h2>Привет админ</h2>
+            <form class="container" name="adminform" action="AdminServlet" method="POST">
+                <h2>Панель изменения коэффициентов</h2>
                 <div class="input-box input-box__one-column">
-                    <label for="">Кадровая стоимость объекта (₽)</label>
+                    <label for="">Региональный коэффициент для налоговой ставки в г. Уфе</label>
                     <input type="number" />
                 </div>
 
                 <div class="input-box input-box__one-column">
-                    <label for="">Налог на инвертариз. стоимости (₽)</label>
+                    <label for="">Региональный коэффициент для налоговой ставки в г. Казани</label>
                     <input type="number" max="3" min="1" />
                 </div>
 
                 <div class="input-box input-box__one-column">
-                    <label for="">Площадь объекта (м²)</label>
+                    <label for="">Региональный коэффициент для налоговой ставки в г. Москве</label>
                     <input type="number" />
                 </div>
 
                 <div class="input-box input-box__one-column">
-                    <label for="">Размер доли в проаве (1/* или 1)</label>
+                    <label for="">Региональный коэффициент для налоговой ставки в г. Горно-Алтайске</label>
                     <input type="text" />
                 </div>
                 <div class="button-box">
