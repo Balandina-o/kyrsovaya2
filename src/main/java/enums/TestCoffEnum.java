@@ -1,6 +1,7 @@
 package enums;
 
 import UtilFiles.PairFromFile;
+import servlets.AccessResourcePath;
 
 import java.io.*;
 import java.nio.file.Path;
@@ -9,7 +10,7 @@ import java.util.*;
 public enum TestCoffEnum {
     UFA_COFF, Kazan_COFF, Moscow_COFF, Gorn_COFF;
     private double value;
-    private static final String PATH = "./src/main/resources/coffForAdmin";
+    private static final String PATH = "/coffForAdmin";
 
     public double getValue() {
         return value;
@@ -21,7 +22,8 @@ public enum TestCoffEnum {
 
     public static void fill() {
         PairFromFile files = new PairFromFile();
-        LinkedHashMap<String, String> readPair = new LinkedHashMap<>(files.readFileAsPair(Path.of(PATH)));
+        String fullPath = AccessResourcePath.PATH_resources.getPath()+PATH;
+        LinkedHashMap<String, String> readPair = new LinkedHashMap<>(files.readFileAsPair((fullPath)));
         for (var LogInFile : readPair.entrySet()) {
             String Key = (LogInFile.getKey());
             double Value = Double.parseDouble(LogInFile.getValue());

@@ -28,9 +28,9 @@ public class PairFromFile implements ReadFile {
      * @return - Пары элементов разделенные ";"
      */
     @Override
-    public LinkedHashMap<String, String> readFileAsPair(Path path) {
+    public LinkedHashMap<String, String> readFileAsPair(String path) {
         LinkedHashMap<String, String> map = new LinkedHashMap<>();
-        for (var line : readFileAsString((String.valueOf(path)))) {
+        for (var line : readFileAsString((path))) {
             String[] xx = line.split(";");
             map.put(xx[0], xx[1]);
         }

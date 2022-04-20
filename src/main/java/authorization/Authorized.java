@@ -21,7 +21,7 @@ interface Authorized {
     static boolean authentication(String log, String password, String path) {
 //        boolean abb = isCorrectAuth(log, password); //FIXME при абстрактном
         PairFromFile files = new PairFromFile();
-        var readPair = files.readFileAsPair(Path.of(path));
+        var readPair = files.readFileAsPair(path);
         CipherText line = new CryptLine();
         try {
             for (var entry : readPair.entrySet()) {
@@ -44,7 +44,7 @@ interface Authorized {
     static boolean createNew(String login, String password, String path) {
         boolean ind = findByLogin(login, path);
         if (ind) {
-            try (PrintWriter writer = new PrintWriter(new FileWriter(path, true))) {
+            try (PrintWriter writer = new PrintWriter(new FileWriter(String.valueOf(Path.of(path)), true))) {
                 CipherText line = new CryptLine();
                 //Шифрование пароля при создании.
                 String cipherPass = line.encrypt(password);
@@ -65,7 +65,7 @@ interface Authorized {
     private static boolean findByLogin(String login, String path) {
         int count = 0; // count служит переменной уникальностью
         PairFromFile files = new PairFromFile();
-        var readPair = files.readFileAsPair(Path.of(path));
+        var readPair = files.readFileAsPair(path);
         for (String LogInFile : readPair.keySet()) {
             if (Objects.equals(LogInFile, login)) {
                 count++;
