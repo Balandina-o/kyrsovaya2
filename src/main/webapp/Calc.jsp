@@ -33,7 +33,7 @@
 						<option value="40" ${regionIndex=="40"?'selected':""}>г.Горно-Алтайск 04</option>
                     </select>
                 </div>
-
+                
                 <div class="input-box input-box__one-column">
                     <label for="">Тип недвижимости</label>
                     <select name="propertyIndex">
@@ -48,17 +48,17 @@
 
                 <div class="input-box input-box__one-column">
                     <label for="">Кадровая стоимость объекта (₽)</label>
-                    <input type="number" name="kadastr" value="${kadastr}" />
+                    <input type="text" name="kadastr" value="${kadastr}" />
                 </div>
 
                 <div class="input-box input-box__one-column">
                     <label for="">Налог на инвертариз. стоимости (₽)</label>
-					<input type="number" name="tax" value="${tax}" />
+					<input type="text" name="tax" value="${tax}" />
                 </div>
 
                 <div class="input-box input-box__one-column">
                     <label for="">Площадь объекта (м²)</label>
-                    <input type="number" name="square" value="${square}" />
+                    <input type="text" name="square" value="${square}" />
                 </div>
 
                 <div class="input-box input-box__one-column">
@@ -68,28 +68,39 @@
 
                 <div class="input-box input-box__one-column">
                     <label for="">Переод владения (в мес. от 1 до 12)</label>
-                    <input type="number" min="1" max="12" name="period" value="${period}" />
+                    <input type="text" name="period" value="${period}" />
                 </div>
 
                 <div class="input-box input-box__one-column">
                     <label for="">Число несовершеннолетних детей</label>
-                    <input type="number" name="childrens" value="${childrens}" />
+                    <input type="text" name="childrens" value="${childrens}" />
                 </div>
 
                 <div class="input-box input-box__one-column">
                     <label for="">Введите размер льготы (%)</label>
-                   	<input type="number" name="benefit" min="0" max="100" value="${benefit}" />
+                   	<input type="text" name="benefit" min="0" max="100" value="${benefit}" />
                 </div>
 
                 <div class="input-box">
                     <label for="">Сумма к уплате:</label>
                     <input type="text" name="result" value="${result}" />
                 </div>
+                
+                    <input id="err" type="hidden" name="errors" value="${errors}" />
+			<script> 
+			function message() {
+				if (document.querySelector("input[name='errors']").value != ""){
+					alert(document.querySelector("input[name='errors']").value);
+				} else {
+					alert('Кадастровая стоимость: поле не может быть пустым\nИнвентаризационный налог: поле не может быть пустым\nПлощадь: поле не может быть пустым\nРазмер доли: поле не может быть пустым\nПериод владения: поле не может быть пустым');
+				}
+				} 
+			</script>
 
                 <div class="button-box">
                     <button name="pdfButton" value="pdfButton">Сгенерировать PDF-файл</button>
 					<button name="exitButton" value="exitButton">Выйти из аккаунта</button>
-					<button type="submit" name="button" value="calcButton">Расчитать</button>
+					<button type="submit" name="button" value="calcButton" onclick="message()">Расчитать</button>
                 </div>
             </form>
         </main>
