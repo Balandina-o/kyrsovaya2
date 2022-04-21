@@ -17,7 +17,7 @@
                     Расчет налога на имущество физических лиц
                 </h2>
             </div>
-            <img src="./img/logo.png" alt="Логотип УГАТУ" />
+            <img src="./resources/picture/usatu.png" alt="Логотип УГАТУ" />
         </header>
 
         <main>
@@ -25,11 +25,11 @@
                 <h2>Введите данные для расчёта</h2>
         <script>        
         window.onload = function() {
-			if (document.querySelector("input[name='errors']").value != ""){
-					alert(document.querySelector("input[name='errors']").value);
-				} else {
-					alert("Для начала расчета, пожалуйста, введите значения в поля");
+			if (document.querySelector("input[name='errorsCalc']").value != "noMessage"){
+				if (document.querySelector("input[name='errorsCalc']").value != ""){
+					alert(document.querySelector("input[name='errorsCalc']").value);
 				}
+        	}else{}
 			}
 		</script>     
                 <div class="input-box input-box__one-column">
@@ -94,7 +94,7 @@
                     <input type="text" name="result" value="${result}" />
                 </div>
                 
-                    <input id="err" type="hidden" name="errors" value="${errors}" />
+                    <input type="hidden" name="errorsCalc" value="${errorsCalc}" />
 			
                 <div class="button-box">
                     <button name="pdfButton" value="pdfButton">Сгенерировать PDF-файл</button>
@@ -104,8 +104,8 @@
             </form>
         </main>
 
-        <footer>
+      <footer>
             <a href="">О разработчиках</a>
-            </footer>
-            </body>
-            </html>
+       </footer>
+     </body>
+</html>

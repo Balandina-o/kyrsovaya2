@@ -47,10 +47,13 @@ public class AuthoServlet extends HttpServlet {
 			if ("Вы вошли".equals(messageAuthZ)) {
 				page = "/Calc.jsp"; //Форма, на которую будет перенаправление. Калькулятор
 			}else{
+				request.setAttribute("errorsAut", messageAuthZ);
 				// Тут ставить сообщение в форму ошибки без перенаправления
 				//	.set(messageAuthZ)
 			}
-
+		}else {
+			request.setAttribute("errorsAut", "Логи и пароль не могут содержать пробелы!");
+		}
 //			// /Aut.jsp уже присвоено в 29 строке
 //			if (login.equals("admin") & password.equals("admin")) {
 //				page = "/Dashboard.jsp";
@@ -67,8 +70,8 @@ public class AuthoServlet extends HttpServlet {
 			RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher(page);
 			requestDispatcher.forward(request, response);//код перенаправления
 			return;
-		}
 	}
+	
 	private void setPath(HttpServletRequest request){
 		String path = "/resources/";
 

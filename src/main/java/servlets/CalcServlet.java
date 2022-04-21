@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,6 +28,7 @@ public class CalcServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		
@@ -67,13 +70,16 @@ public class CalcServlet extends HttpServlet {
 				childrens != "" ? childrens : "0",
 						benefit != "" ? benefit : "0");
 		//FIXME условия вынести в методы
+		
+		this.setPath(request);
 
 		if (valid.validate() != "") { // если строка ошибок не пуста
-			request.setAttribute("errors", valid.validate()); // установить их на форму
+			request.setAttribute("errorsCalc", valid.validate()); // установить их на форму
 
 		}else { // иначе получить посчитанный результат и поставить его на форму
 			valid.getResult();
 			request.setAttribute("result", valid.getResult());
+			request.setAttribute("errorsCalc", "noMessage"); 
 
 		}
 		
@@ -131,6 +137,7 @@ public class CalcServlet extends HttpServlet {
 		}
 		
 		if (request.getParameter("exitButton") != null) { // если нажата кнопка выхода из аккаунта
+			request.setAttribute("errorsCalc", "noMessage"); 
 			RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/Aut.jsp");
 			requestDispatcher.forward(request, response);
 			//FIXME вынести в интерфейс- --> дублируется ?
@@ -144,4 +151,12 @@ public class CalcServlet extends HttpServlet {
 		return;
 
 	}
+	private void setPath(HttpServletRequest request){
+		String path = "/resources/";
+
+		AccessResourcePath.PATH_resources.setPath(request.getServletContext().getRealPath(path)); // .PropertyTaxWebApp/
+		System.out.println(AccessResourcePath.PATH_resources.toString());
+
+	}
+	
 }

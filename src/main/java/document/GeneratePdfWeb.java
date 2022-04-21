@@ -19,6 +19,8 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
+import servlets.AccessResourcePath;
+
 public class GeneratePdfWeb {
     private static String cadastralValue, inventoryTax, square, portion, holdingPeriodRatio, 
     childrenCount, exemption, deduction, reductionFactor, evaporater;
@@ -50,8 +52,9 @@ public class GeneratePdfWeb {
 
             document.open();
             
+            var fullPath = AccessResourcePath.PATH_resources.getPath();  
             try {
-                times = BaseFont.createFont("/fonts/times.ttf", "cp1251", BaseFont.EMBEDDED, true);
+                times = BaseFont.createFont(fullPath + "/fonts/times.ttf", "cp1251", BaseFont.EMBEDDED, true);
             } catch (DocumentException | IOException e) {
                 e.printStackTrace();
             }
@@ -82,7 +85,7 @@ public class GeneratePdfWeb {
             Image img = null;
             //Fixme Оно не работает?
             try {
-                img = Image.getInstance(GeneratePdfWeb.class.getClassLoader().getResource("/picture/ugatu.png"));
+                img = Image.getInstance(fullPath + "/picture/ugatu.png");
 
             } catch (BadElementException e2) {
 
@@ -134,6 +137,9 @@ public class GeneratePdfWeb {
         String cell3 = square;
         String cell4 = childrenCount;
         //TODO повторяется
+        
+        
+        
         table.addCell((new Phrase(cell1, new Font(times,14))));
         table.addCell((new Phrase(cell2, new Font(times,14))));
         table.addCell((new Phrase(cell3, new Font(times,14))));
