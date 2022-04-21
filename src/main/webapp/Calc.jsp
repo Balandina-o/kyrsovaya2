@@ -23,7 +23,15 @@
         <main>
             <form class="container" name="calcform" action="CalcServlet" method="POST">
                 <h2>Введите данные для расчёта</h2>
-
+        <script>        
+        window.onload = function() {
+			if (document.querySelector("input[name='errors']").value != ""){
+					alert(document.querySelector("input[name='errors']").value);
+				} else {
+					alert("Для начала расчета, пожалуйста, введите значения в поля");
+				}
+			}
+		</script>     
                 <div class="input-box input-box__one-column">
                     <label for="">Муницип. образование</label>
                     <select name="regionIndex">
@@ -87,20 +95,11 @@
                 </div>
                 
                     <input id="err" type="hidden" name="errors" value="${errors}" />
-			<script> 
-			function message() {
-				if (document.querySelector("input[name='errors']").value != ""){
-					alert(document.querySelector("input[name='errors']").value);
-				} else {
-					alert('Кадастровая стоимость: поле не может быть пустым\nИнвентаризационный налог: поле не может быть пустым\nПлощадь: поле не может быть пустым\nРазмер доли: поле не может быть пустым\nПериод владения: поле не может быть пустым');
-				}
-				} 
-			</script>
-
+			
                 <div class="button-box">
                     <button name="pdfButton" value="pdfButton">Сгенерировать PDF-файл</button>
 					<button name="exitButton" value="exitButton">Выйти из аккаунта</button>
-					<button type="submit" name="button" value="calcButton" onclick="message()">Расчитать</button>
+					<button type="submit" name="button" value="calcButton">Расчитать</button>
                 </div>
             </form>
         </main>
