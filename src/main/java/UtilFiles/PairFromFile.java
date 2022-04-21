@@ -4,7 +4,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
-
+/**
+ * @author Artyom Zlygostev
+ * @version 1.0
+ *<br> Реализация Чтения Из файла Пар и Строк
+ */
 public class PairFromFile implements ReadFile {
     /**
      * Метод чтение строки из файла

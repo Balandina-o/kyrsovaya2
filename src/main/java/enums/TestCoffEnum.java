@@ -4,7 +4,6 @@ import UtilFiles.PairFromFile;
 import servlets.AccessResourcePath;
 
 import java.io.*;
-import java.nio.file.Path;
 import java.util.*;
 
 public enum TestCoffEnum {
@@ -19,8 +18,8 @@ public enum TestCoffEnum {
     public void setValue(double value) {
         this.value = value;
     }
-
-    public static void fill() {
+    //Сначала надо заполнить поля из файла
+    public static void fillFromFile() {
         PairFromFile files = new PairFromFile();
         String fullPath = AccessResourcePath.PATH_resources.getPath()+PATH;
         LinkedHashMap<String, String> readPair = new LinkedHashMap<>(files.readFileAsPair((fullPath)));
@@ -30,7 +29,7 @@ public enum TestCoffEnum {
             TestCoffEnum.valueOf(Key).setValue(Value);
         }
     }
-
+// При нажатии Кнопки изменяются enum потом пишутся в файл
     public static void changeCoffADMIN() {
         //FIXME это нужно админу
         //сначала изменяются в java потом ниже заносятся в файл
@@ -53,7 +52,7 @@ public enum TestCoffEnum {
     }
 
     public static void main(String[] args) {
-        TestCoffEnum.fill();
+        TestCoffEnum.fillFromFile();
         for (var x : TestCoffEnum.values()) {
             System.out.println(x.getValue());
         }
