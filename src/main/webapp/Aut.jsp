@@ -16,8 +16,16 @@
                 <h2 class="subtitle">
                     Расчет налога на имущество физических лиц
                 </h2>
+                
+                <script>        
+        		window.onload = function() {
+					if (document.querySelector("input[name='errorsAut']").value != ""){
+						alert(document.querySelector("input[name='errorsAut']").value);
+					}}
+				</script> 
+                
             </div>
-            <img src="./picture/usatu.png" alt="Логотип УГАТУ" />
+            <img src="./resources/picture/usatu.png" alt="Логотип УГАТУ" />
         </header>
 
         <main>
@@ -25,16 +33,19 @@
                 <h2>Вход</h2>
                 <div class="input-box">
                     <label for="login">Логин</label>
-                    <input type="text" name="login" required/>
+                    <input type="text" name="login"/>
                 </div>
                 <div class="input-box">
                     <label for="password">Пароль</label>
-                    <input type="password" name="password" required/>
+                    <input type="password" name="password"/>
                 </div>
                 <div class="button-box">
-                    <button type="button">Зарегистрироваться</button>
+                    <button name="regButton" value="regButton">Зарегистрироваться</button>
                     <button type="submit">Войти</button>
                 </div>
+                
+                <input type="hidden" name="errorsAut" value="${errorsAut}" />
+              
             </form>
         </main>
 

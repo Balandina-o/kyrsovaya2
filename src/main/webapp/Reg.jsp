@@ -17,24 +17,35 @@
                     Расчет налога на имущество физических лиц
                 </h2>
             </div>
-            <img src="./img/logo.png" alt="Логотип УГАТУ" />
+            <img src="./resources/picture/usatu.png" alt="Логотип УГАТУ" />
         </header>
 
         <main>
-            <form class="container">
+            <form class="container" name="regForm" action="RegistrServlet" method="GET">
                 <h2>Регистрация</h2>
+                
+                <script>        
+        		window.onload = function() {
+					if (document.querySelector("input[name='messageReg']").value != ""){
+						alert(document.querySelector("input[name='messageReg']").value);
+					}}
+				</script> 
+                
                 <div class="input-box">
                     <label for="login">Логин</label>
-                    <input type="text" id="login" />
+                    <input type="text" name="login" />
                 </div>
                 <div class="input-box">
                     <label for="password">Пароль</label>
-                    <input type="password" id="password" />
+                    <input type="password" name="password" />
                 </div>
                 <div class="button-box">
-                    <button type="submit">Войти</button>
-                    <button type="button">Зарегистрироваться</button>
+                    <button name="exitButton" value="exitButton">Назад</button>
+                    <button type="submit">Зарегистрироваться</button>
                 </div>
+
+                 <input type="hidden" name="messageReg" value="${messageReg}" />
+                
             </form>
         </main>
 

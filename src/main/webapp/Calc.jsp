@@ -17,13 +17,20 @@
                     Расчет налога на имущество физических лиц
                 </h2>
             </div>
-            <img src="./img/logo.png" alt="Логотип УГАТУ" />
+            <img src="./resources/picture/usatu.png" alt="Логотип УГАТУ" />
         </header>
 
         <main>
             <form class="container" name="calcform" action="CalcServlet" method="POST">
                 <h2>Введите данные для расчёта</h2>
-
+        <script>        
+        window.onload = function() {
+			if (document.querySelector("input[name='errorsCalc']").value != "noMessage"){
+				if (document.querySelector("input[name='errorsCalc']").value != ""){
+					alert(document.querySelector("input[name='errorsCalc']").value);
+				}
+        	}else{}}
+		</script>     
                 <div class="input-box input-box__one-column">
                     <label for="">Муницип. образование</label>
                     <select name="regionIndex">
@@ -86,27 +93,18 @@
                     <input type="text" name="result" value="${result}" />
                 </div>
                 
-                    <input id="err" type="hidden" name="errors" value="${errors}" />
-			<script> 
-			function message() {
-				if (document.querySelector("input[name='errors']").value != ""){
-					alert(document.querySelector("input[name='errors']").value);
-				} else {
-					alert('Кадастровая стоимость: поле не может быть пустым\nИнвентаризационный налог: поле не может быть пустым\nПлощадь: поле не может быть пустым\nРазмер доли: поле не может быть пустым\nПериод владения: поле не может быть пустым');
-				}
-				} 
-			</script>
-
+                    <input type="hidden" name="errorsCalc" value="${errorsCalc}" />
+			
                 <div class="button-box">
                     <button name="pdfButton" value="pdfButton">Сгенерировать PDF-файл</button>
 					<button name="exitButton" value="exitButton">Выйти из аккаунта</button>
-					<button type="submit" name="button" value="calcButton" onclick="message()">Расчитать</button>
+					<button type="submit" name="button" value="calcButton">Расчитать</button>
                 </div>
             </form>
         </main>
 
-        <footer>
+      <footer>
             <a href="">О разработчиках</a>
-            </footer>
-            </body>
-            </html>
+       </footer>
+     </body>
+</html>

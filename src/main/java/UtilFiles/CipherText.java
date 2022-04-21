@@ -6,9 +6,9 @@ import java.security.InvalidKeyException;
 import java.util.Base64;
 
 /**
- * @author Artyom
- * Интерфейс шифрование и расшифрования Текста
+ * @author Artyom Zlygostev
  * @version 1.0
+ * Интерфейс шифрование и расшифрования Текста
  */
 public interface CipherText {
     /**

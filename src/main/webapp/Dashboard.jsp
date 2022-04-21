@@ -17,7 +17,7 @@
                     Расчет налога на имущество физических лиц
                 </h2>
             </div>
-            <img src="./img/logo.png" alt="Логотип УГАТУ" />
+            <img src="./resources/picture/usatu.png" alt="Логотип УГАТУ" />
         </header>
 
         <main>

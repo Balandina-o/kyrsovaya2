@@ -60,7 +60,7 @@ public enum TestCoffEnum {
     //Потом при нажатии на кнопку вызывается метод changeCoff. куда передаются данные из формы
     public static void main(String[] args) {
         TestCoffEnum.FillFromFile();
-        TestCoffEnum.changeCoffADMIN(1.0,2.0,3.0,5.0);
+        TestCoffEnum.changeCoffADMIN(1.0,2.0,4.0,5.0);
         for (var x: TestCoffEnum.values()) {
             System.out.println(x.getValue());
         }

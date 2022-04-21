@@ -26,6 +26,7 @@ public class CalcServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		
@@ -65,14 +66,20 @@ public class CalcServlet extends HttpServlet {
 				part,
 				period,
 				childrens != "" ? childrens : "0",
-						benefit != "" ? benefit : "0");
+				benefit != "" ? benefit : "0");
+		//FIXME условия вынести в методы
+		
+		//FIXME так это ведь синтаксический сахар, нормаально
+		
+		this.setPath(request);
 
 		if (valid.validate() != "") { // если строка ошибок не пуста
-			request.setAttribute("errors", valid.validate()); // установить их на форму
+			request.setAttribute("errorsCalc", valid.validate()); // установить их на форму
 
 		}else { // иначе получить посчитанный результат и поставить его на форму
 			valid.getResult();
 			request.setAttribute("result", valid.getResult());
+			request.setAttribute("errorsCalc", "noMessage"); 
 
 		}
 		
@@ -90,8 +97,6 @@ public class CalcServlet extends HttpServlet {
 							period,
 							childrens != "" ? childrens : "0",
 							benefit != "" ? benefit : "0",
-							regionIndex,
-							propertyIndex,
 							valid.getResult()
 					));
 
@@ -115,8 +120,6 @@ public class CalcServlet extends HttpServlet {
 							"---",
 							"---",
 							"---",
-							"---",
-							"---",
 							"0 Руб."
 					));
 
@@ -130,15 +133,26 @@ public class CalcServlet extends HttpServlet {
 		}
 		
 		if (request.getParameter("exitButton") != null) { // если нажата кнопка выхода из аккаунта
+			request.setAttribute("errorsCalc", "noMessage"); 
 			RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/Aut.jsp");
 			requestDispatcher.forward(request, response);
+			//FIXME вынести в интерфейс- --> дублируется ?
 			return;
 		}
 			
 		//перенаправление, чтобы юзер остался на той же форме
 		RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/Calc.jsp");
 		requestDispatcher.forward(request, response);
+		//FIXME вынести в интерфейс- --> дублируется ?
 		return;
 
 	}
+	private void setPath(HttpServletRequest request){
+		String path = "/resources/";
+
+		AccessResourcePath.PATH_resources.setPath(request.getServletContext().getRealPath(path)); // .PropertyTaxWebApp/
+		System.out.println(AccessResourcePath.PATH_resources.toString());
+
+	}
+	
 }
