@@ -24,9 +24,9 @@ import servlets.AccessResourcePath;
 public class GeneratePdfWeb {
     private static String cadastralValue, inventoryTax, square, portion, holdingPeriodRatio, 
     childrenCount, exemption, deduction, reductionFactor, evaporater;
-    
     private static String result;
-
+    private static String fontPath = "/fonts/times.ttf";
+    private static String imagePath = "/picture/ugatu.png";
     private static BaseFont times = null;
 
     public static byte[] generate(String cadastralValue, String inventoryTax, String square,
@@ -44,15 +44,15 @@ public class GeneratePdfWeb {
         GeneratePdfWeb.result = result;
         
         try {
+            String fullPath1 = AccessResourcePath.PATH_resources.getPath() + fontPath;
+            String fullPath2 = AccessResourcePath.PATH_resources.getPath() + imagePath;
             Document document = new Document();
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             PdfWriter.getInstance(document, stream);
 
             document.open();
-            
-            var fullPath = AccessResourcePath.PATH_resources.getPath();  
             try {
-                times = BaseFont.createFont(fullPath + "/fonts/times.ttf", "cp1251", BaseFont.EMBEDDED, true);
+                times = BaseFont.createFont(fullPath1, "cp1251", BaseFont.EMBEDDED, true);
             } catch (DocumentException | IOException e) {
                 e.printStackTrace();
             }
@@ -83,7 +83,7 @@ public class GeneratePdfWeb {
             Image img = null;
             //Fixme Оно не работает?
             try {
-                img = Image.getInstance(fullPath + "/picture/ugatu.png");
+                img = Image.getInstance(fullPath2);
 
             } catch (BadElementException e2) {
 
@@ -137,7 +137,7 @@ public class GeneratePdfWeb {
         //TODO повторяется
         
         
-        
+ 
         table.addCell((new Phrase(cell1, new Font(times,14))));
         table.addCell((new Phrase(cell2, new Font(times,14))));
         table.addCell((new Phrase(cell3, new Font(times,14))));

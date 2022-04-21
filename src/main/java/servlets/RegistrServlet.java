@@ -3,8 +3,6 @@ package servlets;
 import authorization.ManagerClient;
 
 import java.io.IOException;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,22 +30,19 @@ public class RegistrServlet extends HttpServlet{
 		login = request.getParameter("login");
 		password = request.getParameter("password");//.trim();
 
-		if (!login.contains(" ") & !password.contains(" ") ) {
-			//TODO все будет работать. только на кнопку не нажимается
-			//TODO сейчас все нормально. Удали, пожалуйста, новые учетки
-
+		if ((!login.contains(" ") & !password.contains(" ")) & (login != "" & password != "") & 
+			(!login.contains(";") & !password.contains(";"))){
 			String messageAuthZ = ManagerClient.apiReg(login, password);
-			//System.out.println(messageAuthZ);
 			
 			if ("Зарегистрирован".equals(messageAuthZ)) {
-				request.setAttribute("messageReg", "sucess");
+				request.setAttribute("messageReg", messageAuthZ);
 				page = "/Calc.jsp";
 				
 			}else{
 				request.setAttribute("messageReg", messageAuthZ);
 			}
 		}else {
-			request.setAttribute("messageReg", "Логин и пароль не могут содержать пробелы!");
+			request.setAttribute("messageReg", "Логин и пароль - обязательные поля, которые не могут содержать пробелы и символ ;");
 		}
 		
 		if (request.getParameter("exitButton") != null) { // если нажата кнопка выхода 

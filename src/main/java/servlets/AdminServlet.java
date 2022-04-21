@@ -40,8 +40,8 @@ public class AdminServlet extends HttpServlet {
 		request.setAttribute("coeffUfa", coeffUfa);//установка обратно на форму того, что ввел пользователь
 		request.setAttribute("coeffKazan", coeffKazan);
 		request.setAttribute("coeffMoscow", coeffMoscow);
-		request.setAttribute("coeffGorn", coeffGorn);
-
+		request.setAttribute("coeffGorn", coeffGorn);		
+		
 		//Тут запись в файл.. возможно, чтение оттуда
 		//24 строка пример записи и чтения. Нужен Сервлет для теста этого всего
 		

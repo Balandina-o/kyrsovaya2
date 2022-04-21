@@ -33,7 +33,8 @@ public class CalcServlet extends HttpServlet {
 		String kadastr, tax, square, part, period, childrens, benefit, regionIndex, propertyIndex;
 		response.setContentType("text/html");
 
-		regionIndex = request.getParameter("regionIndex");//получение данных из .джсп
+		String page = "/Calc.jsp";
+		regionIndex = request.getParameter("regionIndex");//получение данных
 		propertyIndex = request.getParameter("propertyIndex");
 		kadastr = request.getParameter("kadastr");
 		tax = request.getParameter("tax");
@@ -43,20 +44,25 @@ public class CalcServlet extends HttpServlet {
 		childrens = request.getParameter("childrens");
 		benefit = request.getParameter("benefit");
 
-		request.setAttribute("kadastr", kadastr);//установка обратно на форму того, что ввел пользователь
-		request.setAttribute("tax", tax);
+		request.setAttribute("kadastr", kadastr);//установка обратно на форму того, 
+		request.setAttribute("tax", tax);//что ввел пользователь
 		request.setAttribute("square", square);
 		request.setAttribute("part", part);
 		request.setAttribute("period", period);
 		request.setAttribute("childrens", childrens);
 		request.setAttribute("benefit", benefit);	
 		
-
 		request.setAttribute("regionIndex", regionIndex);	
 		request.setAttribute("propertyIndex", propertyIndex);	
 		
-
-		//Новая функция региона /TODO зачем parseInt
+		if (request.getSession().getAttribute("logged") == null ||
+				!(Boolean)request.getSession().getAttribute("logged")) {
+				response.sendRedirect(request.getContextPath() + "/Aut.jsp");
+				return;
+		}
+			
+		//Новая функция региона 
+		//TODO зачем parseInt
 		RegionProperty.getInstance().setInitRegionPropertyIndex(Integer.parseInt(regionIndex),Integer.parseInt(propertyIndex));
 
 		Validation valid = new Validation(//
@@ -68,10 +74,6 @@ public class CalcServlet extends HttpServlet {
 				childrens != "" ? childrens : "0",
 				benefit != "" ? benefit : "0");
 		//FIXME условия вынести в методы
-		
-		//FIXME так это ведь синтаксический сахар, нормаально
-		
-		this.setPath(request);
 
 		if (valid.validate() != "") { // если строка ошибок не пуста
 			request.setAttribute("errorsCalc", valid.validate()); // установить их на форму
@@ -80,7 +82,6 @@ public class CalcServlet extends HttpServlet {
 			valid.getResult();
 			request.setAttribute("result", valid.getResult());
 			request.setAttribute("errorsCalc", "noMessage"); 
-
 		}
 		
 		if (request.getParameter("pdfButton") != null) { // если нажата кнопка генерации док-та
@@ -134,24 +135,13 @@ public class CalcServlet extends HttpServlet {
 		
 		if (request.getParameter("exitButton") != null) { // если нажата кнопка выхода из аккаунта
 			request.setAttribute("errorsCalc", "noMessage"); 
-			RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/Aut.jsp");
-			requestDispatcher.forward(request, response);
-			//FIXME вынести в интерфейс- --> дублируется ?
-			return;
+			request.getSession().removeAttribute("logged");
+			page = "/Aut.jsp";
 		}
-			
-		//перенаправление, чтобы юзер остался на той же форме
-		RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/Calc.jsp");
+		//перенаправление
+		RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher(page);
 		requestDispatcher.forward(request, response);
-		//FIXME вынести в интерфейс- --> дублируется ?
 		return;
-
-	}
-	private void setPath(HttpServletRequest request){
-		String path = "/resources/";
-
-		AccessResourcePath.PATH_resources.setPath(request.getServletContext().getRealPath(path)); // .PropertyTaxWebApp/
-		System.out.println(AccessResourcePath.PATH_resources.toString());
 
 	}
 	
