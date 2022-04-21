@@ -19,6 +19,8 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
+import servlets.AccessResourcePath;
+
 public class GeneratePdfWeb {
     private static String cadastralValue, inventoryTax, square, portion, holdingPeriodRatio, 
     childrenCount, exemption, deduction, reductionFactor, evaporater;
@@ -29,8 +31,7 @@ public class GeneratePdfWeb {
 
     public static byte[] generate(String cadastralValue, String inventoryTax, String square,
                                   String portion, String holdingPeriodRatio, String childrenCount,
-                                  String exemption, String regionIndex, String propertyIndex, 
-                                  String result) {
+                                  String exemption, String result) {
 
         GeneratePdfWeb.cadastralValue = cadastralValue;//кадастровая стоимость
         GeneratePdfWeb.inventoryTax = inventoryTax;//инвентаризационный налог
@@ -39,8 +40,7 @@ public class GeneratePdfWeb {
         GeneratePdfWeb.holdingPeriodRatio = holdingPeriodRatio;//период владения
         GeneratePdfWeb.childrenCount = childrenCount;//кол-во детей
         GeneratePdfWeb.exemption = exemption;//льгота
-        //GeneratePdfWeb.regionIndex = region; //коэфф. типа недвижимости (вычет из площади в зависимости от типа недвижимости)
-       // GeneratePdfWeb.propertyIndex = property; //вычет за ребенка (после 4-го ребенка включительно) 
+       
         GeneratePdfWeb.result = result;
         
         try {
@@ -50,8 +50,9 @@ public class GeneratePdfWeb {
 
             document.open();
             
+            var fullPath = AccessResourcePath.PATH_resources.getPath();  
             try {
-                times = BaseFont.createFont("/fonts/times.ttf", "cp1251", BaseFont.EMBEDDED, true);
+                times = BaseFont.createFont(fullPath + "/fonts/times.ttf", "cp1251", BaseFont.EMBEDDED, true);
             } catch (DocumentException | IOException e) {
                 e.printStackTrace();
             }
@@ -80,8 +81,9 @@ public class GeneratePdfWeb {
             }
 
             Image img = null;
-
-            try {img = Image.getInstance(GeneratePdfWeb.class.getClassLoader().getResource("/picture/ugatu.png"));;
+            //Fixme Оно не работает?
+            try {
+                img = Image.getInstance(fullPath + "/picture/ugatu.png");
 
             } catch (BadElementException e2) {
 
@@ -93,7 +95,9 @@ public class GeneratePdfWeb {
 
             img.setAbsolutePosition(90, 500);
 
-            try { document.add(img); } catch (DocumentException e) { e.printStackTrace();
+            try { document.add(img);
+            } catch (DocumentException e) {
+                e.printStackTrace();
             }
 
             paragraph.clear();
@@ -130,7 +134,10 @@ public class GeneratePdfWeb {
         String cell2 = inventoryTax;
         String cell3 = square;
         String cell4 = childrenCount;
-
+        //TODO повторяется
+        
+        
+        
         table.addCell((new Phrase(cell1, new Font(times,14))));
         table.addCell((new Phrase(cell2, new Font(times,14))));
         table.addCell((new Phrase(cell3, new Font(times,14))));

@@ -1,5 +1,7 @@
 package servlets;
 
+import authorization.ManagerClient;
+
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
@@ -24,33 +26,37 @@ public class RegistrServlet extends HttpServlet{
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 
-		String login, password, page;
+		String login, password, page="/Reg.jsp";
 		response.setContentType("text/html");
 
-		login = request.getParameter("login"); //.trim(); <-- оно работает
-		password = request.getParameter("password"); //.trim();
+		login = request.getParameter("login");
+		password = request.getParameter("password");//.trim();
 
-		if (!login.contains(" ") & !password.contains(" ")) { //Проверять на ";"? /TODO уже ;
+		if (!login.contains(" ") & !password.contains(" ") ) {
+			//TODO все будет работать. только на кнопку не нажимается
+			//TODO сейчас все нормально. Удали, пожалуйста, новые учетки
 
-			//Здесь
-			//передача логина и пароля в Менеджер
-			//Тут будет условие: если админ - на форму админа, юзер - в калькулятор
-
-			if (login.equals("admin") & password.equals("admin")) {
-				page = "/Dashboard.jsp";
-			} else {
-				page = "/Calc.jsp"; //Форма, на которую будет перенаправление. Калькулятор
+			String messageAuthZ = ManagerClient.apiReg(login, password);
+			//System.out.println(messageAuthZ);
+			
+			if ("Зарегистрирован".equals(messageAuthZ)) {
+				request.setAttribute("messageReg", "sucess");
+				page = "/Calc.jsp";
+				
+			}else{
+				request.setAttribute("messageReg", messageAuthZ);
 			}
-
-
 		}else {
-			page = "/Aut.jsp";//Авторизация,пользователь останется на той же странице
-			//request.setAttribute("error", "Логин и пароль не должны содержать пробелы!");
-
+			request.setAttribute("messageReg", "Логин и пароль не могут содержать пробелы!");
 		}
-
-		RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher(page);
-		requestDispatcher.forward(request, response);//код перенаправления
+		
+		if (request.getParameter("exitButton") != null) { // если нажата кнопка выхода 
+			page = "/Aut.jsp";
+		}
+		
+		//FIXME вынести в интерфейс- --> дублируется ?
+		//FIXME сейчас оно компактнее выглядит
+		getServletContext().getRequestDispatcher(page).forward(request, response);//код перенаправления
 		return;
 	}
 

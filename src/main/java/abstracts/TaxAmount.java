@@ -14,7 +14,7 @@ import java.math.RoundingMode;
 public final class TaxAmount {
     private BigDecimal  finalDeductionBig, evaporaterCountBig, reductionFactorBig;
     private BigDecimal inventoryTaxBig, squareBig, portionBig, holdingPeriodRatioBig, finalExemptionBig;
-    BigDecimal DEC_100 = new BigDecimal(100), DEC_12 = new BigDecimal(12), DEC_1 = new BigDecimal(1);
+    private final BigDecimal DEC_100 = new BigDecimal(100), DEC_12 = new BigDecimal(12), DEC_1 = new BigDecimal(1);
 
     private double cadastralValue, childrenCount;
     private BigDecimal result;
@@ -61,17 +61,19 @@ public final class TaxAmount {
         BigDecimal taxBaseBig = cadastralValueBig.subtract((cadastralValueBig.divide(squareBig, 8,
                 RoundingMode.HALF_UP)).multiply(finalDeductionBig));
 
-        BigDecimal sumWithoutExemptionBig1 = ((
-                taxBaseBig.divide(DEC_100, 8, RoundingMode.HALF_UP)
+        BigDecimal sumWithoutExemptionBig1 =
+                ((taxBaseBig.divide(DEC_100, 8, RoundingMode.HALF_UP)
                         .multiply(finalBidBig)
-                        .subtract(inventoryTaxBig)).multiply(reductionFactorBig)
-                .add(inventoryTaxBig))
-                .multiply(holdingPeriodRatioBig.divide(DEC_12, 8, RoundingMode.HALF_UP))
-                .multiply((DEC_1).divide(portionBig, 8, RoundingMode.HALF_UP));
+                        .subtract(inventoryTaxBig))
+                        .multiply(reductionFactorBig)
+                        .add(inventoryTaxBig))
+                        .multiply(holdingPeriodRatioBig
+                                .divide(DEC_12, 8, RoundingMode.HALF_UP))
+                        .multiply((DEC_1)
+                                .divide(portionBig, 8, RoundingMode.HALF_UP));
 
-        BigDecimal sumBig =
-                sumWithoutExemptionBig1.subtract((
-                        sumWithoutExemptionBig1)
+        BigDecimal sumBig = sumWithoutExemptionBig1
+                .subtract((sumWithoutExemptionBig1)
                         .multiply((finalExemptionBig)
                                 .divide(DEC_100, 8, RoundingMode.HALF_UP)));
 

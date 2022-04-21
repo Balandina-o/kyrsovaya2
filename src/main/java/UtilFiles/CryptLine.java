@@ -8,8 +8,9 @@ import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 
 /**
- * @author Artyom
+ * @author Artyom Zlygostev
  * @version 1.0
+ * <br>Класс реализующий шифрование Строки
  */
 public class CryptLine implements CipherText {
     private final byte[] pass = {73, 76, 48, 55, 113, 65, 103, 72, 113, 54, 50, 90, 81, 99, 112, 78};

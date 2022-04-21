@@ -4,12 +4,15 @@ import UtilFiles.PairFromFile;
 import servlets.AccessResourcePath;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.*;
 
 public enum TestCoffEnum {
     UFA_COFF, Kazan_COFF, Moscow_COFF, Gorn_COFF;
     private double value;
     private static final String PATH = "coffForAdmin";
+    static String fullPath="./src/main/webapp/resources/"+PATH;
 
     public double getValue() {
         return value;
@@ -19,12 +22,10 @@ public enum TestCoffEnum {
         this.value = value;
     }
 
-    public static void FillFromFile() {
+    public static void FillFromFile() throws IOException {
         PairFromFile files = new PairFromFile();
         //FIXME  - 26 строка для сервлетов.
-        String fullPath = "./src/main/webapp/resources/"+PATH;
         //AccessResourcePath.PATH_resources.getPath()+PATH;
-
         LinkedHashMap<String, String> readPair = new LinkedHashMap<>(files.readFileAsPair((fullPath)));
         for (var LogInFile : readPair.entrySet()) {
             String Key = (LogInFile.getKey());
@@ -37,7 +38,7 @@ public enum TestCoffEnum {
         FillFromServletAdmin(Ufa_Coff, Kazan_coff,Moscow_coff,Gorn_coff);
 
 //Считывает константы в 24 строке в файл
-        try (PrintWriter writer = new PrintWriter(PATH)) {
+        try (PrintWriter writer = new PrintWriter(fullPath)) {
             for (int i = 0; i < TestCoffEnum.values().length; i++) {
                 String nameCoff = values()[i].name();
                 double valueCoff = values()[i].getValue();
@@ -58,9 +59,9 @@ public enum TestCoffEnum {
     //TODO - Пример как вызывать.
     //Сначала Заполняется из файла на сервлет админа?
     //Потом при нажатии на кнопку вызывается метод changeCoff. куда передаются данные из формы
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         TestCoffEnum.FillFromFile();
-        TestCoffEnum.changeCoffADMIN(1.0,2.0,3.0,5.0);
+        TestCoffEnum.changeCoffADMIN(1.0,2.0,4.0,5.0);
         for (var x: TestCoffEnum.values()) {
             System.out.println(x.getValue());
         }
