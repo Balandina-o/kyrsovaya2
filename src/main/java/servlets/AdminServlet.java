@@ -20,7 +20,9 @@ import javax.servlet.http.HttpServletResponse;
 public class AdminServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-
+	/**
+	 * @see enums.TestCoffEnum#main(String[])
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 
@@ -36,9 +38,9 @@ public class AdminServlet extends HttpServlet {
 		request.setAttribute("coeffKazan", coeffKazan);
 		request.setAttribute("coeffMoscow", coeffMoscow);
 		request.setAttribute("coeffGorn", coeffGorn);
-		
+
 		//Тут запись в файл.. возможно, чтение оттуда
-		//
+		//24 строка пример записи и чтения. Нужен Сервлет для теста этого всего
 		
 		if (request.getParameter("exitButton") != null) { // если нажата кнопка выхода из аккаунта
 			RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/Aut.jsp");

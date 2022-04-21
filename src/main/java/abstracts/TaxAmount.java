@@ -1,5 +1,7 @@
 package abstracts;
 
+import enums.EnumSwitch;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
@@ -42,10 +44,11 @@ public final class TaxAmount {
         BigDecimal cadastralValueBig = new BigDecimal(cadastralValue);
 
         //ToDO новое
-//		RegionProperty ABOBA =RegionProperty.getInstance();
-//		finalBid=EnumSwitch.enumUse(ABOBA.getRegionIndex(), ABOBA.getPropertyIndex(),cadastralValue);
-//Todo убрать
-        finalBid = 0.11; //ЭТО ЗНАЧЕНИЕ Я ПОСТАВИЛА, ПОКА НЕТ enum, НАДО УБРАТЬ И ИСПОЛЬЗОВАТЬ ВЕРХНУЮ СТРОЧКУ
+//		RegionProperty instance =RegionProperty.getInstance();
+//		finalBid= EnumSwitch.enumUse(instance.getRegionIndex(), instance.getPropertyIndex(),cadastralValue);
+
+//Todo убрать  -
+         finalBid = 0.11;
         finalBidBig = BigDecimal.valueOf(finalBid);
 
 

@@ -4,13 +4,12 @@ import UtilFiles.PairFromFile;
 import servlets.AccessResourcePath;
 
 import java.io.*;
-import java.nio.file.Path;
 import java.util.*;
 
 public enum TestCoffEnum {
     UFA_COFF, Kazan_COFF, Moscow_COFF, Gorn_COFF;
     private double value;
-    private static final String PATH = "/coffForAdmin";
+    private static final String PATH = "coffForAdmin";
 
     public double getValue() {
         return value;
@@ -20,9 +19,12 @@ public enum TestCoffEnum {
         this.value = value;
     }
 
-    public static void fill() {
+    public static void FillFromFile() {
         PairFromFile files = new PairFromFile();
-        String fullPath = AccessResourcePath.PATH_resources.getPath()+PATH;
+        //FIXME  - 26 строка для сервлетов.
+        String fullPath = "./src/main/webapp/resources/"+PATH;
+        //AccessResourcePath.PATH_resources.getPath()+PATH;
+
         LinkedHashMap<String, String> readPair = new LinkedHashMap<>(files.readFileAsPair((fullPath)));
         for (var LogInFile : readPair.entrySet()) {
             String Key = (LogInFile.getKey());
@@ -30,15 +32,10 @@ public enum TestCoffEnum {
             TestCoffEnum.valueOf(Key).setValue(Value);
         }
     }
+    //TODO это нужно админу
+    public static void changeCoffADMIN(double Ufa_Coff,double Kazan_coff,double Moscow_coff,double Gorn_coff) {
+        FillFromServletAdmin(Ufa_Coff, Kazan_coff,Moscow_coff,Gorn_coff);
 
-    public static void changeCoffADMIN() {
-        //FIXME это нужно админу
-        //сначала изменяются в java потом ниже заносятся в файл
-        //заменить на цикл
-        UFA_COFF.setValue(0.1);
-        Kazan_COFF.setValue(0.2);
-        Moscow_COFF.setValue(0.3);
-        Gorn_COFF.setValue(0.4);
 //Считывает константы в 24 строке в файл
         try (PrintWriter writer = new PrintWriter(PATH)) {
             for (int i = 0; i < TestCoffEnum.values().length; i++) {
@@ -51,12 +48,21 @@ public enum TestCoffEnum {
             e.printStackTrace();
         }
     }
+    private static void FillFromServletAdmin(double Ufa_Coff,double Kazan_coff,double Moscow_coff,double Gorn_coff){
+        double[] newValueEn={Ufa_Coff,Kazan_coff,Moscow_coff,Gorn_coff};
+        for (int i = 0; i <TestCoffEnum.values().length ; i++) {
+            values()[i].setValue(newValueEn[i]);
+        }
+    }
 
+    //TODO - Пример как вызывать.
+    //Сначала Заполняется из файла на сервлет админа?
+    //Потом при нажатии на кнопку вызывается метод changeCoff. куда передаются данные из формы
     public static void main(String[] args) {
-        TestCoffEnum.fill();
-        for (var x : TestCoffEnum.values()) {
+        TestCoffEnum.FillFromFile();
+        TestCoffEnum.changeCoffADMIN(1.0,2.0,3.0,5.0);
+        for (var x: TestCoffEnum.values()) {
             System.out.println(x.getValue());
         }
-        TestCoffEnum.changeCoffADMIN();
     }
 }
