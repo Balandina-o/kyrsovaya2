@@ -31,8 +31,7 @@ public class GeneratePdfWeb {
 
     public static byte[] generate(String cadastralValue, String inventoryTax, String square,
                                   String portion, String holdingPeriodRatio, String childrenCount,
-                                  String exemption, String regionIndex, String propertyIndex, 
-                                  String result) {
+                                  String exemption, String result) {
 
         GeneratePdfWeb.cadastralValue = cadastralValue;//кадастровая стоимость
         GeneratePdfWeb.inventoryTax = inventoryTax;//инвентаризационный налог
@@ -41,8 +40,7 @@ public class GeneratePdfWeb {
         GeneratePdfWeb.holdingPeriodRatio = holdingPeriodRatio;//период владения
         GeneratePdfWeb.childrenCount = childrenCount;//кол-во детей
         GeneratePdfWeb.exemption = exemption;//льгота
-        //GeneratePdfWeb.regionIndex = region; //коэфф. типа недвижимости (вычет из площади в зависимости от типа недвижимости)
-       // GeneratePdfWeb.propertyIndex = property; //вычет за ребенка (после 4-го ребенка включительно) 
+       
         GeneratePdfWeb.result = result;
         
         try {

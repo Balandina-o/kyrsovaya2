@@ -29,8 +29,7 @@
 				if (document.querySelector("input[name='errorsCalc']").value != ""){
 					alert(document.querySelector("input[name='errorsCalc']").value);
 				}
-        	}else{}
-			}
+        	}else{}}
 		</script>     
                 <div class="input-box input-box__one-column">
                     <label for="">Муницип. образование</label>

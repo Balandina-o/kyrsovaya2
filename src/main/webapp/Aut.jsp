@@ -33,14 +33,14 @@
                 <h2>Вход</h2>
                 <div class="input-box">
                     <label for="login">Логин</label>
-                    <input type="text" name="login" required/>
+                    <input type="text" name="login"/>
                 </div>
                 <div class="input-box">
                     <label for="password">Пароль</label>
-                    <input type="password" name="password" required/>
+                    <input type="password" name="password"/>
                 </div>
                 <div class="button-box">
-                    <button type="button">Зарегистрироваться</button>
+                    <button name="regButton" value="regButton">Зарегистрироваться</button>
                     <button type="submit">Войти</button>
                 </div>
                 

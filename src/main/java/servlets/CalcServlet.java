@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -68,8 +66,10 @@ public class CalcServlet extends HttpServlet {
 				part,
 				period,
 				childrens != "" ? childrens : "0",
-						benefit != "" ? benefit : "0");
+				benefit != "" ? benefit : "0");
 		//FIXME условия вынести в методы
+		
+		//FIXME так это ведь синтаксический сахар, нормаально
 		
 		this.setPath(request);
 
@@ -97,8 +97,6 @@ public class CalcServlet extends HttpServlet {
 							period,
 							childrens != "" ? childrens : "0",
 							benefit != "" ? benefit : "0",
-							regionIndex, //TODO не нужно передавать
-							propertyIndex, //TODO не нужно передавать
 							valid.getResult()
 					));
 
@@ -115,8 +113,6 @@ public class CalcServlet extends HttpServlet {
 
 				try (OutputStream out = response.getOutputStream()) {
 					out.write(GeneratePdfWeb.generate(
-							"---",
-							"---",
 							"---",
 							"---",
 							"---",

@@ -29,49 +29,44 @@ public class AuthoServlet extends HttpServlet {
 		String login, password, page = "/Aut.jsp";
 		response.setContentType("text/html");
 
-		login = request.getParameter("login"); //.trim(); <-- оно работает
+		login = request.getParameter("login");
 		password = request.getParameter("password"); //.trim();
 
 		//1 раз поставил в самой 1 форме и все
-
 		if (!login.contains(" ") & !password.contains(" ")) { //Проверять на ";"? /TODO уже ;
-
-			this.setPath(request);
-			//Здесь
-			//передача логина и пароля в Менеджер
-			//Тут будет условие: если админ - на форму админа, юзер - в калькулятор
-
-
 			//Установка пути
+			this.setPath(request);
+
 			String messageAuthZ = ManagerClient.apiAuthZ(login, password);
 			if ("Вы вошли".equals(messageAuthZ)) {
 				page = "/Calc.jsp"; //Форма, на которую будет перенаправление. Калькулятор
 			}else{
 				request.setAttribute("errorsAut", messageAuthZ);
-				// Тут ставить сообщение в форму ошибки без перенаправления
-				//	.set(messageAuthZ)
 			}
 		}else {
 			request.setAttribute("errorsAut", "Логи и пароль не могут содержать пробелы!");
 		}
-//			// /Aut.jsp уже присвоено в 29 строке
-//			if (login.equals("admin") & password.equals("admin")) {
-//				page = "/Dashboard.jsp";
-//			} else {
-//				page = "/Calc.jsp"; //Форма, на которую будет перенаправление. Калькулятор
-//			}
+		//			// /Aut.jsp уже присвоено в 29 строке
+		//			if (login.equals("admin") & password.equals("admin")) {
+		//				page = "/Dashboard.jsp";
+		//			} else {
+		//				page = "/Calc.jsp"; //Форма, на которую будет перенаправление. Калькулятор
+		//			}
 
-//		}else {
-//			page = "/Aut.jsp";//Авторизация,пользователь останется на той же странице
-//			//request.setAttribute("error", "Логин и пароль не должны содержать пробелы!");
-//
-//		}
-			//FIXME вынести в интерфейс- --> дублируется ?
-			RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher(page);
-			requestDispatcher.forward(request, response);//код перенаправления
+		//		}else {
+		//			page = "/Aut.jsp";//Авторизация,пользователь останется на той же странице			
+		//
+		//		}
+		if (request.getParameter("regButton") != null) { // если нажата кнопка выхода registracii
+			getServletContext().getRequestDispatcher("/Reg.jsp").forward(request, response);
 			return;
+		}
+
+		//FIXME вынести в интерфейс- --> дублируется ?
+		getServletContext().getRequestDispatcher(page).forward(request, response);//код перенаправления
+		return;
 	}
-	
+
 	private void setPath(HttpServletRequest request){
 		String path = "/resources/";
 
