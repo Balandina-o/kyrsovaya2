@@ -45,7 +45,8 @@ public class RegistrServlet extends HttpServlet{
 			request.setAttribute("messageReg", "Логин и пароль - обязательные поля, которые не могут содержать пробелы и символ ;");
 		}
 		
-		if (request.getParameter("exitButton") != null) { // если нажата кнопка выхода 
+		if (request.getParameter("exitButton") != null) { // если нажата кнопка выхода
+			//UtilServlets.clearAll();
 			page = "/Aut.jsp";
 		}
 		

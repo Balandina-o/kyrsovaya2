@@ -136,6 +136,7 @@ public class CalcServlet extends HttpServlet {
 		if (request.getParameter("exitButton") != null) { // если нажата кнопка выхода из аккаунта
 			request.setAttribute("errorsCalc", "noMessage"); 
 			request.getSession().removeAttribute("logged");
+			//UtilServlets.clearAll();
 			page = "/Aut.jsp";
 		}
 		//перенаправление

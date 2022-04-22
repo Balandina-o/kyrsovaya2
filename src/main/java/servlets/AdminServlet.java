@@ -48,7 +48,7 @@ public class AdminServlet extends HttpServlet {
 		if (request.getParameter("exitButton") != null) { // если нажата кнопка выхода из аккаунта
 			RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/Aut.jsp");
 			requestDispatcher.forward(request, response);
-			//RegionProperty.getInstance().setInitRegionPropertyIndex(-5,-5);
+			//UtilServlets.clearAll();
 			//FIXME вынести в интерфейс- --> дублируется ?
 			return;
 		}
