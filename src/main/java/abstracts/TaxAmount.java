@@ -46,7 +46,7 @@ public final class TaxAmount {
         //ToDO новое
 //		RegionProperty instance =RegionProperty.getInstance();
 //		finalBid= EnumSwitch.enumUse(instance.getRegionIndex(), instance.getPropertyIndex(),cadastralValue);
-
+        //finalBid= finalBid*RegionProperty.getInstance().getADMIN_FACTOR();
 //Todo убрать  -
          finalBid = 0.11;
         finalBidBig = BigDecimal.valueOf(finalBid);
