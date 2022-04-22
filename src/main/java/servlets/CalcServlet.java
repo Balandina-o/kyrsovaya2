@@ -132,7 +132,7 @@ public class CalcServlet extends HttpServlet {
 			if (request.getSession().getAttribute("role") == "user") {
 				request.getSession().removeAttribute("role");
 			}
-
+			//UtilServlets.clearAll();
 			response.sendRedirect(request.getContextPath() + "/Aut.jsp");
 			return;
 		}

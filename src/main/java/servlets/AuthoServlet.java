@@ -58,10 +58,10 @@ public class AuthoServlet extends HttpServlet {
 		//
 		//		}
 		if (request.getParameter("regButton") != null) { // если нажата кнопка registracii
+			//UtilServlets.clearAll();
 			response.sendRedirect(request.getContextPath() + "/Reg.jsp");
 			return;
 		}
-		
 		getServletContext().getRequestDispatcher(page).forward(request, response);//код перенаправления
 		return;
 	}
