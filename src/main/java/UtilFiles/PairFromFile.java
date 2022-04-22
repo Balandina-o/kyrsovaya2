@@ -1,13 +1,16 @@
 package UtilFiles;
 
+import TEST.Triple;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
+
 /**
  * @author Artyom Zlygostev
  * @version 1.0
- *<br> Реализация Чтения Из файла Пар и Строк
+ * <br> Реализация Чтения Из файла Пар и Строк
  */
 public class PairFromFile implements ReadFile {
     /**
@@ -39,5 +42,25 @@ public class PairFromFile implements ReadFile {
             map.put(xx[0], xx[1]);
         }
         return map;
+    }
+
+    @Override
+    public ArrayList<Triple<String, String, String>> readFileAsTriple(String path) {
+        Triple<String, String, String> triple;
+        ArrayList<Triple<String, String, String>> list1 = new ArrayList<>();
+
+        for (String list : readFileAsString(path)) {
+            var TreeLine = list.split(";");
+            triple = new Triple<>(TreeLine[0], TreeLine[1], TreeLine[2]);
+            list1.add(triple);
+
+        }
+        return list1;
+    }
+
+    public static void main(String[] args) {
+        PairFromFile pairFromFile = new PairFromFile();
+        var x =pairFromFile.readFileAsTriple("Test11");
+        System.out.println(x.get(0).toString());
     }
 }

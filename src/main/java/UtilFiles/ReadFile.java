@@ -1,6 +1,9 @@
 package UtilFiles;
 
 
+import TEST.Triple;
+
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 /**
@@ -12,4 +15,5 @@ public interface ReadFile {
     List<String> readFileAsString(String path);
 
     LinkedHashMap<String, String> readFileAsPair(String path);
+    ArrayList<Triple<String, String, String>> readFileAsTriple(String path);
 }
