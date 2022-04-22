@@ -1,5 +1,7 @@
 package abstracts;
 
+import UtilFiles.ClearRes;
+
 /**
  * Класс в который из сервлета передаются значения ComboBox
  * Так же тут инициализируются во внутреннем классе deduction, evaporater, reductionFactor
@@ -8,19 +10,21 @@ package abstracts;
  * @see enums.EnumSwitch
  * @see abstracts.Validation
  */
-public class RegionProperty {
+public class RegionProperty implements ClearRes {
     private int regionIndex = -10000, propertyIndex = -10000;
-    private static final RegionProperty Instance = new RegionProperty();
+    private static RegionProperty Instance = null;
 
     private RegionProperty() {
     }
+
     /**
      * Инициализация индекс Региона и параметров Deduction Evaporater зависящих от него.
      * Инициализация индекса Настроек и Параметра ReductionFactor зависящего от него.
-     * @param regionIndex -  - индекса региона
+     *
+     * @param regionIndex   -  - индекса региона
      * @param propertyIndex - propertyIndex - индекс Настроек
      */
-    public void setInitRegionPropertyIndex(int regionIndex, int propertyIndex){
+    public void setInitRegionPropertyIndex(int regionIndex, int propertyIndex) {
         this.regionIndex = regionIndex;
         Dependencies.setReductionFactor(regionIndex);
 
@@ -37,6 +41,9 @@ public class RegionProperty {
     }
 
     public static RegionProperty getInstance() {
+        if (Instance == null) {
+            Instance = new RegionProperty();
+        }
         return Instance;
     }
 
@@ -50,6 +57,14 @@ public class RegionProperty {
 
     public double getReductionFactor() {
         return Dependencies.reductionFactor;
+    }
+
+    /**
+     * Очистка экземпляра перед выходом
+     */
+    @Override
+    public void clearEntity() {
+        Instance = null;
     }
 
     /**
