@@ -30,13 +30,14 @@ public class RegistrServlet extends HttpServlet{
 		login = request.getParameter("login");
 		password = request.getParameter("password");//.trim();
 
-		if ((!login.contains(" ") & !password.contains(" ")) & (login != "" & password != "") & 
-			(!login.contains(";") & !password.contains(";"))){
+		if ((!login.contains(" ") & !password.contains(" ")) & (!login.contains(";") & !password.contains(";"))){
 			String messageAuthZ = ManagerClient.apiReg(login, password);
 			
 			if ("Зарегистрирован".equals(messageAuthZ)) {
-				request.setAttribute("messageReg", messageAuthZ);
-				page = "/Calc.jsp";
+				request.getSession().setAttribute("role", "user");
+				
+				response.sendRedirect(request.getContextPath() + "/Calc.jsp");
+				return;
 				
 			}else{
 				request.setAttribute("messageReg", messageAuthZ);
@@ -46,7 +47,8 @@ public class RegistrServlet extends HttpServlet{
 		}
 		
 		if (request.getParameter("exitButton") != null) { // если нажата кнопка выхода 
-			page = "/Aut.jsp";
+			response.sendRedirect(request.getContextPath() + "/Aut.jsp");
+			return;
 		}
 		
 		//FIXME вынести в интерфейс- --> дублируется ?

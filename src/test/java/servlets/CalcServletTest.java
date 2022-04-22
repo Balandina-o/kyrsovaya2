@@ -7,12 +7,14 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import java.io.IOException;
 import static org.mockito.Mockito.*;
 
 /**
  * Класс CalcServletTest - класс, тестирующий класс CalcServlet
+ * С задействованием фреймворка Mockito
  * @author balandina-o
  * @version 1.0
  */
@@ -23,8 +25,12 @@ public class CalcServletTest {
 
 	@Before
 	public final void setUp() {
-		request = mock(HttpServletRequest.class); //имитация Request от надстройки Mockito
+		
+		request = mock(HttpServletRequest.class); //имитация Request от фреймворка Mockito		
 		response = mock(HttpServletResponse.class); //имитация Response
+		ServletContext servletContext = mock(ServletContext.class);
+		HttpSession session = mock(HttpSession.class); //
+		RequestDispatcher dispatcher = mock(RequestDispatcher.class);// Имитация перенаправления
 
 		when(request.getParameter("kadastr")).thenReturn("335000");
 		when(request.getParameter("tax")).thenReturn("123");
@@ -38,9 +44,11 @@ public class CalcServletTest {
 
 		when(request.getParameter("warnings")).thenReturn("0");
 		when(request.getParameter("button")).thenReturn("pdfButton");
-
-		final ServletContext servletContext = mock(ServletContext.class);
-		RequestDispatcher dispatcher = mock(RequestDispatcher.class);// Имитация перенаправления
+		
+		when(request.getSession()).thenReturn(session);
+		//when(request.getSession()).getAttribute("role").thenReturn(true);
+		//when(request.getSession()).getAttribute("logged").thenReturn("admin");
+		
 		when(servletContext.getRequestDispatcher("/Calc.jsp")).thenReturn(dispatcher);
 
 		servlet = new CalcServlet() {

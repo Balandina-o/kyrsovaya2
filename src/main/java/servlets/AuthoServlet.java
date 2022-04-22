@@ -23,7 +23,6 @@ public class AuthoServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		request.getSession().setAttribute("logged", null);
 		
 		String login, password, page = "/Aut.jsp";
 		response.setContentType("text/html");
@@ -31,26 +30,21 @@ public class AuthoServlet extends HttpServlet {
 		login = request.getParameter("login");
 		password = request.getParameter("password");
 
-/*		if ((!login.contains(" ") & !password.contains(" ")) | (login != "" & password != "") | 
-				(login != ";" & password != ";")) {*/
-
 			//Установка пути
 			this.setPath(request);
-			System.out.print(request.getSession().getAttribute("logged"));
 			
 			String messageAuthZ = ManagerClient.apiAuthZ(login, password);
 			if ("Вы вошли".equals(messageAuthZ)) {
-				request.getSession().setAttribute("logged", true);
-				page = "/Calc.jsp"; //Форма, на которую будет перенаправление. Калькулятор
+				request.getSession().setAttribute("role", "user");
+				
+				//request.getSession().setAttribute("role", "admin");
+				
+				response.sendRedirect(request.getContextPath() + "/Calc.jsp");//Форма, на которую будет перенаправление. Калькулятор
+				return;
 			}else{
 				request.setAttribute("errorsAut", messageAuthZ);
 			}
 			
-			/*
-			 * }else { request.setAttribute("errorsAut",
-			 * "Логин и пароль - обязательные поля, которые не могут " +
-			 * "содержать пробелы и символ ;");}
-			 */
 
 		//			// /Aut.jsp уже присвоено в 29 строке
 		//			if (login.equals("admin") & password.equals("admin")) {
@@ -63,10 +57,12 @@ public class AuthoServlet extends HttpServlet {
 		//			page = "/Aut.jsp";//Авторизация,пользователь останется на той же странице			
 		//
 		//		}
-		if (request.getParameter("regButton") != null) { // если нажата кнопка выхода registracii
-			page = "/Reg.jsp";
+		if (request.getParameter("regButton") != null) { // если нажата кнопка registracii
+			response.sendRedirect(request.getContextPath() + "/Reg.jsp");
+			return;
 		}
-		getServletContext().getRequestDispatcher(page).forward(request, response);//перенаправление
+		
+		getServletContext().getRequestDispatcher(page).forward(request, response);//код перенаправления
 		return;
 	}
 

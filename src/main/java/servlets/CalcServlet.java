@@ -33,7 +33,6 @@ public class CalcServlet extends HttpServlet {
 		String kadastr, tax, square, part, period, childrens, benefit, regionIndex, propertyIndex;
 		response.setContentType("text/html");
 
-		String page = "/Calc.jsp";
 		regionIndex = request.getParameter("regionIndex");//получение данных
 		propertyIndex = request.getParameter("propertyIndex");
 		kadastr = request.getParameter("kadastr");
@@ -54,12 +53,6 @@ public class CalcServlet extends HttpServlet {
 		
 		request.setAttribute("regionIndex", regionIndex);	
 		request.setAttribute("propertyIndex", propertyIndex);	
-		
-		if (request.getSession().getAttribute("logged") == null ||
-				!(Boolean)request.getSession().getAttribute("logged")) {
-				response.sendRedirect(request.getContextPath() + "/Aut.jsp");
-				return;
-		}
 			
 		//Новая функция региона 
 		//TODO зачем parseInt
@@ -135,11 +128,17 @@ public class CalcServlet extends HttpServlet {
 		
 		if (request.getParameter("exitButton") != null) { // если нажата кнопка выхода из аккаунта
 			request.setAttribute("errorsCalc", "noMessage"); 
-			request.getSession().removeAttribute("logged");
-			page = "/Aut.jsp";
+			
+			if (request.getSession().getAttribute("role") == "user") {
+				request.getSession().removeAttribute("role");
+			}
+
+			response.sendRedirect(request.getContextPath() + "/Aut.jsp");
+			return;
 		}
+		
 		//перенаправление
-		RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher(page);
+		RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/Calc.jsp");
 		requestDispatcher.forward(request, response);
 		return;
 

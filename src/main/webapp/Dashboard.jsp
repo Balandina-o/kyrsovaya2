@@ -10,6 +10,15 @@
         <title>Изменение коэффициентов</title>
     </head>
     <body>
+    
+    <jsp:scriptlet>
+    System.out.println(request.getSession().getAttribute("role"));
+    if(request.getSession().getAttribute("role") != "admin"){ 
+		RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/Aut.jsp");
+		requestDispatcher.forward(request, response);
+		return;} 
+    </jsp:scriptlet>
+    
         <header>
             <div class="titles">
                 <h1 class="title">Налоговый калькулятор</h1>
