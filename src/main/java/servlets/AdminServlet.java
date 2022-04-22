@@ -1,8 +1,6 @@
 package servlets;
 
-import abstracts.RegionProperty;
-import abstracts.TaxAmount;
-import enums.TestCoffEnum;
+import enums.CoffRegionAdmin;
 
 import java.io.IOException;
 
@@ -25,7 +23,7 @@ public class AdminServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	/**
-	 * @see enums.TestCoffEnum#main(String[])
+	 * @see CoffRegionAdmin#main(String[])
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");

@@ -1,12 +1,16 @@
 package enums;
 
-import UtilFiles.PairFromFile;
+import UtilFiles.ReadFromFile;
 import servlets.AccessResourcePath;
 
 import java.io.*;
 import java.util.*;
 
-public enum TestCoffEnum {
+/**
+ * @author Artyom Zlygostev
+ * <br> Класс реализующий изменение коэффициентов для панели администратора
+ */
+public enum CoffRegionAdmin {
     UFA_COFF, Kazan_COFF, Moscow_COFF, Gorn_COFF;
     private double value;
     private static final String PATH = "/coffForAdmin";
@@ -21,14 +25,14 @@ public enum TestCoffEnum {
     }
 
     public static void FillFromFile() {
-        PairFromFile files = new PairFromFile();
+        ReadFromFile files = new ReadFromFile();
         //FIXME  - 26 строка для сервлетов.
         String path = AccessResourcePath.PATH_resources.getPath() + PATH;
         LinkedHashMap<String, String> readPair = new LinkedHashMap<>(files.readFileAsPair((path)));
         for (var LogInFile : readPair.entrySet()) {
             String Key = (LogInFile.getKey());
             double Value = Double.parseDouble(LogInFile.getValue());
-            TestCoffEnum.valueOf(Key).setValue(Value);
+            CoffRegionAdmin.valueOf(Key).setValue(Value);
         }
     }
 
@@ -45,7 +49,7 @@ public enum TestCoffEnum {
 //Считывает константы в 24 строке в файл
         String path = AccessResourcePath.PATH_resources.getPath() + PATH;
         try (PrintWriter writer = new PrintWriter(path)) {
-            for (int i = 0; i < TestCoffEnum.values().length; i++) {
+            for (int i = 0; i < CoffRegionAdmin.values().length; i++) {
                 String nameCoff = values()[i].name();
                 double valueCoff = values()[i].getValue();
                 //печать в файл с новой строки
@@ -58,7 +62,7 @@ public enum TestCoffEnum {
 
     private static void FillFromServletAdmin(double Ufa_Coff, double Kazan_coff, double Moscow_coff, double Gorn_coff) {
         double[] newValueEn = {Ufa_Coff, Kazan_coff, Moscow_coff, Gorn_coff};
-        for (int i = 0; i < TestCoffEnum.values().length; i++) {
+        for (int i = 0; i < CoffRegionAdmin.values().length; i++) {
             values()[i].setValue(newValueEn[i]);
         }
     }
@@ -67,9 +71,9 @@ public enum TestCoffEnum {
     //Сначала Заполняется из файла на сервлет админа?
     //Потом при нажатии на кнопку вызывается метод changeCoff. куда передаются данные из формы
     public static void main(String[] args) throws IOException {
-        TestCoffEnum.FillFromFile();
-        TestCoffEnum.changeCoffADMIN("1.0", "3.0", "4.0", "5.0");
-        for (var x : TestCoffEnum.values()) {
+        CoffRegionAdmin.FillFromFile();
+        CoffRegionAdmin.changeCoffADMIN("1.0", "3.0", "4.0", "5.0");
+        for (var x : CoffRegionAdmin.values()) {
             System.out.println(x.getValue());
         }
     }

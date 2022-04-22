@@ -3,6 +3,13 @@ package UtilFiles;
 
 import java.util.ArrayList;
 
+/**
+ * @author Artyom Zlygostev
+ * <br> Класс для удобного хранения данных при чтении
+ * @param <Log> Тип логина
+ * @param <Pass> Тип пароля
+ * @param <Role> Тип роли
+ */
 public class Triple< Log extends String, Pass extends String, Role extends String> {
      private final Log login;
      private final Pass pass;

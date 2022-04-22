@@ -1,5 +1,5 @@
-import UtilFiles.CipherText;
-import UtilFiles.CryptLine;
+import UtilFiles.cipher.CipherText;
+import UtilFiles.cipher.CryptLine;
 import org.junit.Before;
 import org.junit.Test;
 

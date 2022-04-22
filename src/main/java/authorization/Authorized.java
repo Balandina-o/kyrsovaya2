@@ -1,9 +1,9 @@
 package authorization;
 
-import UtilFiles.CipherText;
-import UtilFiles.CryptLine;
-import UtilFiles.PairFromFile;
-import UtilFiles.ReadFile;
+import UtilFiles.cipher.CipherText;
+import UtilFiles.cipher.CryptLine;
+import UtilFiles.ReadFromFile;
+import UtilFiles.ReadingFile;
 
 import java.io.FileWriter;
 import java.io.PrintWriter;
@@ -25,7 +25,7 @@ interface Authorized {
 
         HashMap<String, Boolean> clientData = new HashMap<>(INCORRECT);
 
-        ReadFile files = new PairFromFile();
+        ReadingFile files = new ReadFromFile();
         var readTriple = files.readFileAsTriple(path);
         CipherText line = new CryptLine();
         try {
@@ -72,7 +72,7 @@ interface Authorized {
      */
     private static boolean findByLogin(String login, String path) {
         int count = 0; // count служит переменной уникальностью
-        PairFromFile files = new PairFromFile();
+        ReadFromFile files = new ReadFromFile();
         var readPair = files.readFileAsTriple(path);
         for (var LogInFile : readPair) {
             if (Objects.equals(LogInFile.getLogin(), login)) {

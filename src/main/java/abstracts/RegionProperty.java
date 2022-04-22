@@ -1,7 +1,7 @@
 package abstracts;
 
 import UtilFiles.ClearRes;
-import enums.TestCoffEnum;
+import enums.CoffRegionAdmin;
 
 /**
  * Класс в который из сервлета передаются значения ComboBox
@@ -38,13 +38,13 @@ public class RegionProperty implements ClearRes {
 
     private void setADMIN_FACTOR(int regionIndex) {
         if (regionIndex == 10) {
-            ADMIN_FACTOR = TestCoffEnum.UFA_COFF.getValue();
+            ADMIN_FACTOR = CoffRegionAdmin.UFA_COFF.getValue();
         } else if (regionIndex == 20) {
-            ADMIN_FACTOR = TestCoffEnum.Kazan_COFF.getValue();
+            ADMIN_FACTOR = CoffRegionAdmin.Kazan_COFF.getValue();
         } else if (regionIndex == 30) {
-            ADMIN_FACTOR = TestCoffEnum.Moscow_COFF.getValue();
+            ADMIN_FACTOR = CoffRegionAdmin.Moscow_COFF.getValue();
         } else if (regionIndex == 40) {
-            ADMIN_FACTOR = TestCoffEnum.Gorn_COFF.getValue();
+            ADMIN_FACTOR = CoffRegionAdmin.Gorn_COFF.getValue();
         }
     }
 

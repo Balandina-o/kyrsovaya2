@@ -2,6 +2,9 @@ package servlets;
 
 import java.nio.file.Path;
 
+/**
+ * Класс для хранения пути к папки ресурсов
+ */
 public enum AccessResourcePath {
     PATH_resources;
     private Path path = Path.of("./src/main/webapp/resources");

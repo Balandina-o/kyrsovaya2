@@ -10,7 +10,7 @@ import java.util.*;
  * @version 1.0
  * <br> Реализация Чтения Из файла Пар и Строк
  */
-public class PairFromFile implements ReadFile {
+public class ReadFromFile implements ReadingFile {
     /**
      * Метод чтение строки из файла
      *
@@ -57,8 +57,8 @@ public class PairFromFile implements ReadFile {
     }
 
     public static void main(String[] args) {
-        PairFromFile pairFromFile = new PairFromFile();
-        var x =pairFromFile.readFileAsTriple("Test11");
+        ReadFromFile readFromFile = new ReadFromFile();
+        var x = readFromFile.readFileAsTriple("Test11");
         System.out.println(x.get(0).toString());
     }
 }

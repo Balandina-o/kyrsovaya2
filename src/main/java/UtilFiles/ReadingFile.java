@@ -9,7 +9,7 @@ import java.util.List;
  * @version 1.0
  * <br>Интерфейс для чтения Строк и Пар
  */
-public interface ReadFile {
+public interface ReadingFile {
     List<String> readFileAsString(String path);
 
     LinkedHashMap<String, String> readFileAsPair(String path);

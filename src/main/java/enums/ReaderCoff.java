@@ -1,7 +1,7 @@
 package enums;
 
 import UtilFiles.ClearRes;
-import UtilFiles.PairFromFile;
+import UtilFiles.ReadFromFile;
 import servlets.AccessResourcePath;
 
 import java.util.LinkedHashMap;
@@ -19,7 +19,7 @@ public class ReaderCoff implements ClearRes {
     }
 
     private static void readCoff() {
-        PairFromFile files = new PairFromFile();
+        ReadFromFile files = new ReadFromFile();
         var readPair = files.readFileAsPair((AccessResourcePath.PATH_resources.getPath() + PATH));
         for (var entry : readPair.entrySet()) {
             coff.put(Integer.valueOf(entry.getKey()), Integer.valueOf(entry.getValue()));
