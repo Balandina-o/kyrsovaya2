@@ -4,7 +4,7 @@ import java.nio.file.Path;
 
 public enum AccessResourcePath {
     PATH_resources;
-    private Path path;
+    private Path path = Path.of("./src/main/webapp/resources/");
 
     public Path getPath() {
         return path;
@@ -14,7 +14,9 @@ public enum AccessResourcePath {
         this.path = Path.of(path);
     }
     public void setPath(Path path){
-        this.path=path;
+        if(path!=null) {
+            this.path = path;
+        }
     }
 
     @Override
