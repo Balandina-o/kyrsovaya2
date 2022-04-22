@@ -2,6 +2,7 @@ package servlets;
 
 import abstracts.RegionProperty;
 import abstracts.TaxAmount;
+import enums.TestCoffEnum;
 
 import java.io.IOException;
 
@@ -44,7 +45,14 @@ public class AdminServlet extends HttpServlet {
 		
 		//Тут запись в файл.. возможно, чтение оттуда
 		//24 строка пример записи и чтения. Нужен Сервлет для теста этого всего
-		
+		//TODO - установка с самого начала
+		//TestCoffEnum.FillFromFile();
+		//.setAttribute (TestCoffEnum.UFA_COFF)
+		//.setAttribute (TestCoffEnum.Kazan_COFF);
+
+		//TODO - изменение при начатии на кнопку "поменять или сохранить"
+		//TestCoffEnum.changeCoffADMIN(coeffUfa,coeffKazan,coeffMoscow,coeffGorn);
+
 		if (request.getParameter("exitButton") != null) { // если нажата кнопка выхода из аккаунта
 
 			request.getSession().removeAttribute("role");
