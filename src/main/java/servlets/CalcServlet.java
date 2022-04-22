@@ -127,12 +127,16 @@ public class CalcServlet extends HttpServlet {
 		}
 		
 		if (request.getParameter("exitButton") != null) { // если нажата кнопка выхода из аккаунта
-			request.setAttribute("errorsCalc", "noMessage"); 
-			
+			request.setAttribute("errorsCalc", "noMessage");
+			//UtilServlets.clearAll();
+			//valid.clearEntity();
+			// valid=null;
+			//System.gc();
+
+			//TODO  -request.getSession().invalidate() ???;
 			if (request.getSession().getAttribute("role") == "user") {
 				request.getSession().removeAttribute("role");
 			}
-			//UtilServlets.clearAll();
 			response.sendRedirect(request.getContextPath() + "/Aut.jsp");
 			return;
 		}

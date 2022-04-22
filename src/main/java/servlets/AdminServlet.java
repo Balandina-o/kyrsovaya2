@@ -43,6 +43,7 @@ public class AdminServlet extends HttpServlet {
 		
 		//Тут запись в файл.. возможно, чтение оттуда
 		//24 строка пример записи и чтения. Нужен Сервлет для теста этого всего
+
 		//TODO - установка с самого начала
 		//TestCoffEnum.FillFromFile();
 		//.setAttribute (TestCoffEnum.UFA_COFF)
@@ -55,6 +56,7 @@ public class AdminServlet extends HttpServlet {
 
 			request.getSession().removeAttribute("role");
 			//UtilServlets.clearAll();
+			//TODO  -request.getSession().invalidate() ???;
 			response.sendRedirect(request.getContextPath() + "/Aut.jsp");
 			return;
 		}

@@ -47,6 +47,7 @@ public class ReaderCoff implements ClearRes {
     @Override
     public void clearEntity() {
         coff.clear();
+        coff=null;
         Instance = null;
     }
 }

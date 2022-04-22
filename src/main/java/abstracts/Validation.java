@@ -1,8 +1,10 @@
 package abstracts;
 
+import UtilFiles.ClearRes;
+
 import java.util.*;
 
-public class Validation {
+public class Validation implements ClearRes {
     private InputNumber cadastralValueErr, inventoryTaxErr, squareErr;
     private InputPortion portionErr;
     private InputHoldingPeriodRatio holdingPeriodRatioErr;
@@ -36,7 +38,7 @@ public class Validation {
 //        for (var inpErr:samples) {
 //        testTry(inpErr);
 //    }
-    public final String validate() {
+    public final String validate()  {
         ArrayList<InputText> samples = new ArrayList(List.of(cadastralValueErr, inventoryTaxErr, squareErr, portionErr,
                 holdingPeriodRatioErr, childrenCountErr, exemptionErr));
         String messages = "";
@@ -144,5 +146,19 @@ public class Validation {
                 exemption = rightSide.getValue();
                 break;
         }
+    }
+
+    @Override
+    public void clearEntity() {
+        cadastralValueErr=null;
+        inventoryTaxErr=null;
+        squareErr=null;
+        portionErr=null;
+        holdingPeriodRatioErr=null;
+        childrenCountErr=null;
+        exemptionErr=null;
+        squareText=null;
+        result=null;
+        errors=null;
     }
 }
