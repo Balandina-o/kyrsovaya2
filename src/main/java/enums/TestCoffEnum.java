@@ -4,15 +4,13 @@ import UtilFiles.PairFromFile;
 import servlets.AccessResourcePath;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.*;
 
 public enum TestCoffEnum {
     UFA_COFF, Kazan_COFF, Moscow_COFF, Gorn_COFF;
     private double value;
-    private static final String PATH = "coffForAdmin";
-    static String fullPath="./src/main/webapp/resources/"+PATH;
+    private static final String PATH = "/coffForAdmin";
+//    static String fullPath="./src/main/webapp/resources/"+PATH;
 
     public double getValue() {
         return value;
@@ -22,11 +20,11 @@ public enum TestCoffEnum {
         this.value = value;
     }
 
-    public static void FillFromFile() throws IOException {
+    public static void FillFromFile()  {
         PairFromFile files = new PairFromFile();
         //FIXME  - 26 строка для сервлетов.
-        //AccessResourcePath.PATH_resources.getPath()+PATH;
-        LinkedHashMap<String, String> readPair = new LinkedHashMap<>(files.readFileAsPair((fullPath)));
+        String  path =AccessResourcePath.PATH_resources.getPath()+PATH;
+        LinkedHashMap<String, String> readPair = new LinkedHashMap<>(files.readFileAsPair((path)));
         for (var LogInFile : readPair.entrySet()) {
             String Key = (LogInFile.getKey());
             double Value = Double.parseDouble(LogInFile.getValue());
@@ -38,7 +36,8 @@ public enum TestCoffEnum {
         FillFromServletAdmin(Ufa_Coff, Kazan_coff,Moscow_coff,Gorn_coff);
 
 //Считывает константы в 24 строке в файл
-        try (PrintWriter writer = new PrintWriter(fullPath)) {
+        String  path =AccessResourcePath.PATH_resources.getPath()+PATH;
+        try (PrintWriter writer = new PrintWriter(path)) {
             for (int i = 0; i < TestCoffEnum.values().length; i++) {
                 String nameCoff = values()[i].name();
                 double valueCoff = values()[i].getValue();
