@@ -3,6 +3,7 @@ package servlets;
 import authorization.ManagerClient;
 
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,9 +32,15 @@ public class AuthoServlet extends HttpServlet {
 		password = request.getParameter("password");
 
 			//Установка пути
+		//TODO надо вызывать через -  UtilServlets
 			this.setPath(request);
-			
-			String messageAuthZ = ManagerClient.apiAuthZ(login, password);
+
+			//0- message , 1 - role индексы
+			List<String> clientData = ManagerClient.apiAuthZ(login, password);
+			String messageAuthZ = clientData.get(0); // Вы вошли - Неверные данные для входа
+			String roleAuZ = clientData.get(1); //EMPTY - USER - ADMIN
+
+
 			if ("Вы вошли".equals(messageAuthZ)) {
 				request.getSession().setAttribute("role", "user");
 				
@@ -65,7 +72,7 @@ public class AuthoServlet extends HttpServlet {
 		getServletContext().getRequestDispatcher(page).forward(request, response);//код перенаправления
 		return;
 	}
-
+	//TODO удалить -  UtilServlets
 	private void setPath(HttpServletRequest request){
 		String path = "/resources/";
 

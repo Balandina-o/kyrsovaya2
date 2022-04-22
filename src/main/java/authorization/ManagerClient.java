@@ -3,6 +3,8 @@ package authorization;
 
 import servlets.AccessResourcePath;
 
+import java.util.List;
+
 /**
  * @author Artyom
  * / Класс через который нужно обращаться к функциям входа, регистрации,аутентификации.
@@ -22,7 +24,7 @@ public class ManagerClient {
      * @param pass - пароль
      * @return - true - вошел / false - нет
      */
-    public static String apiAuthZ(String log, String pass) {
+    public static List<String> apiAuthZ(String log, String pass) {
         return checkAuthZ(log, pass);
     }
 
@@ -31,14 +33,20 @@ public class ManagerClient {
     }
 
     //В этом методе возвращать массив - строка + bool?
-    private static String checkAuthZ(String log, String pass) {
-       var fullPath = AccessResourcePath.PATH_resources.getPath();
-        return Authorized.authentication(log, pass, fullPath+PATH_BASE) ? messTrueAuthZ : messFalseAuthZ;
+    private static List<String> checkAuthZ(String log, String pass) {
+        String mess = "", role = "";
+        var absolutePathRes = AccessResourcePath.PATH_resources.getPath();
+        var readPair = Authorized.authentication(log, pass, absolutePathRes + PATH_BASE);
+        for (var map : readPair.entrySet()) {
+            role = map.getKey();
+            mess = map.getValue() ? messTrueAuthZ : messFalseAuthZ;
+        }
+        return List.of(mess, role);
     }
 
     private static String checkReg(String log, String pass) {
-        var x = AccessResourcePath.PATH_resources.getPath();
-        if (Authorized.createNew(log, pass, x+PATH_BASE)) {
+        var absolutePathRes = AccessResourcePath.PATH_resources.getPath();
+        if (Authorized.createNew(log, pass, absolutePathRes + PATH_BASE)) {
             return messTrueReg;
         }
         return messFalseReg;

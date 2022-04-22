@@ -30,9 +30,12 @@ public class RegistrServlet extends HttpServlet{
 		login = request.getParameter("login");
 		password = request.getParameter("password");//.trim();
 
+		//TODO надо изменить - UtilServlets - checkLine
 		if ((!login.contains(" ") & !password.contains(" ")) & (!login.contains(";") & !password.contains(";"))){
 			String messageAuthZ = ManagerClient.apiReg(login, password);
-			
+
+			//TODO установка пути - UtilServlets - setPath
+
 			if ("Зарегистрирован".equals(messageAuthZ)) {
 				request.getSession().setAttribute("role", "user");
 				
