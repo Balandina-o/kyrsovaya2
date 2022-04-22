@@ -32,7 +32,7 @@ public class EnumSwitch {
         //FIXME Вынести в сервлет чтобы суммировало
         EnumSwitch.cadastralValue = cadastralValue;
         int sum = propertyIndex + regionIndex;
-        return creat(ReaderCoff.getMassCoff().get(sum));
+        return creat(ReaderCoff.Instance().getMassCoff().get(sum));
     }
 
     public static double creat(int ordinal) {

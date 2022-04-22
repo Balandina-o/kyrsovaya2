@@ -45,17 +45,15 @@ public class AdminServlet extends HttpServlet {
 		//Тут запись в файл.. возможно, чтение оттуда
 		//24 строка пример записи и чтения. Нужен Сервлет для теста этого всего
 		
-
-		
-		
 		if (request.getParameter("exitButton") != null) { // если нажата кнопка выхода из аккаунта
 
 			request.getSession().removeAttribute("role");
+			//UtilServlets.clearAll();
 			response.sendRedirect(request.getContextPath() + "/Aut.jsp");
 			return;
 		}
-		
-		
+
+
 		//перенаправление, чтобы юзер остался на той же форме
 		RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/Dashboard.jsp");
 		requestDispatcher.forward(request, response);
