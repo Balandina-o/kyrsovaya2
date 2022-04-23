@@ -27,32 +27,39 @@ public class AdminServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-
-		String coeffUfa, coeffKazan, coeffMoscow, coeffGorn;
 		response.setContentType("text/html");
 
-		coeffUfa = request.getParameter("coeffUfa");//получение данных из .джсп
-		coeffKazan = request.getParameter("coeffKazan");
-		coeffMoscow = request.getParameter("coeffMoscow");
-		coeffGorn = request.getParameter("coeffGorn");
-
-		request.setAttribute("coeffUfa", coeffUfa);//установка обратно на форму того, что ввел пользователь
+		
+		String coeffUfa = "5"; // Значения из файла в переменные закинуть
+		String coeffKazan = "5";//
+		String coeffMoscow = "5";
+		String coeffGorn = "5";
+		
+		request.setAttribute("coeffUfa", coeffUfa);//установка обратно на форму
 		request.setAttribute("coeffKazan", coeffKazan);
 		request.setAttribute("coeffMoscow", coeffMoscow);
-		request.setAttribute("coeffGorn", coeffGorn);		
-		
-		//Тут запись в файл.. возможно, чтение оттуда
-		//24 строка пример записи и чтения. Нужен Сервлет для теста этого всего
+		request.setAttribute("coeffGorn", coeffGorn);
+	
 
-		//TODO - установка с самого начала
-		//TestCoffEnum.FillFromFile();
-		//.setAttribute (TestCoffEnum.UFA_COFF)
-		//.setAttribute (TestCoffEnum.Kazan_COFF);
+		if (request.getParameter("changeButton") != null) { // если нажата кнопка "change and save"
+			
+			coeffUfa = request.getParameter("coeffUfa");//получение данных из .джсп
+			coeffKazan = request.getParameter("coeffKazan");
+			coeffMoscow = request.getParameter("coeffMoscow");
+			coeffGorn = request.getParameter("coeffGorn");
+			
+			
+			//TODO - установка с самого начала
+			//TestCoffEnum.FillFromFile();
+			//.setAttribute (TestCoffEnum.UFA_COFF)
+			//.setAttribute (TestCoffEnum.Kazan_COFF);
 
-		//TODO - изменение при начатии на кнопку "поменять или сохранить"
-		//TestCoffEnum.changeCoffADMIN(coeffUfa,coeffKazan,coeffMoscow,coeffGorn);
+			//TODO - изменение при начатии на кнопку "поменять или сохранить"
+			//TestCoffEnum.changeCoffADMIN(coeffUfa,coeffKazan,coeffMoscow,coeffGorn);
+			
+		}
 		
-		//TODO Для нажатия кнопки "поменять и сохранить" не нужно условие, можно присать прям так
+		
 
 		if (request.getParameter("exitButton") != null) { // если нажата кнопка выхода из аккаунта
 
