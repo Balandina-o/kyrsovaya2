@@ -76,7 +76,7 @@ public class CalcServlet extends HttpServlet {
 			request.setAttribute("result", valid.getResult());
 			request.setAttribute("errorsCalc", "noMessage"); 
 		}
-		
+
 		if (request.getParameter("pdfButton") != null) { // если нажата кнопка генерации док-та
 			if(request.getParameter("result") != "") { // если поле результата не пусто
 				response.setContentType("application/octet-stream");
@@ -91,7 +91,9 @@ public class CalcServlet extends HttpServlet {
 							period,
 							childrens != "" ? childrens : "0",
 							benefit != "" ? benefit : "0",
-							valid.getResult()
+							valid.getResult(),
+							ut.PathToResPDF("/fonts/times.ttf"),
+							ut.PathToResPDF("/picture/usatu.png")
 					));
 
 					response.flushBuffer();
@@ -100,7 +102,7 @@ public class CalcServlet extends HttpServlet {
 					System.out.println(e.getMessage());
 				}
 				return;
-				
+
 			}else { // иначе закинуть вместо данных строки "----"
 				response.setContentType("application/octet-stream");
 				response.setHeader("Content-Disposition", "attachment; filename=DocumentGroup2.pdf");
@@ -114,7 +116,9 @@ public class CalcServlet extends HttpServlet {
 							"---",
 							"---",
 							"---",
-							"0 Руб."
+							"0",
+							ut.PathToResPDF("/fonts/times.ttf"),
+							ut.PathToResPDF("/picture/usatu.png")
 					));
 
 					response.flushBuffer();
