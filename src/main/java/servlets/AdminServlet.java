@@ -24,29 +24,19 @@ public class AdminServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	/**
 	 * @see CoffRegionAdmin#main(String[])
+	 * 
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html");
 
 		
-		String coeffUfa = "5"; // Значения из файла в переменные закинуть
-		String coeffKazan = "5";//
-		String coeffMoscow = "5";
-		String coeffGorn = "5";
-		
-		request.setAttribute("coeffUfa", coeffUfa);//установка обратно на форму
-		request.setAttribute("coeffKazan", coeffKazan);
-		request.setAttribute("coeffMoscow", coeffMoscow);
-		request.setAttribute("coeffGorn", coeffGorn);
-	
-
 		if (request.getParameter("changeButton") != null) { // если нажата кнопка "change and save"
-			
-			coeffUfa = request.getParameter("coeffUfa");//получение данных из .джсп
-			coeffKazan = request.getParameter("coeffKazan");
-			coeffMoscow = request.getParameter("coeffMoscow");
-			coeffGorn = request.getParameter("coeffGorn");
+			String coeffUfa = request.getParameter("coeffUfa");
+			String coeffKazan = request.getParameter("coeffKazan");
+			String coeffMoscow = request.getParameter("coeffMoscow");
+			String coeffGorn = request.getParameter("coeffGorn");
 			
 			
 			//TODO - установка с самого начала
@@ -55,7 +45,16 @@ public class AdminServlet extends HttpServlet {
 			//.setAttribute (TestCoffEnum.Kazan_COFF);
 
 			//TODO - изменение при начатии на кнопку "поменять или сохранить"
-			//TestCoffEnum.changeCoffADMIN(coeffUfa,coeffKazan,coeffMoscow,coeffGorn);
+			
+		CoffRegionAdmin.changeCoffADMIN(coeffUfa,coeffKazan,coeffMoscow,coeffGorn);
+			
+		}else {
+			CoffRegionAdmin.FillFromFile();
+			request.setAttribute("coeffUfa", CoffRegionAdmin.UFA_COFF.getValue());//установка на форму
+			request.setAttribute("coeffKazan", CoffRegionAdmin.Kazan_COFF.getValue());
+			request.setAttribute("coeffMoscow", CoffRegionAdmin.Moscow_COFF.getValue());
+			request.setAttribute("coeffGorn", CoffRegionAdmin.Gorn_COFF.getValue());
+		
 			
 		}
 		
