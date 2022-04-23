@@ -2,6 +2,7 @@ package servlets;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Objects;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -54,11 +55,14 @@ public class CalcServlet extends HttpServlet {
 		request.setAttribute("format", formatDoc);
 		
 		request.setAttribute("regionIndex", regionIndex);	
-		request.setAttribute("propertyIndex", propertyIndex);	
-			
+		request.setAttribute("propertyIndex", propertyIndex);
+
 		//Новая функция региона 
 		//TODO зачем parseInt
-		RegionProperty.getInstance().setInitRegionPropertyIndex(Integer.parseInt(regionIndex),Integer.parseInt(propertyIndex));
+		RegionProperty.getInstance().setInitRegionPropertyIndex(Integer.parseInt(regionIndex), Integer.parseInt(propertyIndex));
+
+		childrens = Objects.equals(childrens, "") ? "0" : childrens;
+		benefit = Objects.equals(benefit, "") ? "0" : benefit;
 
 		Validation valid = new Validation(//
 				kadastr,
@@ -66,8 +70,8 @@ public class CalcServlet extends HttpServlet {
 				square,
 				part,
 				period,
-				childrens != "" ? childrens : "0",
-				benefit != "" ? benefit : "0");
+				childrens,
+				benefit);
 		//FIXME условия вынести в методы
 
 		if (valid.validate() != "") { // если строка ошибок не пуста
@@ -92,8 +96,8 @@ public class CalcServlet extends HttpServlet {
 							square,
 							part,
 							period,
-							childrens != "" ? childrens : "0",
-							benefit != "" ? benefit : "0",
+							childrens,
+							benefit,
 							valid.getResult(),
 							UtilServlets.PathToResPDF("/fonts/times.ttf"),
 							UtilServlets.PathToResPDF("/picture/usatu.png")
