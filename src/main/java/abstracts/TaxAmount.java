@@ -44,11 +44,10 @@ public final class TaxAmount {
         BigDecimal cadastralValueBig = new BigDecimal(cadastralValue);
 
         //ToDO новое
-//		RegionProperty instance =RegionProperty.getInstance();
-//		finalBid= EnumSwitch.enumUse(instance.getRegionIndex(), instance.getPropertyIndex(),cadastralValue);
-        //finalBid= finalBid*RegionProperty.getInstance().getADMIN_FACTOR();
-//Todo убрать  -
-         finalBid = 0.11;
+		RegionProperty instance =RegionProperty.getInstance();
+		finalBid= EnumSwitch.enumUse(instance.getRegionIndex(), instance.getPropertyIndex(),cadastralValue);
+        finalBid= finalBid*instance.getADMIN_FACTOR();
+
         finalBidBig = BigDecimal.valueOf(finalBid);
 
 

@@ -17,6 +17,7 @@ public enum CoffRegionAdmin {
 //    static String fullPath="./src/main/webapp/resources/"+PATH;
 
     public double getValue() {
+        FillFromFile();
         return value;
     }
 
