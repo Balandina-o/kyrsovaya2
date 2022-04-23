@@ -50,7 +50,7 @@
         </main>
 
         <footer>
-            <a href="">О разработчиках</a>
+            <a href="./info.html" target="_blank">О разработчиках</a>
         </footer>
     </body>
 </html>
