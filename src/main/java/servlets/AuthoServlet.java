@@ -41,13 +41,12 @@ public class AuthoServlet extends HttpServlet {
 			String messageAuthZ = clientData.get(0); // Вы вошли - Неверные данные для входа
 			String roleAuZ = clientData.get(1); //EMPTY - USER - ADMIN
 
-			if ("Вы вошли".equals(messageAuthZ) & (roleAuZ.equals("USER"))) {
+			if ("Вы вошли".equals(messageAuthZ) & ("USER".equals(roleAuZ))) {
 				request.getSession().setAttribute("role", roleAuZ);
 				
 				response.sendRedirect(request.getContextPath() + "/Calc.jsp");//Форма, на которую будет перенаправление. Калькулятор
 				return;
-			
-			} else if ("Вы вошли".equals(messageAuthZ) & (roleAuZ.equals("ADMIN"))) {
+			} else if ("Вы вошли".equals(messageAuthZ) & ("ADMIN".equals(roleAuZ))) {
 				request.getSession().setAttribute("role", roleAuZ);
 				
 				response.sendRedirect(request.getContextPath() + "/Dashboard.jsp");//Форма, на которую будет перенаправление. Калькулятор
