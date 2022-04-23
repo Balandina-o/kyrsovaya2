@@ -12,8 +12,12 @@
     <body>
     
     <jsp:scriptlet>
-    System.out.println(request.getSession().getAttribute("role"));
-    if(request.getSession().getAttribute("role") == null){ 
+    if (request.getSession().getAttribute("role") == null) {
+		RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/Aut.jsp");
+		requestDispatcher.forward(request, response);
+		return;
+
+    } else if (request.getSession().getAttribute("role").equals("EMPTY")){ 
 		RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/Aut.jsp");
 		requestDispatcher.forward(request, response);
 		return;} 

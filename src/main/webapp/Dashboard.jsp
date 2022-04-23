@@ -13,7 +13,7 @@
     
     <jsp:scriptlet>
     System.out.println(request.getSession().getAttribute("role"));
-    if(request.getSession().getAttribute("role") != "admin"){ 
+    if(!request.getSession().getAttribute("role").equals("ADMIN")){ 
 		RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/Aut.jsp");
 		requestDispatcher.forward(request, response);
 		return;} 

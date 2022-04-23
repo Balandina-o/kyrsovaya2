@@ -29,7 +29,7 @@ public class CalcServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		
+		UtilServlets ut = new UtilServlets();
 		String kadastr, tax, square, part, period, childrens, benefit, regionIndex, propertyIndex;
 		response.setContentType("text/html");
 
@@ -128,20 +128,16 @@ public class CalcServlet extends HttpServlet {
 		
 		if (request.getParameter("exitButton") != null) { // если нажата кнопка выхода из аккаунта
 			request.setAttribute("errorsCalc", "noMessage");
-			//UtilServlets.clearAll();
-			//valid.clearEntity();
-			// valid=null;
-			//System.gc();
-
 			//TODO  -request.getSession().invalidate() ???;
-			if (request.getSession().getAttribute("role") == "user") {
+			
+			if (!request.getSession().getAttribute("role").equals("ADMIN")) {
+				//ut.clearAll();
 				request.getSession().removeAttribute("role");
 			}
 			response.sendRedirect(request.getContextPath() + "/Aut.jsp");
 			return;
 		}
-		
-		//перенаправление
+
 		RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/Calc.jsp");
 		requestDispatcher.forward(request, response);
 		return;

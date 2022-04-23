@@ -23,7 +23,7 @@ public class RegistrServlet extends HttpServlet{
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-
+		UtilServlets ut = new UtilServlets();
 		String login, password, page="/Reg.jsp";
 		response.setContentType("text/html");
 
@@ -31,13 +31,13 @@ public class RegistrServlet extends HttpServlet{
 		password = request.getParameter("password");//.trim();
 
 		//TODO надо изменить - UtilServlets - checkLine
-		if ((!login.contains(" ") & !password.contains(" ")) & (!login.contains(";") & !password.contains(";"))){
+		
+		if ((ut.checkLine(login) == true) & (ut.checkLine(password) == true)) {
 			String messageAuthZ = ManagerClient.apiReg(login, password);
 
 			//TODO установка пути - UtilServlets - setPath
-
 			if ("Зарегистрирован".equals(messageAuthZ)) {
-				request.getSession().setAttribute("role", "user");
+				request.getSession().setAttribute("role", "USER");
 				
 				response.sendRedirect(request.getContextPath() + "/Calc.jsp");
 				return;
@@ -54,8 +54,6 @@ public class RegistrServlet extends HttpServlet{
 			return;
 		}
 		
-		//FIXME вынести в интерфейс- --> дублируется ?
-		//FIXME сейчас оно компактнее выглядит
 		getServletContext().getRequestDispatcher(page).forward(request, response);//код перенаправления
 		return;
 	}

@@ -20,7 +20,7 @@ public class UtilServlets {
      */
     //TODO это вместо условий проверки логина
     protected static boolean checkLine(String str) {
-        Pattern pattern = Pattern.compile("[A-Za-zА-Яа-яЁё0-9]");
+        Pattern pattern = Pattern.compile("^[A-Za-zА-Яа-яЁё0-9]+$");
         Matcher matcher = pattern.matcher(str);
         return matcher.matches();
     }
@@ -37,7 +37,7 @@ public class UtilServlets {
         return PathRes;
     }
 
-    //TODO Перенаправление шаблон - использовать или нет хз. Раньше код Дублировался c этим
+    //TODO Перенаправление шаблон - использовать или нет. Раньше код Дублировался c этим
     protected static void redirect(ServletContext servlet, String page, HttpServletRequest request, HttpServletResponse response) {
         // Пример: RequestDispatcher requestDispatcher = servlet.getRequestDispatcher("/Aut.jsp");
         RequestDispatcher requestDispatcher = servlet.getRequestDispatcher(page);
@@ -63,4 +63,10 @@ public class UtilServlets {
         System.out.println(checkLine(" "));
         clearAll();
     }
+    
+    protected String PathToResPDF(String str) { // для пдф документа
+    	var fullPath = AccessResourcePath.PATH_resources.getPath();
+    	System.out.print(fullPath + str);
+    	return fullPath + str;
+    	}
 }
