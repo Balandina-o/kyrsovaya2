@@ -113,10 +113,10 @@
 						<label for="">.pdf</label> <input ${format==".pdf"?"checked":""} type="radio" value=".pdf" name="format" id="" checked/>
 					</div>
 					<div class="radio">
-						<label for="">.docx</label> <input ${radformatio==".docx"?"checked":""} type="radio" value=".docx" name="format" id="" />
+						<label for="">.odt</label> <input ${radformatio==".odt"?"checked":""} type="radio" value=".odt" name="format" id="" />
 					</div>
 					<div class="radio">
-						<label for="">.odt</label> <input ${format==".odt"?"checked":""} type="radio" value=".odt" name="format" id="" />
+						<label for="">.odf</label> <input ${format==".odf"?"checked":""} type="radio" value=".odf" name="format" id="" />
 					</div>
 				</div>
 			</div>

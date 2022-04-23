@@ -36,7 +36,7 @@ public class GeneratePdfWebTest {
     public void positiveFontCheck() {
 
         GeneratePdfWeb generPDF = new GeneratePdfWeb();
-        byte[] document = generPDF.generate("100", "33", "20", "30", "0", "5", "10", "0.0", fullPath1,fullPath2);
+        byte[] document = generPDF.generate("100", "33", "20", "30", "0", "5", "10", "0.0");
         BaseFont fontTest = generPDF.getFont();
 
         assertNotNull(fontTest);
@@ -50,7 +50,7 @@ public class GeneratePdfWebTest {
     @Test
     public void positiveDocumentCheck() {
         GeneratePdfWeb generPDF = new GeneratePdfWeb();
-        byte[] document = generPDF.generate("100", "33", "20", "30", "0", "5", "10", "0.0", fullPath1,fullPath2);
+        byte[] document = generPDF.generate("100", "33", "20", "30", "0", "5", "10", "0.0");
 
         assertTrue(document.length > 0);
     }

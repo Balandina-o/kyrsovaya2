@@ -30,11 +30,7 @@ public class AuthoServlet extends HttpServlet {
 
 		login = request.getParameter("login").trim();
 		password = request.getParameter("password").trim();
-
-		//Установка пути
-		//TODO надо вызывать через -  UtilServlets
 			UtilServlets.setPathToResources(request);
-			//this.setPath(request);
 
 			//0- message , 1 - role индексы
 			List<String> clientData = ManagerClient.apiAuthZ(login, password);

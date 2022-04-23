@@ -98,9 +98,7 @@ public class CalcServlet extends HttpServlet {
 							period,
 							childrens,
 							benefit,
-							valid.getResult(),
-							UtilServlets.PathToResPDF("/fonts/times.ttf"),
-							UtilServlets.PathToResPDF("/picture/usatu.png")
+							valid.getResult()
 					));
 
 					response.flushBuffer();
@@ -124,9 +122,7 @@ public class CalcServlet extends HttpServlet {
 							"---",
 							"---",
 							"---",
-							"0",
-							UtilServlets.PathToResPDF("/fonts/times.ttf"),
-							UtilServlets.PathToResPDF("/picture/usatu.png")
+							"0"
 					));
 
 					response.flushBuffer();

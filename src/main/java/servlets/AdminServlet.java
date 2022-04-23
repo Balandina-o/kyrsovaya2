@@ -30,7 +30,6 @@ public class AdminServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html");
-
 		
 		if (request.getParameter("changeButton") != null) { // если нажата кнопка "change and save"
 			String coeffUfa = request.getParameter("coeffUfa");
@@ -38,15 +37,7 @@ public class AdminServlet extends HttpServlet {
 			String coeffMoscow = request.getParameter("coeffMoscow");
 			String coeffGorn = request.getParameter("coeffGorn");
 			
-			
-			//TODO - установка с самого начала
-			//TestCoffEnum.FillFromFile();
-			//.setAttribute (TestCoffEnum.UFA_COFF)
-			//.setAttribute (TestCoffEnum.Kazan_COFF);
-
-			//TODO - изменение при начатии на кнопку "поменять или сохранить"
-			
-		CoffRegionAdmin.changeCoffADMIN(coeffUfa,coeffKazan,coeffMoscow,coeffGorn);
+			CoffRegionAdmin.changeCoffADMIN(coeffUfa,coeffKazan,coeffMoscow,coeffGorn);
 			
 		}else {
 			CoffRegionAdmin.FillFromFile();
@@ -55,20 +46,15 @@ public class AdminServlet extends HttpServlet {
 			request.setAttribute("coeffMoscow", CoffRegionAdmin.Moscow_COFF.getValue());
 			request.setAttribute("coeffGorn", CoffRegionAdmin.Gorn_COFF.getValue());
 		
-			
 		}
-		
-		
 
 		if (request.getParameter("exitButton") != null) { // если нажата кнопка выхода из аккаунта
 
 			request.getSession().removeAttribute("role");
 			//UtilServlets.clearAll();
-			//TODO  -request.getSession().invalidate() ???;
 			response.sendRedirect(request.getContextPath() + "/Aut.jsp");
 			return;
 		}
-
 
 		//перенаправление, чтобы юзер остался на той же форме
 		RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/Dashboard.jsp");

@@ -12,12 +12,22 @@
     <body>
     
     <jsp:scriptlet>
-    System.out.println(request.getSession().getAttribute("role"));
+    
+    if (request.getSession().getAttribute("role") == null) {
+		RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/Aut.jsp");
+		requestDispatcher.forward(request, response);
+		return;
+    }
     if(!request.getSession().getAttribute("role").equals("ADMIN")){ 
 		RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/Aut.jsp");
 		requestDispatcher.forward(request, response);
 		return;} 
     </jsp:scriptlet>
+    
+    <script>        
+        window.onload = function() {
+        	if (document.querySelector("input[name='coeffUfa']").value == ""){document.adminform.submit();}}
+		</script> 
     
         <header>
             <div class="titles">
@@ -28,12 +38,7 @@
             </div>
             <img src="./resources/picture/usatu.png" alt="Логотип УГАТУ" />
         </header>
-        
- 		<script>        
-        window.onload = function() {
-        	if (document.querySelector("input[name='coeffUfa']").value == ""){document.adminform.submit();}}
-		</script>     
-
+      
 		<main>
             <form action="AdminServlet" class="container" name="adminform" method="GET">
                 

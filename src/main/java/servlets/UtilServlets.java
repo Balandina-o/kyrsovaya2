@@ -64,9 +64,8 @@ public class UtilServlets {
         clearAll();
     }
     
-    protected static String PathToResPDF(String str) { // для пдф документа
+    public static String PathToResPDF(String str) { // для пдф документа
     	var fullPath = AccessResourcePath.PATH_resources.getPath();
-    	System.out.print(fullPath + str);
     	return fullPath + str;
     	}
 }

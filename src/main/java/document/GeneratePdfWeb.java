@@ -3,9 +3,12 @@ package document;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.nio.file.Path;
 import java.util.stream.Stream;
 
 import abstracts.RegionProperty;
+import servlets.UtilServlets;
+
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
@@ -24,11 +27,13 @@ public class GeneratePdfWeb {
     private String cadastralValue, inventoryTax, square, portion, holdingPeriodRatio,
             childrenCount, exemption, result;
 
-    private String fullPath1, fullPath2, regionName, propertyName;
+    private static String fullPath1, fullPath2;
+    private String regionName, propertyName;
     private BaseFont times;
+    
     public byte[] generate(String cadastralValue, String inventoryTax, String square,
                                   String portion, String holdingPeriodRatio, String childrenCount,
-                                  String exemption, String result, String fullPath1, String fullPath2) {
+                                  String exemption, String result) {
 
         this.cadastralValue = cadastralValue;//кадастровая стоимость
         this.inventoryTax = inventoryTax;//инвентаризационный налог
@@ -41,8 +46,8 @@ public class GeneratePdfWeb {
         this.regionName = RegionProperty.getInstance().getRegionName();
         this.propertyName = RegionProperty.getInstance().getPropertyName();
         
-        this.fullPath1 = fullPath1;
-        this.fullPath2 = fullPath2;
+        fullPath1 = UtilServlets.PathToResPDF("/fonts/times.ttf");
+        fullPath2 = UtilServlets.PathToResPDF("/picture/usatu.png");
 
         try {
             Document document = new Document();

@@ -13,15 +13,14 @@ import java.io.IOException;
 import static org.mockito.Mockito.*;
 
 /**
- * Класс CalcServletTest - класс, тестирующий класс CalcServlet
- * С задействованием фреймворка Mockito
+ * Класс AdminServletTest - класс, тестирующий класс AdminServlet
  * @author balandina-o
  * @version 1.0
  */
-public class CalcServletTest {
+public class AdminServletTest {
 	private static HttpServletRequest request;
 	private static HttpServletResponse response;
-	private static CalcServlet servlet;
+	private static AdminServlet servlet;
 
 	@Before
 	public final void setUp() {
@@ -32,24 +31,18 @@ public class CalcServletTest {
 		HttpSession session = mock(HttpSession.class); //
 		RequestDispatcher dispatcher = mock(RequestDispatcher.class);// Имитация перенаправления
 
-		when(request.getParameter("kadastr")).thenReturn("335000");
-		when(request.getParameter("tax")).thenReturn("123");
-		when(request.getParameter("square")).thenReturn("45");
-		when(request.getParameter("part")).thenReturn("1");
-		when(request.getParameter("period")).thenReturn("12");
-		when(request.getParameter("childrens")).thenReturn("1");
-		when(request.getParameter("benefit")).thenReturn("1");
-		when(request.getParameter("regionIndex")).thenReturn("10");
-		when(request.getParameter("propertyIndex")).thenReturn("0");
+		when(request.getParameter("coeffUfa")).thenReturn("1.0");
+		when(request.getParameter("coeffKazan")).thenReturn("1.0");
+		when(request.getParameter("coeffMoscow")).thenReturn("1.0");
+		when(request.getParameter("coeffGorn")).thenReturn("1.0");
 
-		when(request.getParameter("warnings")).thenReturn("0");
-		when(request.getParameter("button")).thenReturn("pdfButton");
-		
+		when(request.getParameter("changeButton")).thenReturn("changeButton");
+
 		when(request.getSession()).thenReturn(session);
 		
-		when(servletContext.getRequestDispatcher("/Calc.jsp")).thenReturn(dispatcher);
+		when(servletContext.getRequestDispatcher("/Dashboard.jsp")).thenReturn(dispatcher);
 
-		servlet = new CalcServlet() {
+		servlet = new AdminServlet() {
 			private static final long serialVersionUID = 1L;
 
 			public ServletContext getServletContext() {
@@ -58,7 +51,7 @@ public class CalcServletTest {
 		};}
 
 	/**
-	 * Тест проверяет, что метод doPost выбрасывает исключение,
+	 * Тест проверяет, что метод doGet выбрасывает исключение,
 	 * когда ему переданы нулевые аргументы
 	 *
 	 * @throws ServletException
@@ -66,11 +59,11 @@ public class CalcServletTest {
 	 */
 	@Test(expected = NullPointerException.class)
 	public final void testDoPostPositive() throws ServletException, IOException {
-		servlet.doPost(null, null);
+		servlet.doGet(null, null);
 	}
 
 	/**
-	 * Тест проверяет, что метод doPost, при передаче ему верных параметров, обращается
+	 * Тест проверяет, что метод doGet, при передаче ему верных параметров, обращается
 	 * к необходимым для вычислений полям по одному разу и получает их значения, а значит
 	 * выполняет свои функции
 	 *
@@ -80,18 +73,11 @@ public class CalcServletTest {
 	@Test
 	public final void testFrequencyPositive() throws ServletException, IOException {
 
-		servlet.doPost(request, response);
-		verify(request, times(1)).getParameter("kadastr");
-		verify(request, times(1)).getParameter("tax");
-		verify(request, times(1)).getParameter("square");
-		verify(request, times(1)).getParameter("part");
-		verify(request, times(1)).getParameter("period");
-		verify(request, times(1)).getParameter("childrens");
-		verify(request, times(1)).getParameter("benefit");
-
-		verify(request, times(1)).getParameter("propertyIndex");
-		verify(request, times(1)).getParameter("regionIndex");
-
+		servlet.doGet(request, response);
+		verify(request, times(1)).getParameter("coeffUfa");
+		verify(request, times(1)).getParameter("coeffKazan");
+		verify(request, times(1)).getParameter("coeffMoscow");
+		verify(request, times(1)).getParameter("coeffGorn");
 	}
 
 }
