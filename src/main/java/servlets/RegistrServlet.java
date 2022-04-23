@@ -27,8 +27,8 @@ public class RegistrServlet extends HttpServlet {
         String login, password, page = "/Reg.jsp";
         response.setContentType("text/html");
 
-        login = request.getParameter("login");
-        password = request.getParameter("password");//.trim();
+        login = request.getParameter("login").trim();
+        password = request.getParameter("password").trim();
 
 
         UtilServlets.setPathToResources(request); //тест

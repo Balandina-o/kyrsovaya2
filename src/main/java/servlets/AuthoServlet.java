@@ -28,14 +28,14 @@ public class AuthoServlet extends HttpServlet {
 		String login, password, page = "/Aut.jsp";
 		response.setContentType("text/html");
 
-		login = request.getParameter("login");
-		password = request.getParameter("password");
+		login = request.getParameter("login").trim();
+		password = request.getParameter("password").trim();
 
 		//Установка пути
 		//TODO надо вызывать через -  UtilServlets
 			UtilServlets.setPathToResources(request);
 			//this.setPath(request);
-				
+
 			//0- message , 1 - role индексы
 			List<String> clientData = ManagerClient.apiAuthZ(login, password);
 			String messageAuthZ = clientData.get(0); // Вы вошли - Неверные данные для входа
