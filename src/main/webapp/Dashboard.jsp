@@ -34,26 +34,26 @@
                 <h2>Панель изменения коэффициентов</h2>
                 <div class="input-box input-box__one-column">
                     <label for="">Региональный коэффициент для налоговой ставки в г. Уфе</label>
-                     <input type="number" name="coeffUfa" value="${coeffUfa}" max="3" step="0.001" min="0.001"/>
+                     <input type="number" name="coeffUfa" value="${coeffUfa}" max="10" step="0.5" min="1"/>
                 </div>
 
                 <div class="input-box input-box__one-column">
                     <label for="">Региональный коэффициент для налоговой ставки в г. Казани</label>
-                    <input type="number" name="coeffKazan" value="${coeffKazan}" max="3" step="0.001" min="0.001"/>
+                    <input type="number" name="coeffKazan" value="${coeffKazan}" max="10" step="0.5" min="1"/>
                 </div>
 
                 <div class="input-box input-box__one-column">
                     <label for="">Региональный коэффициент для налоговой ставки в г. Москве</label>
-                    <input type="number" name="coeffMoscow" value="${coeffMoscow}" max="3" step="0.001" min="0.001"/>
+                    <input type="number" name="coeffMoscow" value="${coeffMoscow}" max="10" step="0.5" min="1"/>
                 </div>
 
                 <div class="input-box input-box__one-column">
                     <label for="">Региональный коэффициент для налоговой ставки в г. Горно-Алтайске</label>
-                    <input type="number" name="coeffGorn" value="${coeffGorn}" max="3" step="0.001" min="0.001"/>
+                    <input type="number" name="coeffGorn" value="${coeffGorn}" max="10" step="0.5" min="1"/>
                 </div>
                 <div class="button-box">
                     <button name="exitButton" value="exitButton">Выход</button>
-                    <button type="submit" name="button" value="changeButton">Изменить</button>
+                    <button name="changeButton" type="submit" value="changeButton">Изменить и сохранить</button>
                 </div>
             </form>
         </main>
