@@ -103,7 +103,7 @@
 
                 <div class="input-box">
                     <label for="">Сумма к уплате:</label>
-                    <input type="text" name="result" value="${result}" />
+                    <input type="text" name="result" value="${result}" disabled />
                 </div>
                 
                     <input type="hidden" name="errorsCalc" value="${errorsCalc}" />
