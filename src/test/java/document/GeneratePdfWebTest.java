@@ -16,8 +16,8 @@ import com.itextpdf.text.pdf.BaseFont;
 
 public class GeneratePdfWebTest {
     /** The full path 2. */
-    private static BaseFont times;
-    private static String fullPath1, fullPath2;
+    private BaseFont times;
+    private String fullPath1, fullPath2;
 
     @Before
     public final void setUp() throws DocumentException, IOException {
@@ -36,7 +36,6 @@ public class GeneratePdfWebTest {
     public void positiveFontCheck() {
 
         GeneratePdfWeb generPDF = new GeneratePdfWeb();
-        @SuppressWarnings("static-access")
         byte[] document = generPDF.generate("100", "33", "20", "30", "0", "5", "10", "0.0", fullPath1,fullPath2);
         BaseFont fontTest = generPDF.getFont();
 

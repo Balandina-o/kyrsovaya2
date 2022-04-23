@@ -103,20 +103,20 @@
 
                 <div class="input-box">
                     <label for="">Сумма к уплате:</label>
-                    <input type="text" name="result" value="${result}" disabled />
+                    <input type="text" name="result" value="${result}" readonly/>
                 </div>
 
 			<div class="input-box input-box__one-column">
-				<label for="">Формат генерируемого файла</label>
-				<div class="lgots">
+				<label for="">Выберите формат генерируемого документа: </label>
+				<div class="FormatOfDoc">
 					<div class="radio">
-						<label for="">PDF</label> <input type="radio" name="lgots" id="" />
+						<label for="">.pdf</label> <input ${format==".pdf"?"checked":""} type="radio" value=".pdf" name="format" id="" checked/>
 					</div>
 					<div class="radio">
-						<label for="">docx</label> <input type="radio" name="lgots" id="" />
+						<label for="">.docx</label> <input ${radformatio==".docx"?"checked":""} type="radio" value=".docx" name="format" id="" />
 					</div>
 					<div class="radio">
-						<label for="">odr</label> <input type="radio" name="lgots" id="" />
+						<label for="">.odt</label> <input ${format==".odt"?"checked":""} type="radio" value=".odt" name="format" id="" />
 					</div>
 				</div>
 			</div>
@@ -124,15 +124,16 @@
 			<input type="hidden" name="errorsCalc" value="${errorsCalc}" />
 			
                 <div class="button-box">
-                    <button name="pdfButton" value="pdfButton">Сгенерировать PDF-файл</button>
+                	<button type="submit" name="button" value="calcButton">Расчитать</button>
 					<button name="exitButton" value="exitButton">Выйти из аккаунта</button>
-					<button type="submit" name="button" value="calcButton">Расчитать</button>
+					<button name="pdfButton" value="pdfButton">Скачать сгенерированный документ</button>
                 </div>
             </form>
         </main>
 
+
       <footer>
-            <a href="">О разработчиках</a>
+            <a href="./info.html" target="_blank">О разработчиках</a>
        </footer>
      </body>
 </html>

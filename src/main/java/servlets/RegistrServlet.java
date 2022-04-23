@@ -23,7 +23,7 @@ public class RegistrServlet extends HttpServlet{
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		UtilServlets ut = new UtilServlets();
+
 		String login, password, page="/Reg.jsp";
 		response.setContentType("text/html");
 
@@ -32,7 +32,8 @@ public class RegistrServlet extends HttpServlet{
 
 		//TODO надо изменить - UtilServlets - checkLine
 		
-		if ((ut.checkLine(login) == true) & (ut.checkLine(password) == true)) {
+
+		if ((UtilServlets.checkLine(login) == true) & (UtilServlets.checkLine(password) == true)) {
 			String messageAuthZ = ManagerClient.apiReg(login, password);
 
 			//TODO установка пути - UtilServlets - setPath

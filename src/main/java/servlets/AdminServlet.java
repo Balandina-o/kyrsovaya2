@@ -51,6 +51,8 @@ public class AdminServlet extends HttpServlet {
 
 		//TODO - изменение при начатии на кнопку "поменять или сохранить"
 		//TestCoffEnum.changeCoffADMIN(coeffUfa,coeffKazan,coeffMoscow,coeffGorn);
+		
+		//TODO Для нажатия кнопки "поменять и сохранить" не нужно условие, можно присать прям так
 
 		if (request.getParameter("exitButton") != null) { // если нажата кнопка выхода из аккаунта
 

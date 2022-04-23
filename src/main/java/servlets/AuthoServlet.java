@@ -24,7 +24,7 @@ public class AuthoServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		UtilServlets ut = new UtilServlets();
+	
 		String login, password, page = "/Aut.jsp";
 		response.setContentType("text/html");
 
@@ -33,7 +33,7 @@ public class AuthoServlet extends HttpServlet {
 
 		//Установка пути
 		//TODO надо вызывать через -  UtilServlets
-			ut.setPathToResources(request);
+			UtilServlets.setPathToResources(request);
 			//this.setPath(request);
 				
 			//0- message , 1 - role индексы

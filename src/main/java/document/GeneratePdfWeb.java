@@ -1,6 +1,5 @@
 package document;
 
-import java.io.File;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -20,29 +19,30 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
-import servlets.AccessResourcePath;
 
 public class GeneratePdfWeb {
-    private static String cadastralValue, inventoryTax, square, portion, holdingPeriodRatio,
+    private String cadastralValue, inventoryTax, square, portion, holdingPeriodRatio,
             childrenCount, exemption, result;
 
-    private static String fullPath1, fullPath2, regionName, propertyName;
-    private static BaseFont times;
-    public static byte[] generate(String cadastralValue, String inventoryTax, String square,
+    private String fullPath1, fullPath2, regionName, propertyName;
+    private BaseFont times;
+    public byte[] generate(String cadastralValue, String inventoryTax, String square,
                                   String portion, String holdingPeriodRatio, String childrenCount,
                                   String exemption, String result, String fullPath1, String fullPath2) {
 
-        GeneratePdfWeb.cadastralValue = cadastralValue;//кадастровая стоимость
-        GeneratePdfWeb.inventoryTax = inventoryTax;//инвентаризационный налог
-        GeneratePdfWeb.square = square;//площадь
-        GeneratePdfWeb.portion = portion;//доля в собственности
-        GeneratePdfWeb.holdingPeriodRatio = holdingPeriodRatio;//период владения
-        GeneratePdfWeb.childrenCount = childrenCount;//кол-во детей
-        GeneratePdfWeb.exemption = exemption;//льгота
-        GeneratePdfWeb.result = result;
-
-        GeneratePdfWeb.fullPath1 = fullPath1;
-        GeneratePdfWeb.fullPath2 = fullPath2;
+        this.cadastralValue = cadastralValue;//кадастровая стоимость
+        this.inventoryTax = inventoryTax;//инвентаризационный налог
+        this.square = square;//площадь
+        this.portion = portion;//доля в собственности
+        this.holdingPeriodRatio = holdingPeriodRatio;//период владения
+        this.childrenCount = childrenCount;//кол-во детей
+        this.exemption = exemption;//льгота
+        this.result = result;
+        this.regionName = RegionProperty.getInstance().getRegionName();
+        this.propertyName = RegionProperty.getInstance().getPropertyName();
+        
+        this.fullPath1 = fullPath1;
+        this.fullPath2 = fullPath2;
 
         try {
             Document document = new Document();
@@ -51,16 +51,16 @@ public class GeneratePdfWeb {
 
             document.open();
 
-            String string_pdf = "\n" + "\n" + "\n" + " Расчет налога на имущество для физических лиц";
+            String string_pdf = "\n" + "\n" + "\n" + "\n" + "\n" + " Расчет налога на имущество для физических лиц";
             Paragraph paragraph = new Paragraph();
-            paragraph.add(new Paragraph(string_pdf, new Font(GeneratePdfWeb.getFont(),18)));
+            paragraph.add(new Paragraph(string_pdf, new Font(getFont(),18)));
 
             String string_pdf2 = "В таблице 1, расположенной ниже, можно увидеть характеристики и соответствующие вводимые параметры.";
-            paragraph.add(new Paragraph(string_pdf2, new Font(GeneratePdfWeb.getFont(),14)));
+            paragraph.add(new Paragraph(string_pdf2, new Font(getFont(),14)));
 
 
             String string_pdf3 = "\n" + " Таблица 1. Основные данные для вывода";
-            paragraph.add(new Paragraph(string_pdf3, new Font(GeneratePdfWeb.getFont(),14)));
+            paragraph.add(new Paragraph(string_pdf3, new Font(getFont(),14)));
 
             try {
                 document.add(paragraph);
@@ -70,7 +70,7 @@ public class GeneratePdfWeb {
 
             paragraph.clear();
             String string_pdf4 = " ";
-            paragraph.add(new Paragraph(string_pdf4, new Font(GeneratePdfWeb.getFont(),14)));
+            paragraph.add(new Paragraph(string_pdf4, new Font(getFont(),14)));
 
             try {
                 document.add(paragraph);
@@ -78,7 +78,7 @@ public class GeneratePdfWeb {
                 e1.printStackTrace();
             }
 
-            try { document.add(GeneratePdfWeb.getImage());
+            try { document.add(getImage());
             } catch (DocumentException e) {
                 e.printStackTrace();
             }
@@ -95,7 +95,7 @@ public class GeneratePdfWeb {
 
 
             String string_pdf5 = "\n" + " Участники группы: Баландина Ольга, Гареева Диана, Злыгостев Артем, Байбурин Марат.";
-            paragraph.add(new Paragraph(string_pdf5, new Font(GeneratePdfWeb.getFont(),14)));
+            paragraph.add(new Paragraph(string_pdf5, new Font(getFont(),14)));
 
             try {
                 document.add(paragraph);
@@ -112,7 +112,7 @@ public class GeneratePdfWeb {
         }
     }
 
-    static BaseFont getFont() {
+    public BaseFont getFont() {
         try {
             times = BaseFont.createFont(fullPath1, "cp1251", BaseFont.EMBEDDED, true);
         } catch (DocumentException | IOException e) {
@@ -122,7 +122,7 @@ public class GeneratePdfWeb {
         return times;
     }
 
-    static Image getImage() {
+    private Image getImage() {
 
         Image img = null;
         try {
@@ -137,15 +137,15 @@ public class GeneratePdfWeb {
             e2.printStackTrace();
         }
 
-        img.setAbsolutePosition(430, 724);
+        img.setAbsolutePosition(430, 657);
 
         return img;
 
     }
 
-    private static void addRows(PdfPTable table) {
-        String[] cell = {"Муниципальное образование: ", GeneratePdfWeb.getRegionPDF(),
-                "Тип недвижимости: ", GeneratePdfWeb.getPropertyPDF(),
+    private void addRows(PdfPTable table) {
+        String[] cell = {"Муниципальное образование: ", regionName,
+                "Тип недвижимости: ", propertyName,
                 "Кадастровая стоимость объекта: ", cadastralValue,
                 "Налог от инвентар. стоимости: ", inventoryTax,
                 "Площадь объекта: ", square,
@@ -164,7 +164,7 @@ public class GeneratePdfWeb {
 
     }
 
-    private static void addHeader(PdfPTable table) {
+    private void addHeader(PdfPTable table) {
         Stream.of("Характеристики", " Вводимые параметры")
                 .forEach(columnTitle -> {
                     PdfPCell header = new PdfPCell();
@@ -173,53 +173,6 @@ public class GeneratePdfWeb {
                     header.setPhrase(new Phrase(columnTitle, new Font(times,14)));
                     table.addCell(header);
                 });
-    }
-
-    private static String getRegionPDF() {
-        int indexReg = RegionProperty.getInstance().getRegionIndex();
-
-        switch (indexReg) {
-            case (10):
-                regionName = "г. Уфа";
-                break;
-            case (20):
-                regionName = "г. Казань";
-                break;
-            case (30):
-                regionName = "г. Москва";
-                break;
-            case (40):
-                regionName = "г. Горно-Алтайск";
-                break;
-        }
-
-        return regionName;
-
-    }
-
-    private static String getPropertyPDF() {
-        int propReg = RegionProperty.getInstance().getPropertyIndex();
-
-        switch (propReg) {
-            case (0):
-                propertyName = "комната";
-                break;
-            case (1):
-                propertyName = "квартира";
-                break;
-            case (2):
-                propertyName = "жилой дом";
-                break;
-            case (3):
-                propertyName = "машино-место";
-                break;
-            case (4):
-                propertyName = "иное здание / сооружение";
-                break;
-        }
-
-        return propertyName;
-
     }
 }
 
