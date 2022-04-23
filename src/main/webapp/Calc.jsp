@@ -105,8 +105,23 @@
                     <label for="">Сумма к уплате:</label>
                     <input type="text" name="result" value="${result}" disabled />
                 </div>
-                
-                    <input type="hidden" name="errorsCalc" value="${errorsCalc}" />
+
+			<div class="input-box input-box__one-column">
+				<label for="">Формат генерируемого файла</label>
+				<div class="lgots">
+					<div class="radio">
+						<label for="">PDF</label> <input type="radio" name="lgots" id="" />
+					</div>
+					<div class="radio">
+						<label for="">docx</label> <input type="radio" name="lgots" id="" />
+					</div>
+					<div class="radio">
+						<label for="">odr</label> <input type="radio" name="lgots" id="" />
+					</div>
+				</div>
+			</div>
+
+			<input type="hidden" name="errorsCalc" value="${errorsCalc}" />
 			
                 <div class="button-box">
                     <button name="pdfButton" value="pdfButton">Сгенерировать PDF-файл</button>
