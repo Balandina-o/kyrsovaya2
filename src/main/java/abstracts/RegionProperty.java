@@ -39,6 +39,7 @@ public class RegionProperty implements ClearRes {
        PropertyName = Dependencies.setDeductionEvaporater_propertyName(propertyIndex);
     }
     private void setAdminFactor_regionName(int regionIndex) {
+        CoffRegionAdmin.FillFromFile();
         if (regionIndex == 10) {
             ADMIN_FACTOR = CoffRegionAdmin.UFA_COFF.getValue();
             regionName = "г. Уфа";

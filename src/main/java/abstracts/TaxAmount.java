@@ -1,6 +1,8 @@
 package abstracts;
 
+import enums.CoffRegionAdmin;
 import enums.EnumSwitch;
+import enums.ReaderCoff;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -46,6 +48,7 @@ public final class TaxAmount {
         //ToDO новое
 		RegionProperty instance =RegionProperty.getInstance();
 		finalBid= EnumSwitch.enumUse(instance.getRegionIndex(), instance.getPropertyIndex(),cadastralValue);
+
         finalBid= finalBid*instance.getADMIN_FACTOR();
 
         finalBidBig = BigDecimal.valueOf(finalBid);
