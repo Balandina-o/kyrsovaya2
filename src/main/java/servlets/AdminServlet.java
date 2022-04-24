@@ -69,7 +69,7 @@ public class AdminServlet extends HttpServlet {
 		}
 
 		//перенаправление, чтобы юзер остался на той же форме
-		RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/Dashboard.jsp");
+		RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/WEB-INF/Dashboard.jsp");
 		requestDispatcher.forward(request, response);
 		return;
 

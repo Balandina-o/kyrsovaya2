@@ -54,7 +54,7 @@ public class RegistrServlet extends HttpServlet {
             return;
         }
 
-        getServletContext().getRequestDispatcher(page).forward(request, response);//код перенаправления
+        getServletContext().getRequestDispatcher("/WEB-INF/Reg.jsp").forward(request, response);//код перенаправления
         return;
     }
 

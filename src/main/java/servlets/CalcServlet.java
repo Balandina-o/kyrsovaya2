@@ -156,7 +156,7 @@ public class CalcServlet extends HttpServlet {
 			return;
 		}
 
-		RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/Calc.jsp");
+		RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/WEB-INF/Calc.jsp");
 		requestDispatcher.forward(request, response);
 		return;
 

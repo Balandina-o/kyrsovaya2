@@ -63,7 +63,7 @@ public class AuthoServlet extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/reg");
 			return;
 		}
-		getServletContext().getRequestDispatcher("/Aut.jsp").forward(request, response);//код перенаправления
+		getServletContext().getRequestDispatcher("/WEB-INF/Aut.jsp").forward(request, response);//код перенаправления
 		return;
 	}
 }
