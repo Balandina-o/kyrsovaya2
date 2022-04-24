@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -jar artifacts/webapp-runner.jar --port $PORT artifacts/test.war
+web: java $JAVA_OPTS -jar artifacts/webapp-runner.jar --port $PORT artifacts/PropertyTaxWebApp.war
