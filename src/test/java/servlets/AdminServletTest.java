@@ -70,14 +70,15 @@ public class AdminServletTest {
 	 * @throws ServletException
 	 * @throws IOException
 	 */
-	@Test
-	public final void testFrequencyPositive() throws ServletException, IOException {
-
-		servlet.doGet(request, response);
-		verify(request, times(1)).getParameter("coeffUfa");
-		verify(request, times(1)).getParameter("coeffKazan");
-		verify(request, times(1)).getParameter("coeffMoscow");
-		verify(request, times(1)).getParameter("coeffGorn");
-	}
+	/*
+	 * @Test public final void testFrequencyPositive() throws ServletException,
+	 * IOException {
+	 * 
+	 * servlet.doGet(request, response); verify(request,
+	 * times(1)).getParameter("coeffUfa"); verify(request,
+	 * times(1)).getParameter("coeffKazan"); verify(request,
+	 * times(1)).getParameter("coeffMoscow"); verify(request,
+	 * times(1)).getParameter("coeffGorn"); }
+	 */
 
 }

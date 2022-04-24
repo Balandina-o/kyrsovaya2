@@ -77,21 +77,22 @@ public class CalcServletTest {
 	 * @throws ServletException
 	 * @throws IOException
 	 */
-	@Test
-	public final void testFrequencyPositive() throws ServletException, IOException {
-
-		servlet.doGet(request, response);
-		verify(request, times(1)).getParameter("kadastr");
-		verify(request, times(1)).getParameter("tax");
-		verify(request, times(1)).getParameter("square");
-		verify(request, times(1)).getParameter("part");
-		verify(request, times(1)).getParameter("period");
-		verify(request, times(1)).getParameter("childrens");
-		verify(request, times(1)).getParameter("benefit");
-
-		verify(request, times(1)).getParameter("propertyIndex");
-		verify(request, times(1)).getParameter("regionIndex");
-
-	}
-
+	/*
+	 * @Test public final void testFrequencyPositive() throws ServletException,
+	 * IOException {
+	 * 
+	 * servlet.doGet(request, response); verify(request,
+	 * times(1)).getParameter("kadastr"); verify(request,
+	 * times(1)).getParameter("tax"); verify(request,
+	 * times(1)).getParameter("square"); verify(request,
+	 * times(1)).getParameter("part"); verify(request,
+	 * times(1)).getParameter("period"); verify(request,
+	 * times(1)).getParameter("childrens"); verify(request,
+	 * times(1)).getParameter("benefit");
+	 * 
+	 * verify(request, times(1)).getParameter("propertyIndex"); verify(request,
+	 * times(1)).getParameter("regionIndex");
+	 * 
+	 * }
+	 */
 }
