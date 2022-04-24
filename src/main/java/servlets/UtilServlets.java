@@ -18,7 +18,7 @@ public class UtilServlets {
      * @param str - проверяемая строка.
      * @return Содержит ли строка только Буквы - Русс, Англ, Цифры - 0-9
      */
-    //TODO это вместо условий проверки логина
+    // это вместо условий проверки логина
     protected static boolean checkLine(String str) {
         Pattern pattern = Pattern.compile("^[A-Za-zА-Яа-яЁё0-9]+$");
         Matcher matcher = pattern.matcher(str);
@@ -29,7 +29,7 @@ public class UtilServlets {
      * @param request - Запрос сервлета
      * @return Path Абсолютный путь до папки resources
      */
-    //TODO это вместо setPath вставлять в сервлеты
+    // это вместо setPath вставлять в сервлеты
     public static String setPathToResources(HttpServletRequest request) {
         String path = "/resources";
         String PathRes = request.getServletContext().getRealPath(path);
@@ -37,7 +37,7 @@ public class UtilServlets {
         return PathRes;
     }
 
-    //TODO Перенаправление шаблон - использовать или нет. Раньше код Дублировался c этим
+    // Перенаправление шаблон - использовать или нет. Раньше код Дублировался c этим
     protected static void redirect(ServletContext servlet, String page, HttpServletRequest request, HttpServletResponse response) {
         // Пример: RequestDispatcher requestDispatcher = servlet.getRequestDispatcher("/Aut.jsp");
         RequestDispatcher requestDispatcher = servlet.getRequestDispatcher(page);

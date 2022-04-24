@@ -8,7 +8,7 @@ import java.util.LinkedHashMap;
 
 /**
  * Класс для чтения пары - сумма из ComboBox и номера константы
- * /TODO Не для Админа
+ * / Не для Админа
  */
 public class ReaderCoff implements ClearRes {
     private static final String PATH = "/enumSumFromComboBox";

@@ -13,13 +13,13 @@ import java.util.Map;
 import java.util.Objects;
 
 interface Authorized {
-    //TODO отвечает за авторизацию - подумать куда вынести
+    // отвечает за авторизацию - подумать куда вынести
     Map<String, Boolean> INCORRECT = Map.of("EMPTY", false);
 
     /**
      * Метод проверяет пользователя в базе
      * / FIXME: 11.04.2022 изменить при базе данных
-     * / TODO изменить чтение? поменять на protected / default / поменять тип на String
+     * /  изменить чтение? поменять на protected / default / поменять тип на String
      **/
     static HashMap<String, Boolean> authentication(String log, String password, String path) {
 
@@ -46,7 +46,7 @@ interface Authorized {
     /**
      * Метод регистрации в базе
      * / FIXME:  11.04.2022 изменить при добавлении базы данных
-     * / TODO Вынести сообщения в отдельный метод / пропускать чтение если false
+     * /  Вынести сообщения в отдельный метод / пропускать чтение если false
      **/
     static boolean createNew(String login, String password, String path) {
         String def_role = "USER";
@@ -68,7 +68,7 @@ interface Authorized {
     /**
      * Метод проверяет логин на уникальность в базе данных
      * / FIXME изменить при добавлении базы данных
-     * / TODO  изменить чтение строки на символы. читать до разделителя /поменять тип на String
+     * /   изменить чтение строки на символы. читать до разделителя /поменять тип на String
      */
     private static boolean findByLogin(String login, String path) {
         int count = 0; // count служит переменной уникальностью

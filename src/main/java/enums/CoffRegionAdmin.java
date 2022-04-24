@@ -36,7 +36,7 @@ public enum CoffRegionAdmin {
         }
     }
 
-    //TODO это нужно админу
+    // это нужно админу
     public static void changeCoffADMIN(String Ufa_Coff, String Kazan_coff, String Moscow_coff, String Gorn_coff) {
         double d_Ufa_Cff, d_Kazan_Cff, d_Moscow_Cff, d_Gorn_Cff;
         d_Ufa_Cff = Double.parseDouble(Ufa_Coff);
@@ -67,7 +67,7 @@ public enum CoffRegionAdmin {
         }
     }
 
-    //TODO - Пример как вызывать.
+    // - Пример как вызывать.
     //Сначала Заполняется из файла на сервлет админа?
     //Потом при нажатии на кнопку вызывается метод changeCoff. куда передаются данные из формы
     public static void main(String[] args) throws IOException {

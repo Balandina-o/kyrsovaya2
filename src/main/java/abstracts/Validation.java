@@ -11,10 +11,10 @@ public class Validation implements ClearRes {
     private InputChildrenCount childrenCountErr;
     private InputExemption exemptionErr;
     private List<InputError> errors;
-    private String squareText, result; //TODO squareText не используется птмч он в init
+    private String squareText, result; // squareText не используется птмч он в init
     private double cadastralValue, inventoryTax, square, portion, holdingPeriodRatio, childrenCount, exemption;
 
-//TODO Вместо индексов
+// Вместо индексов
     /**
      * @see RegionProperty
      */
@@ -50,7 +50,7 @@ public class Validation implements ClearRes {
             errors.add(new InputError(inventoryTaxErr.getFieldName(), "Налог от инвентаре. стоимости должен быть меньше кадастровой стоимости"));
         }
         //correlate(); // вызывается метод-установщик значений, чтобы могла выполнится проверка ниже
-        //TODO squareText пустой теперь??
+        // squareText пустой теперь??
         double deduction= RegionProperty.getInstance().getDeduction();
         if (deduction >= square & !Objects.equals(squareText, "")) { //если площадь меньше вычета(по тиму имущества), то все норм
             String message = "";
@@ -87,7 +87,7 @@ public class Validation implements ClearRes {
 
         return messages;
     }
-//TODO Вместо correlate - RegionProperty
+// Вместо correlate - RegionProperty
 
     /**
      * @see RegionProperty
