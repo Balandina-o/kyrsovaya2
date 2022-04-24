@@ -47,7 +47,7 @@ public class CalcServletTest {
 		
 		when(request.getSession()).thenReturn(session);
 		
-		when(servletContext.getRequestDispatcher("/Calc.jsp")).thenReturn(dispatcher);
+		when(servletContext.getRequestDispatcher("/calc")).thenReturn(dispatcher);
 
 		servlet = new CalcServlet() {
 			private static final long serialVersionUID = 1L;
@@ -66,7 +66,7 @@ public class CalcServletTest {
 	 */
 	@Test(expected = NullPointerException.class)
 	public final void testDoPostPositive() throws ServletException, IOException {
-		servlet.doPost(null, null);
+		servlet.doGet(null, null);
 	}
 
 	/**
@@ -80,7 +80,7 @@ public class CalcServletTest {
 	@Test
 	public final void testFrequencyPositive() throws ServletException, IOException {
 
-		servlet.doPost(request, response);
+		servlet.doGet(request, response);
 		verify(request, times(1)).getParameter("kadastr");
 		verify(request, times(1)).getParameter("tax");
 		verify(request, times(1)).getParameter("square");

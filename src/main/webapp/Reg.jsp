@@ -21,7 +21,7 @@
         </header>
 
         <main>
-            <form class="container" name="regForm" action="RegistrServlet" method="GET">
+            <form class="container" name="regForm" action="${pageContext.request.contextPath}/reg" method="GET">
                 <h2>Регистрация</h2>
                 
                 <script>        
@@ -41,7 +41,7 @@
                 </div>
                 <div class="button-box">
                     <button name="exitButton" value="exitButton">Назад</button>
-                    <button type="submit">Зарегистрироваться</button>
+                    <button name="regButton" type="submit">Зарегистрироваться</button>
                 </div>
 
                  <input type="hidden" name="messageReg" value="${messageReg}" />

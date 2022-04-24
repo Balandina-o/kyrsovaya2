@@ -10,25 +10,6 @@
         <title>Изменение коэффициентов</title>
     </head>
     <body>
-    
-    <jsp:scriptlet>
-    
-    if (request.getSession().getAttribute("role") == null) {
-		RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/Aut.jsp");
-		requestDispatcher.forward(request, response);
-		return;
-    }
-    if(!request.getSession().getAttribute("role").equals("ADMIN")){ 
-		RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/Aut.jsp");
-		requestDispatcher.forward(request, response);
-		return;} 
-    </jsp:scriptlet>
-    
-    <script>        
-        window.onload = function() {
-        	if (document.querySelector("input[name='coeffUfa']").value == ""){document.adminform.submit();}}
-		</script> 
-    
         <header>
             <div class="titles">
                 <h1 class="title">Налоговый калькулятор</h1>
@@ -40,7 +21,7 @@
         </header>
       
 		<main>
-            <form action="AdminServlet" class="container" name="adminform" method="GET">
+            <form action="${pageContext.request.contextPath}/admin" class="container" name="adminform" method="GET">
                 
                 <h2>Панель изменения коэффициентов</h2>
                 <div class="input-box input-box__one-column">
@@ -64,8 +45,15 @@
                 </div>
                 <div class="button-box">
                     <button name="exitButton" value="exitButton">Выход</button>
-                    <button name="changeButton" type="submit" value="changeButton">Изменить и сохранить</button>
+                    <button id="change" name="changeButton" type="submit" value="changeButton">Изменить и сохранить</button>
                 </div>
+                
+                <script>
+               		 change.onclick = function() {
+							alert('Коэффициенты успешно изменены');
+						};
+				</script>
+                
             </form>
         </main>
 

@@ -10,19 +10,6 @@
         <title>Расчет налога</title>
     </head>
     <body>
-    
-    <jsp:scriptlet>
-    if (request.getSession().getAttribute("role") == null) {
-		RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/Aut.jsp");
-		requestDispatcher.forward(request, response);
-		return;
-
-    } else if (request.getSession().getAttribute("role").equals("EMPTY")){ 
-		RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/Aut.jsp");
-		requestDispatcher.forward(request, response);
-		return;} 
-    </jsp:scriptlet>
-    
         <header>
             <div class="titles">
                 <h1 class="title">Налоговый калькулятор</h1>
@@ -32,9 +19,8 @@
             </div>
             <img src="./resources/picture/usatu.png" alt="Логотип УГАТУ" />
         </header>
-
         <main>
-            <form class="container" name="calcform" action="CalcServlet" method="POST">
+            <form class="container" name="calcform" action="${pageContext.request.contextPath}/calc" method="GET">
                 <h2>Введите данные для расчёта</h2>
         <script>        
         window.onload = function() {
@@ -124,13 +110,12 @@
 			<input type="hidden" name="errorsCalc" value="${errorsCalc}" />
 			
                 <div class="button-box">
-                	<button type="submit" name="button" value="calcButton">Расчитать</button>
+                	<button type="submit" name="calcButton" value="calcButton">Расчитать</button>
 					<button name="exitButton" value="exitButton">Выйти из аккаунта</button>
 					<button name="pdfButton" value="pdfButton">Скачать сгенерированный документ</button>
                 </div>
             </form>
         </main>
-
 
       <footer>
             <a href="./info.html" target="_blank">О разработчиках</a>

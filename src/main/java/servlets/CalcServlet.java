@@ -22,15 +22,23 @@ import document.GeneratePdfWeb;
  * @author balandina-o
  *
  */
-@WebServlet("/CalcServlet")
+@WebServlet(name = "CalcServlet", urlPatterns = {"/calc"})
 public class CalcServlet extends HttpServlet {
-
+	private String resultat; 
 	private static final long serialVersionUID = 1L;
 
 	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-
+	    
+	    if (request.getSession().getAttribute("role") == null) {
+			response.sendRedirect(request.getContextPath() + "/autho");
+			return;
+		} else if(request.getSession().getAttribute("role").equals("EMPTY")){ 
+			response.sendRedirect(request.getContextPath() + "/autho");
+			return;
+		}
+		
 		String kadastr, tax, square, part, period, childrens, benefit, regionIndex, propertyIndex;
 		response.setContentType("text/html");
 
@@ -57,6 +65,8 @@ public class CalcServlet extends HttpServlet {
 		request.setAttribute("regionIndex", regionIndex);	
 		request.setAttribute("propertyIndex", propertyIndex);
 
+		
+		if (request.getParameter("calcButton") != null) {//если нажата кнопка rascheta
 		//Новая функция региона 
 		//TODO зачем parseInt
 		RegionProperty.getInstance().setInitRegionPropertyIndex(Integer.parseInt(regionIndex), Integer.parseInt(propertyIndex));
@@ -78,9 +88,10 @@ public class CalcServlet extends HttpServlet {
 			request.setAttribute("errorsCalc", valid.validate()); // установить их на форму
 
 		}else { // иначе получить посчитанный результат и поставить его на форму
-			valid.getResult();
+			resultat = valid.getResult();
 			request.setAttribute("result", valid.getResult());
 			request.setAttribute("errorsCalc", "noMessage"); 
+		}
 		}
 
 		if (request.getParameter("pdfButton") != null) { // если нажата кнопка генерации док-та
@@ -98,7 +109,7 @@ public class CalcServlet extends HttpServlet {
 							period,
 							childrens,
 							benefit,
-							valid.getResult()
+							resultat
 					));
 
 					response.flushBuffer();
@@ -130,9 +141,8 @@ public class CalcServlet extends HttpServlet {
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
 				}
-				return;
+				return;}
 			}
-		}
 		
 		if (request.getParameter("exitButton") != null) { // если нажата кнопка выхода из аккаунта
 			request.setAttribute("errorsCalc", "noMessage");
@@ -142,7 +152,7 @@ public class CalcServlet extends HttpServlet {
 				//UtilServlets.clearAll();
 				request.getSession().removeAttribute("role");
 			}
-			response.sendRedirect(request.getContextPath() + "/Aut.jsp");
+			response.sendRedirect(request.getContextPath() + "/autho");
 			return;
 		}
 

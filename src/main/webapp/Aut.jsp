@@ -29,7 +29,7 @@
         </header>
 
         <main>
-            <form class="container" name="authoForm" action="AuthoServlet" method="GET">
+            <form class="container" name="authoForm" action="${pageContext.request.contextPath}/autho" method="GET">
                 <h2>Вход</h2>
                 <div class="input-box">
                     <label for="login">Логин</label>
@@ -41,7 +41,7 @@
                 </div>
                 <div class="button-box">
                     <button name="regButton" value="regButton">Зарегистрироваться</button>
-                    <button type="submit">Войти</button>
+                    <button name="enterButton" type="submit">Войти</button>
                 </div>
                 
                 <input type="hidden" name="errorsAut" value="${errorsAut}" />
