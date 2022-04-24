@@ -1,6 +1,7 @@
 package servlets;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -70,15 +71,16 @@ public class AdminServletTest {
 	 * @throws ServletException
 	 * @throws IOException
 	 */
-	/*
-	 * @Test public final void testFrequencyPositive() throws ServletException,
-	 * IOException {
-	 * 
-	 * servlet.doGet(request, response); verify(request,
-	 * times(1)).getParameter("coeffUfa"); verify(request,
-	 * times(1)).getParameter("coeffKazan"); verify(request,
-	 * times(1)).getParameter("coeffMoscow"); verify(request,
-	 * times(1)).getParameter("coeffGorn"); }
-	 */
+	
+	  @Ignore 
+	  public final void testFrequencyPositive() throws ServletException,
+	  IOException {
+	  
+	  servlet.doGet(request, response); verify(request,
+	  times(1)).getParameter("coeffUfa"); verify(request,
+	  times(1)).getParameter("coeffKazan"); verify(request,
+	  times(1)).getParameter("coeffMoscow"); verify(request,
+	  times(1)).getParameter("coeffGorn"); }
+	 
 
 }
