@@ -47,13 +47,6 @@
                     <button name="exitButton" value="exitButton">Выход</button>
                     <button id="change" name="changeButton" type="submit" value="changeButton">Изменить и сохранить</button>
                 </div>
-                
-                <script>
-               		 change.onclick = function() {
-							alert('Коэффициенты успешно изменены');
-						};
-				</script>
-                
             </form>
         </main>
 
@@ -61,4 +54,11 @@
             <a href="./info.html" target="_blank">О разработчиках</a>
         </footer>
     </body>
+    
+     <script>
+         change.onclick = function() {
+				alert('Коэффициенты успешно изменены');
+         };
+	</script>
+                
 </html>

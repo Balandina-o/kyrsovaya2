@@ -24,13 +24,6 @@
             <form class="container" name="regForm" action="${pageContext.request.contextPath}/reg" method="GET">
                 <h2>Регистрация</h2>
                 
-                <script>        
-        		window.onload = function() {
-					if (document.querySelector("input[name='messageReg']").value != ""){
-						alert(document.querySelector("input[name='messageReg']").value);
-					}}
-				</script> 
-                
                 <div class="input-box">
                     <label for="login">Логин</label>
                     <input type="text" name="login" />
@@ -53,4 +46,11 @@
             <a href="./info.html" target="_blank">О разработчиках</a>
         </footer>
     </body>
+    
+     <script defer>        
+        window.onload = function() {
+			if (document.querySelector("input[name='messageReg']").value != ""){
+				alert(document.querySelector("input[name='messageReg']").value);
+			}}
+	</script> 
 </html>

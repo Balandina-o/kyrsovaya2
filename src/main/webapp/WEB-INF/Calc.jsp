@@ -21,15 +21,7 @@
         </header>
         <main>
             <form class="container" name="calcform" action="${pageContext.request.contextPath}/calc" method="GET">
-                <h2>Введите данные для расчёта</h2>
-        <script>        
-        window.onload = function() {
-			if (document.querySelector("input[name='errorsCalc']").value != "noMessage"){
-				if (document.querySelector("input[name='errorsCalc']").value != ""){
-					alert(document.querySelector("input[name='errorsCalc']").value);
-				}
-        	}else{}}
-		</script>     
+                <h2>Введите данные для расчёта</h2>  
                 <div class="input-box input-box__one-column">
                     <label for="">Муницип. образование</label>
                     <select name="regionIndex">
@@ -121,4 +113,13 @@
             <a href="./info.html" target="_blank">О разработчиках</a>
        </footer>
      </body>
+     
+     <script defer>        
+        window.onload = function() {
+			if (document.querySelector("input[name='errorsCalc']").value != "noMessage"){
+				if (document.querySelector("input[name='errorsCalc']").value != ""){
+					alert(document.querySelector("input[name='errorsCalc']").value);
+				}
+        	}else{}}
+		</script>   
 </html>

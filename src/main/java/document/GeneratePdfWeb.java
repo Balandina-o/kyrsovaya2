@@ -3,7 +3,6 @@ package document;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.nio.file.Path;
 import java.util.stream.Stream;
 
 import abstracts.RegionProperty;
@@ -27,7 +26,8 @@ public class GeneratePdfWeb {
     private String cadastralValue, inventoryTax, square, portion, holdingPeriodRatio,
             childrenCount, exemption, result;
 
-    private static String fullPath1, fullPath2;
+    private static String fullPath1 = "/fonts/times.ttf"; 
+    private static String fullPath2 = "/picture/usatu.png";
     private String regionName, propertyName;
     private BaseFont times;
     
@@ -45,24 +45,21 @@ public class GeneratePdfWeb {
         this.result = result;
         this.regionName = RegionProperty.getInstance().getRegionName();
         this.propertyName = RegionProperty.getInstance().getPropertyName();
-        
-        fullPath1 = UtilServlets.PathToResPDF("/fonts/times.ttf");
-        fullPath2 = UtilServlets.PathToResPDF("/picture/usatu.png");
 
         try {
             Document document = new Document();
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             PdfWriter.getInstance(document, stream);
-
             document.open();
 
-            String string_pdf = "\n" + "\n" + "\n" + "\n" + "\n" + " Расчет налога на имущество для физических лиц";
+            String string_pdf = "\n" + "\n" + "\n" + "\n" + "\n" + " Расчет налога на "
+            					+ "имущество для физических лиц";
             Paragraph paragraph = new Paragraph();
             paragraph.add(new Paragraph(string_pdf, new Font(getFont(),18)));
 
-            String string_pdf2 = "В таблице 1, расположенной ниже, можно увидеть характеристики и соответствующие вводимые параметры.";
+            String string_pdf2 = "В таблице 1, расположенной ниже, можно увидеть характеристики и "
+            					  + "соответствующие вводимые параметры.";
             paragraph.add(new Paragraph(string_pdf2, new Font(getFont(),14)));
-
 
             String string_pdf3 = "\n" + " Таблица 1. Основные данные для вывода";
             paragraph.add(new Paragraph(string_pdf3, new Font(getFont(),14)));
@@ -98,8 +95,8 @@ public class GeneratePdfWeb {
                 e.printStackTrace();
             }
 
-
-            String string_pdf5 = "\n" + " Участники группы: Баландина Ольга, Гареева Диана, Злыгостев Артем, Байбурин Марат.";
+            String string_pdf5 = "\n" + " Участники группы: Баландина Ольга, Гареева Диана, "
+            					  + "Злыгостев Артем, Байбурин Марат.";
             paragraph.add(new Paragraph(string_pdf5, new Font(getFont(),14)));
 
             try {
@@ -119,19 +116,17 @@ public class GeneratePdfWeb {
 
     public BaseFont getFont() {
         try {
-            times = BaseFont.createFont(fullPath1, "cp1251", BaseFont.EMBEDDED, true);
+            times = BaseFont.createFont(UtilServlets.PathToResPDF(fullPath1), "cp1251", BaseFont.EMBEDDED, true);
         } catch (DocumentException | IOException e) {
             e.printStackTrace();
         }
-
         return times;
     }
 
     private Image getImage() {
-
         Image img = null;
         try {
-            img = Image.getInstance(fullPath2);
+            img = Image.getInstance(UtilServlets.PathToResPDF(fullPath2));
 
         } catch (BadElementException e2) {
 
@@ -143,9 +138,7 @@ public class GeneratePdfWeb {
         }
 
         img.setAbsolutePosition(430, 657);
-
         return img;
-
     }
 
     private void addRows(PdfPTable table) {
@@ -162,11 +155,9 @@ public class GeneratePdfWeb {
                 "Сумма к уплате: ", result + " руб.",
         };
 
-
         for (int i = 0; i < 22; i++) {
             table.addCell((new Phrase(cell [i], new Font(times,14))));
         }
-
     }
 
     private void addHeader(PdfPTable table) {

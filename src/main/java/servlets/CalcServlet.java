@@ -24,8 +24,10 @@ import document.GeneratePdfWeb;
  */
 @WebServlet(name = "CalcServlet", urlPatterns = {"/calc"})
 public class CalcServlet extends HttpServlet {
-	private String resultat; 
+	
 	private static final long serialVersionUID = 1L;
+	private String resultat;
+	private Boolean emptyOrNot;
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -64,13 +66,12 @@ public class CalcServlet extends HttpServlet {
 		
 		request.setAttribute("regionIndex", regionIndex);	
 		request.setAttribute("propertyIndex", propertyIndex);
-
 		
 		if (request.getParameter("calcButton") != null) {//если нажата кнопка rascheta
 		//Новая функция региона 
 		// зачем parseInt
 		RegionProperty.getInstance().setInitRegionPropertyIndex(Integer.parseInt(regionIndex), Integer.parseInt(propertyIndex));
-
+		
 		childrens = Objects.equals(childrens, "") ? "0" : childrens;
 		benefit = Objects.equals(benefit, "") ? "0" : benefit;
 
@@ -84,32 +85,33 @@ public class CalcServlet extends HttpServlet {
 				benefit);
 		//FIXME условия вынести в методы
 
-		if (valid.validate() != "") { // если строка ошибок не пуста
-			request.setAttribute("errorsCalc", valid.validate()); // установить их на форму
+		String errorsList = valid.validate();
+		if (errorsList != "") { // если строка ошибок не пуста
+			request.setAttribute("errorsCalc", errorsList); // установить их на форму
 
 		}else { // иначе получить посчитанный результат и поставить его на форму
 			resultat = valid.getResult();
-			request.setAttribute("result", valid.getResult());
+			request.setAttribute("result", resultat);
 			request.setAttribute("errorsCalc", "noMessage"); 
 		}
 		}
 
 		if (request.getParameter("pdfButton") != null) { // если нажата кнопка генерации док-та
-			if(request.getParameter("result") != "") { // если поле результата не пусто
+			emptyOrNot = request.getParameter("result") != "";
 				response.setContentType("application/octet-stream");
 				response.setHeader("Content-Disposition", "attachment; filename=DocumentGroup2" + formatDoc);
 				GeneratePdfWeb genPdf = new GeneratePdfWeb ();
 				
 				try (OutputStream out = response.getOutputStream()) {
 					out.write(genPdf.generate(
-							kadastr,
-							tax,
-							square,
-							part,
-							period,
-							childrens,
-							benefit,
-							resultat
+							emptyOrNot ? kadastr : "---",
+							emptyOrNot ? tax : "---",
+							emptyOrNot ? square : "---",
+							emptyOrNot ? part : "---",
+							emptyOrNot ? period : "---",
+							emptyOrNot ? childrens : "---",
+							emptyOrNot ? benefit : "---",
+							emptyOrNot ? resultat : "0 руб."
 					));
 
 					response.flushBuffer();
@@ -118,31 +120,7 @@ public class CalcServlet extends HttpServlet {
 					System.out.println(e.getMessage());
 				}
 				return;
-
-			}else { // иначе закинуть вместо данных строки "----"
-				response.setContentType("application/octet-stream");
-				response.setHeader("Content-Disposition", "attachment; filename=DocumentGroup2" + formatDoc);
-				GeneratePdfWeb genPdf = new GeneratePdfWeb ();
-				
-				try (OutputStream out = response.getOutputStream()) {
-					out.write(genPdf.generate(
-							"---",
-							"---",
-							"---",
-							"---",
-							"---",
-							"---",
-							"---",
-							"0"
-					));
-
-					response.flushBuffer();
-
-				} catch (Exception e) {
-					System.out.println(e.getMessage());
-				}
-				return;}
-			}
+		}
 		
 		if (request.getParameter("exitButton") != null) { // если нажата кнопка выхода из аккаунта
 			request.setAttribute("errorsCalc", "noMessage");
@@ -161,5 +139,6 @@ public class CalcServlet extends HttpServlet {
 		return;
 
 	}
-	
 }
+
+	

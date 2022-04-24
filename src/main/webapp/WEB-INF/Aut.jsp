@@ -15,15 +15,7 @@
                 <h1 class="title">Налоговый калькулятор</h1>
                 <h2 class="subtitle">
                     Расчет налога на имущество физических лиц
-                </h2>
-                
-                <script>        
-        		window.onload = function() {
-					if (document.querySelector("input[name='errorsAut']").value != ""){
-						alert(document.querySelector("input[name='errorsAut']").value);
-					}}
-				</script> 
-                
+                </h2>  
             </div>
             <img src="./resources/picture/usatu.png" alt="Логотип УГАТУ" />
         </header>
@@ -53,4 +45,11 @@
             <a href="./info.html" target="_blank">О разработчиках</a>
         </footer>
     </body>
+    
+     <script defer>        
+        		window.onload = function() {
+					if (document.querySelector("input[name='errorsAut']").value != ""){
+						alert(document.querySelector("input[name='errorsAut']").value);
+				}}
+	</script> 
 </html>
