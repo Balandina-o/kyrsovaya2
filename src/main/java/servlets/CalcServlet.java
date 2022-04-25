@@ -29,20 +29,25 @@ public class CalcServlet extends HttpServlet {
 	private String resultat;
 	private Boolean emptyOrNot;
 
-	
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-	    
+		response.setContentType("text/html");
+	
 	    if (request.getSession().getAttribute("role") == null) {
 			response.sendRedirect(request.getContextPath() + "/autho");
 			return;
 		} else if(request.getSession().getAttribute("role").equals("EMPTY")){ 
 			response.sendRedirect(request.getContextPath() + "/autho");
 			return;
+		} else {
+			getServletContext().getRequestDispatcher("/WEB-INF/Calc.jsp").forward(request, response);
 		}
-		
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String kadastr, tax, square, part, period, childrens, benefit, regionIndex, propertyIndex;
-		response.setContentType("text/html");
 
 		String formatDoc = request.getParameter("format");
 		regionIndex = request.getParameter("regionIndex");//получение данных
@@ -133,11 +138,7 @@ public class CalcServlet extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/autho");
 			return;
 		}
-
-		RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/WEB-INF/Calc.jsp");
-		requestDispatcher.forward(request, response);
-		return;
-
+		getServletContext().getRequestDispatcher("/WEB-INF/Calc.jsp").forward(request, response);
 	}
 }
 

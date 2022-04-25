@@ -26,11 +26,12 @@ public class AdminServlet extends HttpServlet {
 	 * @see CoffRegionAdmin#main(String[])
 	 * 
 	 */
-
+	
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html");
-
+		
 		if (request.getSession().getAttribute("role") == null) {
 			response.sendRedirect(request.getContextPath() + "/autho");
 			return;
@@ -38,13 +39,18 @@ public class AdminServlet extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/autho");
 			return;
 		}
+		
+		CoffRegionAdmin.FillFromFile();
+		request.setAttribute("coeffUfa", CoffRegionAdmin.UFA_COFF.getValue());//установка на форму
+		request.setAttribute("coeffKazan", CoffRegionAdmin.Kazan_COFF.getValue());
+		request.setAttribute("coeffMoscow", CoffRegionAdmin.Moscow_COFF.getValue());
+		request.setAttribute("coeffGorn", CoffRegionAdmin.Gorn_COFF.getValue());
+	
+		getServletContext().getRequestDispatcher("/WEB-INF/Dashboard.jsp").forward(request, response);
+	}
 
-			CoffRegionAdmin.FillFromFile();
-			request.setAttribute("coeffUfa", CoffRegionAdmin.UFA_COFF.getValue());//установка на форму
-			request.setAttribute("coeffKazan", CoffRegionAdmin.Kazan_COFF.getValue());
-			request.setAttribute("coeffMoscow", CoffRegionAdmin.Moscow_COFF.getValue());
-			request.setAttribute("coeffGorn", CoffRegionAdmin.Gorn_COFF.getValue());
-
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (request.getParameter("changeButton") != null) { // если нажата кнопка "change and save"
 			String coeffUfa = request.getParameter("coeffUfa");
 			String coeffKazan = request.getParameter("coeffKazan");
@@ -69,9 +75,6 @@ public class AdminServlet extends HttpServlet {
 		}
 
 		//перенаправление, чтобы юзер остался на той же форме
-		RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/WEB-INF/Dashboard.jsp");
-		requestDispatcher.forward(request, response);
-		return;
-
+		getServletContext().getRequestDispatcher("/WEB-INF/Dashboard.jsp").forward(request, response);
 	}
 }

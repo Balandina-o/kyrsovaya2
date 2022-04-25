@@ -21,7 +21,7 @@
         </header>
 
         <main>
-            <form class="container" name="regForm" action="${pageContext.request.contextPath}/reg" method="GET">
+            <form class="container" name="regForm" action="${pageContext.request.contextPath}/reg" method="POST">
                 <h2>Регистрация</h2>
                 
                 <div class="input-box">
@@ -33,8 +33,8 @@
                     <input type="password" name="password" />
                 </div>
                 <div class="button-box">
+              	    <button name="regButton" type="submit">Зарегистрироваться</button>
                     <button name="exitButton" value="exitButton">Назад</button>
-                    <button name="regButton" type="submit">Зарегистрироваться</button>
                 </div>
 
                  <input type="hidden" name="messageReg" value="${messageReg}" />

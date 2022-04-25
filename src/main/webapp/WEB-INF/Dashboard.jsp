@@ -21,7 +21,7 @@
         </header>
       
 		<main>
-            <form action="${pageContext.request.contextPath}/admin" class="container" name="adminform" method="GET">
+            <form action="${pageContext.request.contextPath}/admin" class="container" name="adminform" method="POST">
                 
                 <h2>Панель изменения коэффициентов</h2>
                 <div class="input-box input-box__one-column">

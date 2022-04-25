@@ -19,9 +19,8 @@
             </div>
             <img src="./resources/picture/usatu.png" alt="Логотип УГАТУ" />
         </header>
-
         <main>
-            <form class="container" name="authoForm" action="${pageContext.request.contextPath}/autho" method="GET">
+            <form class="container" name="authoForm" action="${pageContext.request.contextPath}/autho" method="POST">
                 <h2>Вход</h2>
                 <div class="input-box">
                     <label for="login">Логин</label>
@@ -32,12 +31,10 @@
                     <input type="password" name="password"/>
                 </div>
                 <div class="button-box">
-                    <button name="regButton" value="regButton">Зарегистрироваться</button>
-                    <button name="enterButton" type="submit">Войти</button>
-                </div>
-                
+                	<button name="enterButton" type="submit">Войти</button>
+                    <button name="regButton" type="submit">Зарегистрироваться</button>
+                </div>   
                 <input type="hidden" name="errorsAut" value="${errorsAut}" />
-              
             </form>
         </main>
 
@@ -45,7 +42,6 @@
             <a href="./info.html" target="_blank">О разработчиках</a>
         </footer>
     </body>
-    
      <script defer>        
         		window.onload = function() {
 					if (document.querySelector("input[name='errorsAut']").value != ""){

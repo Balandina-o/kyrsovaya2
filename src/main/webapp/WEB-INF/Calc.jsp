@@ -20,7 +20,7 @@
             <img src="./resources/picture/usatu.png" alt="Логотип УГАТУ" />
         </header>
         <main>
-            <form class="container" name="calcform" action="${pageContext.request.contextPath}/calc" method="GET">
+            <form class="container" name="calcform" action="${pageContext.request.contextPath}/calc" method="POST">
                 <h2>Введите данные для расчёта</h2>  
                 <div class="input-box input-box__one-column">
                     <label for="">Муницип. образование</label>
