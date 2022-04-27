@@ -41,6 +41,7 @@ public class AuthoServlet extends HttpServlet {
 		if (request.getParameter("enterButton") != null) {//если нажата кнопка входа
 			//0 - message , 1 - role (индексы)
 			List<String> clientData = ManagerClient.apiAuthZ(login.trim(), password.trim());//передаем логин и пароль для проверки их на корректность и определения роли пользователя
+
 			String messageAuthZ = clientData.get(0);//Вы вошли - Неверные данные для входа
 			String roleAuZ = clientData.get(1);//EMPTY - USER - ADMIN
 

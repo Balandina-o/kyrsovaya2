@@ -27,7 +27,7 @@ public class CalcServletTest {
 
 	@Before
 	public final void setUp() {
-		
+
 		request = mock(HttpServletRequest.class); //имитация Request от фреймворка Mockito		
 		response = mock(HttpServletResponse.class); //имитация Response
 		ServletContext servletContext = mock(ServletContext.class);
@@ -47,10 +47,10 @@ public class CalcServletTest {
 
 		when(request.getParameter("warnings")).thenReturn("0");
 		when(request.getParameter("button")).thenReturn("pdfButton");
-		
+
 		when(request.getSession()).thenReturn(session);
-		
-		when(servletContext.getRequestDispatcher("/calc")).thenReturn(dispatcher);
+
+		when(servletContext.getRequestDispatcher("/WEB-INF/Calc.jsp")).thenReturn(dispatcher);
 
 		servlet = new CalcServlet() {
 			private static final long serialVersionUID = 1L;
@@ -61,14 +61,16 @@ public class CalcServletTest {
 		};}
 
 	/**
-	 * Тест проверяет, что метод doPost выбрасывает исключение,
-	 * когда ему переданы нулевые аргументы
+	 * Тест проверяет, что методы doPost и doGet выбрасывают исключение,
+	 * когда им переданы нулевые аргументы
 	 *
 	 * @throws ServletException
 	 * @throws IOException
 	 */
 	@Test(expected = NullPointerException.class)
 	public final void testDoPostPositive() throws ServletException, IOException {
+		servlet.doPost(null, null);
+
 		servlet.doGet(null, null);
 	}
 
@@ -80,32 +82,24 @@ public class CalcServletTest {
 	 * @throws ServletException
 	 * @throws IOException
 	 */
-	
-	  @Ignore
-	  public final void testFrequencyPositive() throws ServletException, IOException {
-	  //when
-	  servlet.doGet(request, response); 
-	  //then
-	  verify(request, atLeast(1)).getParameter("kadastr"); 
-	  verify(request,times(1)).getParameter("tax");
-	  verify(request,times(1)).getParameter("square"); 
-	  verify(request,times(1)).getParameter("part"); 
-	  verify(request,times(1)).getParameter("period"); 
-	  verify(request,times(1)).getParameter("childrens"); 
-	  verify(request,times(1)).getParameter("benefit");
-	  
-	  verify(request, times(1)).getParameter("propertyIndex"); 
-	  verify(request, times(1)).getParameter("regionIndex");
-	  
-	  }
-	  
-	  @Test
-	  public final void testFrequencyPositive2() throws ServletException, IOException {
-		  servlet.doGet(request, response); 
-		//  verify(request,times(1)).getParameter("tax");
-		  verify(dispatcher).forward(request, response);
+
+	@Test
+	public final void testFrequencyPositive() throws ServletException, IOException {
+		//when
+		servlet.doPost(request, response); 
+		//then
+		verify(request,times(1)).getParameter("kadastr"); 
+		verify(request,times(1)).getParameter("tax");
+		verify(request,times(1)).getParameter("square"); 
+		verify(request,times(1)).getParameter("part"); 
+		verify(request,times(1)).getParameter("period"); 
+		verify(request,times(1)).getParameter("childrens"); 
+		verify(request,times(1)).getParameter("benefit");
+
+		verify(request, times(1)).getParameter("propertyIndex"); 
+		verify(request, times(1)).getParameter("regionIndex");
 		
-		  
-		  }
-	 
+		//verify(request,times(0)).getParameter("tax"); NegativeTestResult
+	}
+
 }

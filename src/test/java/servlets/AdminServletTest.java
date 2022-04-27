@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import java.io.IOException;
+
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 
 /**
@@ -25,24 +27,24 @@ public class AdminServletTest {
 
 	@Before
 	public final void setUp() {
-		
+
 		request = mock(HttpServletRequest.class); //имитация Request от фреймворка Mockito		
 		response = mock(HttpServletResponse.class); //имитация Response
 		ServletContext servletContext = mock(ServletContext.class);
-		HttpSession session = mock(HttpSession.class); //
+		HttpSession session = mock(HttpSession.class);
 		RequestDispatcher dispatcher = mock(RequestDispatcher.class);// Имитация перенаправления
 
 		when(request.getParameter("coeffUfa")).thenReturn("1.0");
 		when(request.getParameter("coeffKazan")).thenReturn("1.0");
 		when(request.getParameter("coeffMoscow")).thenReturn("1.0");
 		when(request.getParameter("coeffGorn")).thenReturn("1.0");
-
 		when(request.getParameter("changeButton")).thenReturn("changeButton");
+		when(request.getParameter("exitButton")).thenReturn("exitButton");
 
+		when(servletContext.getRequestDispatcher("/WEB-INF/Dashboard.jsp")).thenReturn(dispatcher);
+		
 		when(request.getSession()).thenReturn(session);
 		
-		when(servletContext.getRequestDispatcher("/Dashboard.jsp")).thenReturn(dispatcher);
-
 		servlet = new AdminServlet() {
 			private static final long serialVersionUID = 1L;
 
@@ -52,36 +54,34 @@ public class AdminServletTest {
 		};}
 
 	/**
-	 * Тест проверяет, что метод doGet выбрасывает исключение,
-	 * когда ему переданы нулевые аргументы
+	 * Тест проверяет, что методы doPost и doGet выбрасывают исключение,
+	 * когда им переданы нулевые аргументы
 	 *
 	 * @throws ServletException
 	 * @throws IOException
 	 */
 	@Test(expected = NullPointerException.class)
 	public final void testDoPostPositive() throws ServletException, IOException {
+		servlet.doPost(null, null);
+
 		servlet.doGet(null, null);
 	}
 
 	/**
-	 * Тест проверяет, что метод doGet, при передаче ему верных параметров, обращается
+	 * Тест проверяет, что метод doPost, при передаче ему верных параметров, обращается
 	 * к необходимым для вычислений полям по одному разу и получает их значения, а значит
 	 * выполняет свои функции
 	 *
 	 * @throws ServletException
 	 * @throws IOException
 	 */
-	
 	@Test
-	 // @Ignore 
-	  public final void testFrequencyPositive() throws ServletException,
-	  IOException {
-	  
-	  servlet.doGet(request, response); verify(request,
-	  times(1)).getParameter("coeffUfa"); verify(request,
-	  times(1)).getParameter("coeffKazan"); verify(request,
-	  times(1)).getParameter("coeffMoscow"); verify(request,
-	  times(1)).getParameter("coeffGorn"); }
-	 
+	public final void testFrequencyPositive() throws ServletException, IOException {
 
+		servlet.doPost(request, response); 
+		verify(request, times(1)).getParameter("coeffUfa"); 
+		verify(request, times(1)).getParameter("coeffKazan"); 
+		verify(request, times(1)).getParameter("coeffMoscow"); 
+		verify(request, times(1)).getParameter("coeffGorn"); 
+	}
 }
