@@ -91,10 +91,10 @@
 						<label for="">.pdf</label> <input ${format==".pdf"?"checked":""} type="radio" value=".pdf" name="format" id="" checked/>
 					</div>
 					<div class="radio">
-						<label for="">.odt</label> <input ${radformatio==".odt"?"checked":""} type="radio" value=".odt" name="format" id="" />
+						<label for="">.doc</label> <input ${radformatio==".doc"?"checked":""} type="radio" value=".doc" name="format" id="" />
 					</div>
 					<div class="radio">
-						<label for="">.odf</label> <input ${format==".odf"?"checked":""} type="radio" value=".odf" name="format" id="" />
+						<label for="">.docx</label> <input ${format==".docx"?"checked":""} type="radio" value=".docx" name="format" id="" />
 					</div>
 				</div>
 			</div>
@@ -102,7 +102,7 @@
 			<input type="hidden" name="errorsCalc" value="${errorsCalc}" />
 			
                 <div class="button-box">
-                	<button type="submit" name="calcButton" value="calcButton">Расчитать</button>
+                	<button type="submit" name="calcButton" value="calcButton">Расcчитать</button>
 					<button name="exitButton" value="exitButton">Выйти из аккаунта</button>
 					<button name="pdfButton" value="pdfButton">Скачать сгенерированный документ</button>
                 </div>

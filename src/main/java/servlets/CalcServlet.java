@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Objects;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,8 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import abstracts.RegionProperty;
 import abstracts.Validation;
-import document.GeneratePdfWeb;
-
+import document.ChoiceOfFormat;
 /**
  * The Class CalcServlet.
  */
@@ -102,13 +100,9 @@ public class CalcServlet extends HttpServlet {
 		}
 
 		if (request.getParameter("pdfButton") != null) { // если нажата кнопка генерации док-та
+			byte[] docInBytes;
 			emptyOrNot = request.getParameter("result") != "";
-				response.setContentType("application/octet-stream");
-				response.setHeader("Content-Disposition", "attachment; filename=DocumentGroup2" + formatDoc);
-				GeneratePdfWeb genPdf = new GeneratePdfWeb ();
-				
-				try (OutputStream out = response.getOutputStream()) {
-					out.write(genPdf.generate(
+			ChoiceOfFormat choice = new ChoiceOfFormat(
 							emptyOrNot ? kadastr : "---",
 							emptyOrNot ? tax : "---",
 							emptyOrNot ? square : "---",
@@ -117,8 +111,20 @@ public class CalcServlet extends HttpServlet {
 							emptyOrNot ? childrens : "---",
 							emptyOrNot ? benefit : "---",
 							emptyOrNot ? resultat : "0 руб."
-					));
-
+						);
+		
+			if (formatDoc.equals(".pdf")) {
+				docInBytes = choice.generatePDF(formatDoc);
+				
+			}else {
+				docInBytes = choice.generateDOC(formatDoc);
+			}
+			
+				response.setContentType("application/octet-stream");
+				response.setHeader("Content-Disposition", "attachment; filename=DocumentGroup2" + formatDoc);
+				
+				try (OutputStream out = response.getOutputStream()) {
+					out.write(docInBytes);
 					response.flushBuffer();
 
 				} catch (Exception e) {

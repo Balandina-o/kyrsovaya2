@@ -28,7 +28,8 @@ public class GeneratePdfWeb {
 
     private static String fullPath1 = "/fonts/times.ttf"; 
     private static String fullPath2 = "/picture/usatu.png";
-    private String regionName, propertyName;
+    private String regionName;
+    private String propertyName;
     private BaseFont times;
     
     public byte[] generate(String cadastralValue, String inventoryTax, String square,
@@ -47,12 +48,13 @@ public class GeneratePdfWeb {
         this.propertyName = RegionProperty.getInstance().getPropertyName();
 
         try {
+        	
             Document document = new Document();
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             PdfWriter.getInstance(document, stream);
             document.open();
 
-            String string_pdf = "\n" + "\n" + "\n" + "\n" + "\n" + " Расчет налога на "
+            String string_pdf = "\n" + "\n" + "\n" + "\n" + "\n" + "            Расчет налога на "
             					+ "имущество для физических лиц";
             Paragraph paragraph = new Paragraph();
             paragraph.add(new Paragraph(string_pdf, new Font(getFont(),18)));
@@ -61,7 +63,7 @@ public class GeneratePdfWeb {
             					  + "соответствующие вводимые параметры.";
             paragraph.add(new Paragraph(string_pdf2, new Font(getFont(),14)));
 
-            String string_pdf3 = "\n" + " Таблица 1. Основные данные для вывода";
+            String string_pdf3 = "\n" + "Таблица 1. Основные данные для вывода";
             paragraph.add(new Paragraph(string_pdf3, new Font(getFont(),14)));
 
             try {

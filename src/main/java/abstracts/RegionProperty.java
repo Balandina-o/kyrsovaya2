@@ -11,14 +11,15 @@ import enums.CoffRegionAdmin;
  * @see enums.EnumSwitch
  * @see abstracts.Validation
  * 
- * * @see document.GeneratePDFWeb
+ *  @see document.GeneratePDFWeb
+ *  @see document.GenerateDOCWeb
  */
 public class RegionProperty implements ClearRes {
     private int regionIndex = -10000, propertyIndex = -10000;
     private static RegionProperty Instance = null;
     private double ADMIN_FACTOR = 1.0;
-    private String regionName;
-    private String PropertyName;
+    private String regionName = "г.Уфа 02";
+    private String PropertyName = "Комната";
     private RegionProperty() {
     }
 
