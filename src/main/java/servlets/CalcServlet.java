@@ -94,7 +94,7 @@ public class CalcServlet extends HttpServlet {
 
 		}else { // иначе получить посчитанный результат и поставить его на форму
 			resultat = valid.getResult();
-			request.setAttribute("result", resultat);
+			request.setAttribute("result", resultat + " руб.");
 			request.setAttribute("errorsCalc", "noMessage"); 
 		}
 		}

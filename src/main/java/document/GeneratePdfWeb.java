@@ -154,7 +154,7 @@ public class GeneratePdfWeb {
                 "Число несовершеннолетних детей: ", childrenCount,
                 "Размер льготы: ", exemption,
                 " ", " ",
-                "Сумма к уплате: ", result + " руб.",
+                "Сумма к уплате: ", result,
         };
 
         for (int i = 0; i < 22; i++) {

@@ -25,7 +25,6 @@ public class GeneratePdfWebTest {
         this.fullPath2 = "./src/main/webapp/resources/picture/usatu.png";
 
         times = BaseFont.createFont(fullPath1, "cp1251", BaseFont.EMBEDDED, true);
-
     }
 
     /**

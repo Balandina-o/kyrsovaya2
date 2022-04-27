@@ -72,7 +72,8 @@ public class AdminServletTest {
 	 * @throws IOException
 	 */
 	
-	  @Ignore 
+	@Test
+	 // @Ignore 
 	  public final void testFrequencyPositive() throws ServletException,
 	  IOException {
 	  
