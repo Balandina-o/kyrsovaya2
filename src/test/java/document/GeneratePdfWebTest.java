@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.BaseFont;
+import servlets.AccessResourcePath;
 
 /**
  * Класс GeneratePdfWebTest - класс, тестирующий класс GeneratePdfWeb.
@@ -17,11 +18,11 @@ import com.itextpdf.text.pdf.BaseFont;
 public class GeneratePdfWebTest {
     /** The full path 2. */
     private BaseFont times;
-    private String fullPath1;
+    private final String pathFont ="/fonts/times.ttf";
 
     @Before
     public final void setUp() throws DocumentException, IOException {
-        this.fullPath1 = "./src/main/webapp/resources/fonts/times.ttf";
+        String fullPath1 = AccessResourcePath.PATH_resources.getPath()+ pathFont;
 
         times = BaseFont.createFont(fullPath1, "cp1251", BaseFont.EMBEDDED, true);
     }
