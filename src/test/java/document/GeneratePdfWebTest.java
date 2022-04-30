@@ -17,12 +17,11 @@ import com.itextpdf.text.pdf.BaseFont;
 public class GeneratePdfWebTest {
     /** The full path 2. */
     private BaseFont times;
-    private String fullPath1, fullPath2;
+    private String fullPath1;
 
     @Before
     public final void setUp() throws DocumentException, IOException {
         this.fullPath1 = "./src/main/webapp/resources/fonts/times.ttf";
-        this.fullPath2 = "./src/main/webapp/resources/picture/usatu.png";
 
         times = BaseFont.createFont(fullPath1, "cp1251", BaseFont.EMBEDDED, true);
     }

@@ -3,8 +3,6 @@ package servlets;
 import enums.CoffRegionAdmin;
 
 import java.io.IOException;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -69,7 +67,8 @@ public class AdminServlet extends HttpServlet {
 
 		if (request.getParameter("exitButton") != null) { // если нажата кнопка выхода из аккаунта
 			request.getSession().removeAttribute("role");
-			//UtilServlets.clearAll();
+			request.getSession().invalidate();
+			UtilServlets.clearAll();
 			response.sendRedirect(request.getContextPath() + "/autho");
 			return;
 		}

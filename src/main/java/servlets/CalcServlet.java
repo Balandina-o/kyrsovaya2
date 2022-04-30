@@ -72,7 +72,6 @@ public class CalcServlet extends HttpServlet {
 		
 		if (request.getParameter("calcButton") != null) {//если нажата кнопка rascheta
 		//Новая функция региона 
-		// зачем parseInt
 		RegionProperty.getInstance().setInitRegionPropertyIndex(Integer.parseInt(regionIndex), Integer.parseInt(propertyIndex));
 		
 		childrens = Objects.equals(childrens, "") ? "0" : childrens;
@@ -86,7 +85,6 @@ public class CalcServlet extends HttpServlet {
 				period,
 				childrens,
 				benefit);
-		//FIXME условия вынести в методы
 
 		String errorsList = valid.validate();
 		if (errorsList != "") { // если строка ошибок не пуста
@@ -135,11 +133,11 @@ public class CalcServlet extends HttpServlet {
 		
 		if (request.getParameter("exitButton") != null) { // если нажата кнопка выхода из аккаунта
 			request.setAttribute("errorsCalc", "noMessage");
-			//  -request.getSession().invalidate() ???;
 			
 			if (!request.getSession().getAttribute("role").equals("ADMIN")) {
-				//UtilServlets.clearAll();
+				UtilServlets.clearAll();
 				request.getSession().removeAttribute("role");
+				request.getSession().invalidate();
 			}
 			response.sendRedirect(request.getContextPath() + "/autho");
 			return;

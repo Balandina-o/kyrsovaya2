@@ -4,8 +4,6 @@ import authorization.ManagerClient;
 
 import java.io.IOException;
 import java.util.List;
-
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -61,7 +59,7 @@ public class AuthoServlet extends HttpServlet {
 		}
 
 		if (request.getParameter("regButton") != null) { // если нажата кнопка регистрации
-			//UtilServlets.clearAll();
+			UtilServlets.clearAll();
 			response.sendRedirect(request.getContextPath() + "/reg");
 			return;
 		}
