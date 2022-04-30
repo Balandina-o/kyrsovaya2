@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class ManagerClient {
     //Путь до "базы данных"
-    private static final String PATH_BASE = "/BaseLogPass";
+    private static final String PATH_BASE = "/WEB-INF/resources/BaseLogPass";
 
     private static final String messTrueAuthZ = "Вы вошли";
     private static final String messFalseAuthZ = "Неверные данные для входа";

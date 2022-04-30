@@ -31,7 +31,7 @@ public class UtilServlets {
      */
     // это вместо setPath вставлять в сервлеты
     public static String setPathToResources(HttpServletRequest request) {
-        String path = "/resources";
+        String path = "/";
         String PathRes = request.getServletContext().getRealPath(path);
         AccessResourcePath.PATH_resources.setPath(PathRes);
         return PathRes;

@@ -11,7 +11,7 @@ import java.util.LinkedHashMap;
  * / Не для Админа
  */
 public class ReaderCoff implements ClearRes {
-    private static final String PATH = "/enumSumFromComboBox";
+    private static final String PATH = "/WEB-INF/resources/enumSumFromComboBox";
     private static LinkedHashMap<Integer, Integer> coff = null;
     private static ReaderCoff Instance = null;
 

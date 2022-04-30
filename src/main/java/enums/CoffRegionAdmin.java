@@ -13,7 +13,7 @@ import java.util.*;
 public enum CoffRegionAdmin {
     UFA_COFF, Kazan_COFF, Moscow_COFF, Gorn_COFF;
     private double value;
-    private static final String PATH = "/coffForAdmin";
+    private static final String PATH = "/WEB-INF/resources/coffForAdmin";
 //    static String fullPath="./src/main/webapp/resources/"+PATH;
 
     public double getValue() {
