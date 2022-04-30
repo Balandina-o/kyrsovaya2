@@ -1,7 +1,6 @@
 package servlets;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -11,8 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import java.io.IOException;
-
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 
 /**

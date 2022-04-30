@@ -1,8 +1,6 @@
 import authorization.ManagerClient;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
-import java.nio.file.Path;
 
 import static org.junit.Assert.assertEquals;
 
