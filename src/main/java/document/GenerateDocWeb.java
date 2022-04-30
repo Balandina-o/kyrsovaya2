@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import abstracts.RegionProperty;
 import org.apache.poi.util.Units;
 import org.apache.poi.xwpf.usermodel.ParagraphAlignment;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
@@ -16,9 +17,8 @@ import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import servlets.UtilServlets;
 
 public class GenerateDocWeb {
-	
+
 	private static String fullPath2 = "/picture/usatu.png";
-	private String regionName, propertyName;
 
 	public byte[] generate(String cadastralValue, String inventoryTax, String square,
 			String portion, String holdingPeriodRatio, String childrenCount,
@@ -32,7 +32,7 @@ public class GenerateDocWeb {
 			
 			XWPFRun imageRun = image.createRun();
 			imageRun.setTextPosition(20);
-			
+
 			Path imagePath = Paths.get(UtilServlets.PathToResPDF(fullPath2));
 			imageRun.addPicture(Files.newInputStream(imagePath),
 			  XWPFDocument.PICTURE_TYPE_PNG, imagePath.getFileName().toString(),
@@ -52,12 +52,12 @@ public class GenerateDocWeb {
 			run1.setFontSize(14);
 			run1.setText("В таблице 1, расположенной ниже, можно увидеть характеристики и "
 					  + "соответствующие вводимые параметры.");
-			
+
 			XWPFParagraph emptyParagraph1 = document.createParagraph();
 			XWPFRun run2 = emptyParagraph1.createRun();
 			run2.setFontSize(14);
 			run2.setText(" ");
-			
+
 			XWPFParagraph tableTitleParagraph = document.createParagraph();
 			XWPFRun run3 = tableTitleParagraph.createRun();
 			run3.setFontFamily("Times New Roman");
@@ -70,7 +70,7 @@ public class GenerateDocWeb {
 
 			XWPFTableRow tableRowOne = table.getRow(0);
 	        tableRowOne.getCell(0).setText("Муниципальное образование: ");
-	        tableRowOne.addNewTableCell().setText(regionName);
+	        tableRowOne.addNewTableCell().setText(RegionProperty.getInstance().getRegionName());
 		    
 	        XWPFParagraph addParagraph = tableRowOne.getCell(0).addParagraph();
 	        XWPFRun run = addParagraph.createRun();
@@ -79,7 +79,7 @@ public class GenerateDocWeb {
 	        
 		    XWPFTableRow tableRowTwo = table.createRow();
 		    tableRowTwo.getCell(0).setText("Тип недвижимости: ");
-		    tableRowTwo.getCell(1).setText(propertyName);
+		    tableRowTwo.getCell(1).setText(RegionProperty.getInstance().getPropertyName());
 		    
 		    XWPFTableRow tableRowThree = table.createRow();
 		    tableRowThree.getCell(0).setText("Кадастровая стоимость объекта: ");
@@ -116,12 +116,12 @@ public class GenerateDocWeb {
 		    XWPFTableRow tableRowEleven = table.createRow();
 		    tableRowEleven.getCell(0).setText("Сумма к уплате: ");
 		    tableRowEleven.getCell(1).setText(result);
-		    
+
 		    XWPFParagraph emptyParagraph2 = document.createParagraph();
 			XWPFRun run4 = emptyParagraph2.createRun();
 			run4.setFontSize(14);
 			run4.setText(" ");
-			
+
 			XWPFParagraph finalParagraph = document.createParagraph();
 			XWPFRun run5 = finalParagraph.createRun();
 			run5.setFontFamily("Times New Roman");
@@ -142,5 +142,5 @@ public class GenerateDocWeb {
 			}
 
 	}
-	
+
 }

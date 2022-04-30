@@ -66,9 +66,9 @@ public class AdminServlet extends HttpServlet {
 		}
 
 		if (request.getParameter("exitButton") != null) { // если нажата кнопка выхода из аккаунта
+			UtilServlets.clearAll();
 			request.getSession().removeAttribute("role");
 			request.getSession().invalidate();
-			UtilServlets.clearAll();
 			response.sendRedirect(request.getContextPath() + "/autho");
 			return;
 		}

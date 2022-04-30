@@ -11,8 +11,8 @@ import enums.CoffRegionAdmin;
  * @see enums.EnumSwitch
  * @see abstracts.Validation
  * 
- *  @see document.GeneratePDFWeb
- *  @see document.GenerateDOCWeb
+ *  @see document.GeneratePdfWeb
+ *  @see document.GenerateDocWeb
  */
 public class RegionProperty implements ClearRes {
     private int regionIndex = -10000, propertyIndex = -10000;
