@@ -46,6 +46,7 @@
                 <div class="button-box">
                     <button name="exitButton" value="exitButton">Выход</button>
                     <button id="change" name="changeButton" type="submit" value="changeButton">Изменить и сохранить</button>
+                    <button name="calcButton" value="calcButton">Перейти к калькулятору</button>
                 </div>
             </form>
         </main>

@@ -100,11 +100,13 @@
 			</div>
 
 			<input type="hidden" name="errorsCalc" value="${errorsCalc}" />
+			<input id="disabledButton" type="hidden" name="disabledButton" value="${disabledButton}" />
 			
                 <div class="button-box">
                 	<button type="submit" name="calcButton" value="calcButton">Расcчитать</button>
-					<button name="exitButton" value="exitButton">Выйти из аккаунта</button>
+					<button id="exit" name="exitButton" value="exitButton">Выйти из аккаунта</button>
 					<button name="pdfButton" value="pdfButton">Скачать сгенерированный документ</button>
+					<button onclick="disbtn();" id="change" name="changeButton" value="changeButton" >Изменить коэффициенты</button>
                 </div>
             </form>
         </main>
@@ -120,6 +122,7 @@
 				if (document.querySelector("input[name='errorsCalc']").value != ""){
 					alert(document.querySelector("input[name='errorsCalc']").value);
 				}
-        	}else{}}
+        	}
+		}
 		</script>   
 </html>

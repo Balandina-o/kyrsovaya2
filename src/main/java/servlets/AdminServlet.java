@@ -66,6 +66,11 @@ public class AdminServlet extends HttpServlet {
 			request.setAttribute("coeffGorn", CoffRegionAdmin.Gorn_COFF.getValue());
 
 		}
+		
+		if (request.getParameter("calcButton") != null) { // если нажата кнопка 
+				response.sendRedirect(request.getContextPath() + "/calc");
+				return;
+			}
 
 		if (request.getParameter("exitButton") != null) { // если нажата кнопка выхода из аккаунта
 			UtilServlets.clearAll();

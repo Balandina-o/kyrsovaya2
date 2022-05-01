@@ -38,6 +38,7 @@ public class CalcServlet extends HttpServlet {
 		} else if(request.getSession().getAttribute("role").equals("EMPTY")){ 
 			response.sendRedirect(request.getContextPath() + "/autho");
 			return;
+			
 		} else {
 			getServletContext().getRequestDispatcher("/WEB-INF/Calc.jsp").forward(request, response);
 		}
@@ -133,17 +134,22 @@ public class CalcServlet extends HttpServlet {
 				return;
 		}
 		
+		if (request.getParameter("changeButton") != null) { // если нажата кнопка 
+			if (request.getSession().getAttribute("role").equals("ADMIN")) {
+				response.sendRedirect(request.getContextPath() + "/admin");
+				return;
+		}
+		}
+		
 		if (request.getParameter("exitButton") != null) { // если нажата кнопка выхода из аккаунта
-			request.setAttribute("errorsCalc", "noMessage");
-			
-			if (!request.getSession().getAttribute("role").equals("ADMIN")) {
+				request.setAttribute("errorsCalc", "noMessage");
 				UtilServlets.clearAll();
 				request.getSession().removeAttribute("role");
 				request.getSession().invalidate();
-			}
-			response.sendRedirect(request.getContextPath() + "/autho");
-			return;
+				response.sendRedirect(request.getContextPath() + "/autho");
+				return;
 		}
+		
 		getServletContext().getRequestDispatcher("/WEB-INF/Calc.jsp").forward(request, response);
 	}
 }
