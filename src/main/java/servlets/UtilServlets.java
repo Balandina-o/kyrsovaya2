@@ -68,4 +68,5 @@ public class UtilServlets {
     	var fullPath = AccessResourcePath.PATH_resources.getPath();
     	return fullPath + str;
     	}
+
 }

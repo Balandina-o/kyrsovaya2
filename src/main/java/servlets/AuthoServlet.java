@@ -31,6 +31,8 @@ public class AuthoServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html");
 		UtilServlets.setPathToResources(request);
 		String login, password, page = "/WEB-INF/Aut.jsp";
 		login = request.getParameter("login");

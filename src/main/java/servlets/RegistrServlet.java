@@ -31,7 +31,9 @@ public class RegistrServlet extends HttpServlet {
     
 	@Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        UtilServlets.setPathToResources(request); 
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html");
+		UtilServlets.setPathToResources(request); 
 		String login, password, page = "/WEB-INF/Reg.jsp";
 		login = request.getParameter("login");
 		password = request.getParameter("password");

@@ -45,6 +45,8 @@ public class CalcServlet extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html");
 		String kadastr, tax, square, part, period, childrens, benefit, regionIndex, propertyIndex;
 
 		String formatDoc = request.getParameter("format");

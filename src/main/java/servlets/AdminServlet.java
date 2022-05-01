@@ -49,6 +49,8 @@ public class AdminServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html");
 		if (request.getParameter("changeButton") != null) { // если нажата кнопка "change and save"
 			String coeffUfa = request.getParameter("coeffUfa");
 			String coeffKazan = request.getParameter("coeffKazan");
