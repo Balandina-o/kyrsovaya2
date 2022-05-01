@@ -48,6 +48,10 @@ public class ChoiceOfFormat {
 			);
 		return bytes;
     }
+	//TODO Полиморфизм. работает также как 2 метода выше вместе
+	private byte[] distribution(GenerateChoiceDoc generateChoiceDoc){
+		return 	generateChoiceDoc.generate(cadastralValue, inventoryTax, square, portion,
+				holdingPeriodRatio, childrenCount, exemption, result);
 
-
+	}
 }
