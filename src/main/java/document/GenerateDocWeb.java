@@ -1,35 +1,49 @@
 package document;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 import abstracts.RegionProperty;
 import org.apache.poi.util.Units;
-import org.apache.poi.xwpf.usermodel.ParagraphAlignment;
-import org.apache.poi.xwpf.usermodel.XWPFDocument;
-import org.apache.poi.xwpf.usermodel.XWPFParagraph;
-import org.apache.poi.xwpf.usermodel.XWPFRun;
-import org.apache.poi.xwpf.usermodel.XWPFTable;
-import org.apache.poi.xwpf.usermodel.XWPFTableRow;
+import org.apache.poi.xwpf.usermodel.*;
 
 import servlets.UtilServlets;
 
-public class GenerateDocWeb {
+public class GenerateDocWeb implements GenerateChoiceDoc {
 
-	private static String fullPath2 = "/picture/usatu.png";
-
+	private static final String fullPath2 = "/picture/usatu.png";
+	private static final String FONT_TIMES_NEW_ROMAN = "Times New Roman";
+	private static final String FONT_ARIAL = "Arial";
+	private static final int SIZE_FONT_12 = 12;
+	private static final int SIZE_FONT_14 = 14;
+	private static final int SIZE_FONT_20 = 20;
+	@Override
 	public byte[] generate(String cadastralValue, String inventoryTax, String square,
 			String portion, String holdingPeriodRatio, String childrenCount,
 			String exemption, String result) {
+
+		String RegName = RegionProperty.getInstance().getRegionName();
+		String PropName = RegionProperty.getInstance().getPropertyName();
+
+		ArrayList<String> inParam = new ArrayList<>(List.of(
+				"Вводимые параметры", RegName, PropName,
+				cadastralValue, inventoryTax, square, portion,
+				holdingPeriodRatio, childrenCount, exemption, result));
+
 		byte[] DOCX ;
+
 		try {
 			XWPFDocument document = new XWPFDocument();
-			
+
 			XWPFParagraph image = document.createParagraph();
 			image.setAlignment(ParagraphAlignment.RIGHT);
-			
+			//TODO попробуй вынести в отдельный метод картинку на примере таблицы
+			// - установок текста.Чтобы можно было добавить миллион если понадобиться
 			XWPFRun imageRun = image.createRun();
 			imageRun.setTextPosition(20);
 
@@ -37,97 +51,49 @@ public class GenerateDocWeb {
 			imageRun.addPicture(Files.newInputStream(imagePath),
 			  XWPFDocument.PICTURE_TYPE_PNG, imagePath.getFileName().toString(),
 			  Units.toEMU(160), Units.toEMU(160));
-			
+
+
+
 			XWPFParagraph title = document.createParagraph();
 			title.setAlignment(ParagraphAlignment.CENTER);
-				
+
+
 			XWPFRun titleRun = title.createRun();
-			titleRun.setText("Расчет налога на имущество для физических лиц");
-			titleRun.setFontFamily("Times New Roman");
-			titleRun.setFontSize(20);
-			
+			String titleText ="Расчет налога на имущество для физических лиц";
+			setText_FontSize_Font_Bold(titleRun, titleText,SIZE_FONT_20,FONT_TIMES_NEW_ROMAN,false);
+
+
 			XWPFParagraph paragraph1 = document.createParagraph();
 			XWPFRun run1 = paragraph1.createRun();
-			run1.setFontFamily("Times New Roman");
-			run1.setFontSize(14);
-			run1.setText("В таблице 1, расположенной ниже, можно увидеть характеристики и "
-					  + "соответствующие вводимые параметры.");
+			String par1Text="В таблице 1, расположенной ниже, можно увидеть характеристики и " +
+					"соответствующие вводимые параметры.";
+			setText_FontSize_Font_Bold(run1, par1Text,SIZE_FONT_14,FONT_TIMES_NEW_ROMAN,false);
 
 			XWPFParagraph emptyParagraph1 = document.createParagraph();
 			XWPFRun run2 = emptyParagraph1.createRun();
-			run2.setFontSize(14);
-			run2.setText(" ");
+			setText_FontSize_Font_Bold(run2, " ",SIZE_FONT_14,FONT_TIMES_NEW_ROMAN,false);
 
 			XWPFParagraph tableTitleParagraph = document.createParagraph();
 			XWPFRun run3 = tableTitleParagraph.createRun();
-			run3.setFontFamily("Times New Roman");
-			run3.setFontSize(14);
-			run3.setText("Таблица 1. Основные данные для вывода");
-		
-			XWPFTable table = document.createTable();
-			table.setWidth(1000);
-			
+			String tableText ="Таблица 1. Основные данные для вывода";
+			setText_FontSize_Font_Bold(run3, tableText,SIZE_FONT_14,FONT_TIMES_NEW_ROMAN,false);
 
-			XWPFTableRow tableRowOne = table.getRow(0);
-	        tableRowOne.getCell(0).setText("Муниципальное образование: ");
-	        tableRowOne.addNewTableCell().setText(RegionProperty.getInstance().getRegionName());
-		    
-	        XWPFParagraph addParagraph = tableRowOne.getCell(0).addParagraph();
-	        XWPFRun run = addParagraph.createRun();
-	        run.setFontFamily("Times New Roman");
-	        run.setFontSize(14);
 
-		    XWPFTableRow tableRowTwo = table.createRow();
-		    tableRowTwo.getCell(0).setText("Тип недвижимости: ");
-		    tableRowTwo.getCell(1).setText(RegionProperty.getInstance().getPropertyName());
+			XWPFTable table = document.createTable(11, 2);
+			table.setTableAlignment(TableRowAlign.CENTER);
+			addTable(inParam,table);
 
-		    XWPFTableRow tableRowThree = table.createRow();
-		    tableRowThree.getCell(0).setText("Кадастровая стоимость объекта: ");
-		    tableRowThree.getCell(1).setText(cadastralValue);
 
-		    XWPFTableRow tableRowFour = table.createRow();
-		    tableRowFour.getCell(0).setText("Налог от инвентар. стоимости: ");
-		    tableRowFour.getCell(1).setText(inventoryTax);
-
-		    XWPFTableRow tableRowFive = table.createRow();
-		    tableRowFive.getCell(0).setText( "Площадь объекта: ");
-		    tableRowFive.getCell(1).setText(square);
-
-		    XWPFTableRow tableRowSix = table.createRow();
-		    tableRowSix.getCell(0).setText("Размер доли в праве: ");
-		    tableRowSix.getCell(1).setText(portion);
-
-		    XWPFTableRow tableRowSeven = table.createRow();
-		    tableRowSeven.getCell(0).setText("Период владения: ");
-		    tableRowSeven.getCell(1).setText(holdingPeriodRatio);
-
-		    XWPFTableRow tableRowEight = table.createRow();
-		    tableRowEight.getCell(0).setText("Число несовершеннолетних детей: ");
-		    tableRowEight.getCell(1).setText(childrenCount);
-
-		    XWPFTableRow tableRowNine = table.createRow();
-		    tableRowNine.getCell(0).setText("Размер льготы: ");
-		    tableRowNine.getCell(1).setText(exemption);
-
-		    XWPFTableRow tableRowTen = table.createRow();
-		    tableRowTen.getCell(0).setText(" ");
-		    tableRowTen.getCell(1).setText(" ");
-
-		    XWPFTableRow tableRowEleven = table.createRow();
-		    tableRowEleven.getCell(0).setText("Сумма к уплате: ");
-		    tableRowEleven.getCell(1).setText(result);
 
 		    XWPFParagraph emptyParagraph2 = document.createParagraph();
 			XWPFRun run4 = emptyParagraph2.createRun();
-			run4.setFontSize(14);
-			run4.setText(" ");
+			setText_FontSize_Font_Bold(run4, " ",SIZE_FONT_14,FONT_TIMES_NEW_ROMAN,false);
 
 			XWPFParagraph finalParagraph = document.createParagraph();
 			XWPFRun run5 = finalParagraph.createRun();
-			run5.setFontFamily("Times New Roman");
-			run5.setFontSize(14);
-			run5.setText(" Участники группы: Баландина Ольга, Гареева Диана, "
-					  + "Злыгостев Артем, Байбурин Марат.");
+			String memberText =" Участники группы: Баландина Ольга, Гареева Диана, "
+					  + "Злыгостев Артем, Байбурин Марат.";
+			setText_FontSize_Font_Bold(run5, memberText,SIZE_FONT_14,FONT_TIMES_NEW_ROMAN,false);
 			
 		    try(ByteArrayOutputStream out = new ByteArrayOutputStream()) {
 				document.write(out);
@@ -139,5 +105,66 @@ public class GenerateDocWeb {
 				DOCX= new byte[0];
 			}
 		return  DOCX;
+	}
+
+	/**
+	 *  Метод для добавления таблицы в документ
+	 * @param inArgs - массив аргументов введенных пользователем
+	 * @param table - таблица для заполнения
+	 */
+	public void addTable(ArrayList<String> inArgs,XWPFTable table) {
+		//Массив для 1‑го столбца
+		ArrayList<String> Characteristics = new ArrayList<>(List.of("Характеристики", "Муниципальное образование: ",
+				"Тип недвижимости: ", "Кадастровая стоимость объекта: ",
+				"Налог от инвентар. стоимости: ", "Площадь объекта: ",
+				"Размер доли в праве: ", "Период владения: ",
+				"Число несовершеннолетних детей: ", "Размер льготы: ", "Сумма к уплате: "));
+		//Размер столбцов
+		table.getRow(0).getCell(1).setWidth("4000");
+		table.getRow(0).getCell(0).setWidth("4200");
+		//Цвет ячеек Титульника таблицы - 16xx
+		table.getRow(0).getCell(0).setColor("d3d3d3");
+		table.getRow(0).getCell(1).setColor("d3d3d3");
+		//Цвет ячеек результата - 16xx
+		table.getRow(10).getCell(0).setColor("ffe599");
+		table.getRow(10).getCell(1).setColor("ffe599");
+		// Цикл по первому столбцу
+		fillColumnData(table, Characteristics, 0);
+		// Цикл по второму столбцу
+		fillColumnData(table, inArgs, 1);
+	}
+	/**
+	 * Метод для заполнения переданной таблицы определенного столбца в документе
+	 * @param table - таблица для заполнения
+	 * @param arg - аргументы которые нужно вставить в таблицу столбца
+	 * @param columnNumber - номер столбца для заполнения
+	 */
+	public  static void fillColumnData(XWPFTable table, ArrayList<String> arg, int columnNumber) {
+		for (int i = 0; i < 11; i++) {
+			//удаляет знак параграфа
+			table.getRow(i).getCell(columnNumber).removeParagraph(0);
+			// Строка i - столбец 1. Создание параграфа, выравнивание по центру.
+			var paragraph =table.getRow(i).getCell(columnNumber).addParagraph();
+			paragraph.setAlignment(ParagraphAlignment.CENTER);
+//             установка текста/шрифта/размера в ячейку ИЗ переданных параметров
+			var run = paragraph.createRun();
+			int titleFontSize = i == 0 ? SIZE_FONT_14 : SIZE_FONT_12;
+			setText_FontSize_Font_Bold(run, arg.get(i),titleFontSize,FONT_ARIAL,i == 10);
+		}
+	}
+
+	/**
+	 * Установка Текста и тд......
+	 * @param run - вывод текста внутри параграфа
+	 * @param text -  Текст  внутри параграфа
+	 * @param fontSize - размер текста
+	 * @param Font - Шрифт текста
+	 * @param Bold - полужирный или простой
+	 */
+	public static void setText_FontSize_Font_Bold(XWPFRun run,String text,int fontSize,String Font,boolean Bold){
+		run.setText(text);
+		run.setFontSize(fontSize);
+		run.setFontFamily(Font);
+		run.setBold(Bold);
 	}
 }

@@ -22,7 +22,7 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
 
-public class GeneratePdfWeb {
+public class GeneratePdfWeb implements GenerateChoiceDoc {
     private String cadastralValue, inventoryTax, square, portion, holdingPeriodRatio,
             childrenCount, exemption, result;
 
