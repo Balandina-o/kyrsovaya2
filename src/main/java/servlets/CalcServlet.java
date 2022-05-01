@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import abstracts.RegionProperty;
 import abstracts.Validation;
 import document.ChoiceOfFormat;
+import document.GenerateDocWeb;
+import document.GeneratePdfWeb;
 /**
  * The Class CalcServlet.
  */
@@ -24,8 +26,9 @@ import document.ChoiceOfFormat;
 public class CalcServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
-	private String resultat;
+	private String resultat = "";
 	private Boolean emptyOrNot;
+	private String errorsList = "";
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -89,7 +92,7 @@ public class CalcServlet extends HttpServlet {
 				childrens,
 				benefit);
 
-		String errorsList = valid.validate();
+		errorsList = valid.validate();
 		if (errorsList != "") { // если строка ошибок не пуста
 			request.setAttribute("errorsCalc", errorsList); // установить их на форму
 
@@ -115,10 +118,11 @@ public class CalcServlet extends HttpServlet {
 						);
 		
 			if (formatDoc.equals(".pdf")) {
-				docInBytes = choice.generatePDF(formatDoc);
-				
+				GeneratePdfWeb genPdf = new GeneratePdfWeb ();
+				docInBytes = choice.distribution(genPdf);
 			}else {
-				docInBytes = choice.generateDOC(formatDoc);
+				GenerateDocWeb genDoc = new GenerateDocWeb ();
+				docInBytes = choice.distribution(genDoc);
 			}
 			
 				response.setContentType("application/octet-stream");

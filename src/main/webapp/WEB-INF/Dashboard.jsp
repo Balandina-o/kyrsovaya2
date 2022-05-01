@@ -21,27 +21,27 @@
         </header>
       
 		<main>
-            <form action="${pageContext.request.contextPath}/admin" class="container" name="adminform" method="POST">
+            <form action="${pageContext.request.contextPath}/admin"  onsubmit="coeffChange();" class="container" name="adminform" method="POST">
                 
                 <h2>Панель изменения коэффициентов</h2>
                 <div class="input-box input-box__one-column">
                     <label for="">Региональный коэффициент для налоговой ставки в г. Уфе</label>
-                     <input id="coffU" type="number" name="coeffUfa" value="${coeffUfa}" max="10" step="0.5" min="1"/>
+                     <input id="coffU" type="number" name="coeffUfa" value="${coeffUfa}" max="10" step="0.1" min="1"/>
                 </div>
 
                 <div class="input-box input-box__one-column">
                     <label for="">Региональный коэффициент для налоговой ставки в г. Казани</label>
-                    <input id="coffK" type="number" name="coeffKazan" value="${coeffKazan}" max="10" step="0.5" min="1"/>
+                    <input id="coffK" type="number" name="coeffKazan" value="${coeffKazan}" max="10" step="0.1" min="1"/>
                 </div>
 
                 <div class="input-box input-box__one-column">
                     <label for="">Региональный коэффициент для налоговой ставки в г. Москве</label>
-                    <input id="coffM" type="number" name="coeffMoscow" value="${coeffMoscow}" max="10" step="0.5" min="1"/>
+                    <input id="coffM" type="number" name="coeffMoscow" value="${coeffMoscow}" max="10" step="0.1" min="1"/>
                 </div>
 
                 <div class="input-box input-box__one-column">
                     <label for="">Региональный коэффициент для налоговой ставки в г. Горно-Алтайске</label>
-                    <input id="coffG" type="number" name="coeffGorn" value="${coeffGorn}" max="10" step="0.5" min="1"/>
+                    <input id="coffG" type="number" name="coeffGorn" value="${coeffGorn}" max="10" step="0.1" min="1"/>
                 </div>
                 <div class="button-box">
                     <button name="exitButton" value="exitButton">Выход</button>
@@ -57,7 +57,7 @@
     </body>
     
      <script>
-         change.onclick = function() {
+         function coeffChange() {
 				alert('Коэффициенты успешно изменены');
          };
 	</script>

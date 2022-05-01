@@ -154,7 +154,7 @@ public class GeneratePdfWeb implements GenerateChoiceDoc {
                 "Число несовершеннолетних детей: ", childrenCount,
                 "Размер льготы: ", exemption,
                 " ", " ",
-                "Сумма к уплате: ", result,
+                "Сумма к уплате: ", result + " руб.",
         };
 
         for (int i = 0; i < 22; i++) {

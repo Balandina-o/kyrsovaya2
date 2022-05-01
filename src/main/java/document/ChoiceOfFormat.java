@@ -18,38 +18,9 @@ public class ChoiceOfFormat {
         this.exemption = exemption;//льгота
         this.result = result;
 	}
-
-	public byte[] generatePDF(String formatDoc) {
-		GeneratePdfWeb genPdf = new GeneratePdfWeb ();
-		bytes = genPdf.generate(
-				cadastralValue,
-				inventoryTax,
-				square,
-				portion,
-				holdingPeriodRatio,
-				childrenCount,
-				exemption,
-				result
-			);
-		return bytes;		
-	}
-	
-	public byte[] generateDOC(String formatDoc) {
-		GenerateDocWeb genDocx = new GenerateDocWeb ();
-		bytes = genDocx.generate(
-				cadastralValue,
-				inventoryTax,
-				square,
-				portion,
-				holdingPeriodRatio,
-				childrenCount,
-				exemption,
-				result
-			);
-		return bytes;
-    }
+ 
 	//TODO Полиморфизм. работает также как 2 метода выше вместе. нужно только добавить куда то
-	private byte[] distribution(GenerateChoiceDoc generateChoiceDoc){
+	public byte[] distribution (GenerateChoiceDoc generateChoiceDoc){
 		return 	generateChoiceDoc.generate(cadastralValue, inventoryTax, square, portion,
 				holdingPeriodRatio, childrenCount, exemption, result);
 

@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import abstracts.RegionProperty;
+
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.util.Units;
 import org.apache.poi.xwpf.usermodel.*;
 
@@ -33,27 +35,13 @@ public class GenerateDocWeb implements GenerateChoiceDoc {
 		ArrayList<String> inParam = new ArrayList<>(List.of(
 				"Вводимые параметры", RegName, PropName,
 				cadastralValue, inventoryTax, square, portion,
-				holdingPeriodRatio, childrenCount, exemption, result));
+				holdingPeriodRatio, childrenCount, exemption, result + " руб."));
 
 		byte[] DOCX ;
 
 		try {
 			XWPFDocument document = new XWPFDocument();
-
-			XWPFParagraph image = document.createParagraph();
-			image.setAlignment(ParagraphAlignment.RIGHT);
-			//TODO попробуй вынести в отдельный метод картинку на примере таблицы
-			// - установки текста.Чтобы можно было добавить миллион если понадобиться
-			XWPFRun imageRun = image.createRun();
-			imageRun.setTextPosition(20);
-
-			Path imagePath = Paths.get(UtilServlets.PathToResPDF(fullPath2));
-			imageRun.addPicture(Files.newInputStream(imagePath),
-			  XWPFDocument.PICTURE_TYPE_PNG, imagePath.getFileName().toString(),
-			  Units.toEMU(160), Units.toEMU(160));
-
-
-
+			createImage(document);
 			XWPFParagraph title = document.createParagraph();
 			title.setAlignment(ParagraphAlignment.CENTER);
 
@@ -160,5 +148,18 @@ public class GenerateDocWeb implements GenerateChoiceDoc {
 		run.setFontSize(fontSize);
 		run.setFontFamily(Font);
 		run.setBold(Bold);
+	}
+	
+	public void createImage(XWPFDocument document) throws InvalidFormatException, IOException {
+		XWPFParagraph image = document.createParagraph();
+		image.setAlignment(ParagraphAlignment.RIGHT);
+		XWPFRun imageRun = image.createRun();
+		imageRun.setTextPosition(20);
+
+		Path imagePath = Paths.get(UtilServlets.PathToResPDF(fullPath2));
+		imageRun.addPicture(Files.newInputStream(imagePath),
+		  XWPFDocument.PICTURE_TYPE_PNG, imagePath.getFileName().toString(),
+		  Units.toEMU(160), Units.toEMU(160));
+	
 	}
 }
