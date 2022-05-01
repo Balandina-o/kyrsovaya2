@@ -43,7 +43,7 @@ public class GenerateDocWeb implements GenerateChoiceDoc {
 			XWPFParagraph image = document.createParagraph();
 			image.setAlignment(ParagraphAlignment.RIGHT);
 			//TODO попробуй вынести в отдельный метод картинку на примере таблицы
-			// - установок текста.Чтобы можно было добавить миллион если понадобиться
+			// - установки текста.Чтобы можно было добавить миллион если понадобиться
 			XWPFRun imageRun = image.createRun();
 			imageRun.setTextPosition(20);
 
@@ -57,39 +57,33 @@ public class GenerateDocWeb implements GenerateChoiceDoc {
 			XWPFParagraph title = document.createParagraph();
 			title.setAlignment(ParagraphAlignment.CENTER);
 
-
+			//TODO setText_Font этот метод для установки в run
 			XWPFRun titleRun = title.createRun();
 			String titleText ="Расчет налога на имущество для физических лиц";
 			setText_FontSize_Font_Bold(titleRun, titleText,SIZE_FONT_20,FONT_TIMES_NEW_ROMAN,false);
 
+			titleRun.addBreak();
 
 			XWPFParagraph paragraph1 = document.createParagraph();
 			XWPFRun run1 = paragraph1.createRun();
+			paragraph1.setAlignment(ParagraphAlignment.LEFT);
 			String par1Text="В таблице 1, расположенной ниже, можно увидеть характеристики и " +
 					"соответствующие вводимые параметры.";
 			setText_FontSize_Font_Bold(run1, par1Text,SIZE_FONT_14,FONT_TIMES_NEW_ROMAN,false);
 
-			XWPFParagraph emptyParagraph1 = document.createParagraph();
-			XWPFRun run2 = emptyParagraph1.createRun();
-			setText_FontSize_Font_Bold(run2, " ",SIZE_FONT_14,FONT_TIMES_NEW_ROMAN,false);
-
-			XWPFParagraph tableTitleParagraph = document.createParagraph();
-			XWPFRun run3 = tableTitleParagraph.createRun();
+			run1.addCarriageReturn(); //разрыв страницы вместо "\r или \n"
+			run1.addBreak();
 			String tableText ="Таблица 1. Основные данные для вывода";
-			setText_FontSize_Font_Bold(run3, tableText,SIZE_FONT_14,FONT_TIMES_NEW_ROMAN,false);
+			setText_FontSize_Font_Bold(run1, tableText,SIZE_FONT_14,FONT_TIMES_NEW_ROMAN,false);
 
-
+			//Таблица - создание - заполнение
 			XWPFTable table = document.createTable(11, 2);
-			table.setTableAlignment(TableRowAlign.CENTER);
+			table.setTableAlignment(TableRowAlign.LEFT);
 			addTable(inParam,table);
 
 
-
-		    XWPFParagraph emptyParagraph2 = document.createParagraph();
-			XWPFRun run4 = emptyParagraph2.createRun();
-			setText_FontSize_Font_Bold(run4, " ",SIZE_FONT_14,FONT_TIMES_NEW_ROMAN,false);
-
 			XWPFParagraph finalParagraph = document.createParagraph();
+			finalParagraph.setSpacingBefore(200);
 			XWPFRun run5 = finalParagraph.createRun();
 			String memberText =" Участники группы: Баландина Ольга, Гареева Диана, "
 					  + "Злыгостев Артем, Байбурин Марат.";
