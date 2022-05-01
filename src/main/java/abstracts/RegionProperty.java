@@ -18,7 +18,7 @@ public class RegionProperty implements ClearRes {
     private int regionIndex = -10000, propertyIndex = -10000;
     private static RegionProperty Instance = null;
     private double ADMIN_FACTOR = 1.0;
-    private String regionName = "г.Уфа 02";
+    private String regionName = "г. Уфа 02";
     private String PropertyName = "Комната";
     private RegionProperty() {
     }

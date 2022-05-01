@@ -23,7 +23,7 @@ public class GenerateDocWeb {
 	public byte[] generate(String cadastralValue, String inventoryTax, String square,
 			String portion, String holdingPeriodRatio, String childrenCount,
 			String exemption, String result) {
-
+		byte[] DOCX ;
 		try {
 			XWPFDocument document = new XWPFDocument();
 			
@@ -76,43 +76,43 @@ public class GenerateDocWeb {
 	        XWPFRun run = addParagraph.createRun();
 	        run.setFontFamily("Times New Roman");
 	        run.setFontSize(14);
-	        
+
 		    XWPFTableRow tableRowTwo = table.createRow();
 		    tableRowTwo.getCell(0).setText("Тип недвижимости: ");
 		    tableRowTwo.getCell(1).setText(RegionProperty.getInstance().getPropertyName());
-		    
+
 		    XWPFTableRow tableRowThree = table.createRow();
 		    tableRowThree.getCell(0).setText("Кадастровая стоимость объекта: ");
 		    tableRowThree.getCell(1).setText(cadastralValue);
-		    
+
 		    XWPFTableRow tableRowFour = table.createRow();
 		    tableRowFour.getCell(0).setText("Налог от инвентар. стоимости: ");
 		    tableRowFour.getCell(1).setText(inventoryTax);
-		    
+
 		    XWPFTableRow tableRowFive = table.createRow();
 		    tableRowFive.getCell(0).setText( "Площадь объекта: ");
 		    tableRowFive.getCell(1).setText(square);
-		    
+
 		    XWPFTableRow tableRowSix = table.createRow();
 		    tableRowSix.getCell(0).setText("Размер доли в праве: ");
 		    tableRowSix.getCell(1).setText(portion);
-		    
+
 		    XWPFTableRow tableRowSeven = table.createRow();
 		    tableRowSeven.getCell(0).setText("Период владения: ");
 		    tableRowSeven.getCell(1).setText(holdingPeriodRatio);
-		    
+
 		    XWPFTableRow tableRowEight = table.createRow();
 		    tableRowEight.getCell(0).setText("Число несовершеннолетних детей: ");
 		    tableRowEight.getCell(1).setText(childrenCount);
-		    
+
 		    XWPFTableRow tableRowNine = table.createRow();
 		    tableRowNine.getCell(0).setText("Размер льготы: ");
 		    tableRowNine.getCell(1).setText(exemption);
-		    
+
 		    XWPFTableRow tableRowTen = table.createRow();
 		    tableRowTen.getCell(0).setText(" ");
 		    tableRowTen.getCell(1).setText(" ");
-		    
+
 		    XWPFTableRow tableRowEleven = table.createRow();
 		    tableRowEleven.getCell(0).setText("Сумма к уплате: ");
 		    tableRowEleven.getCell(1).setText(result);
@@ -129,18 +129,15 @@ public class GenerateDocWeb {
 			run5.setText(" Участники группы: Баландина Ольга, Гареева Диана, "
 					  + "Злыгостев Артем, Байбурин Марат.");
 			
-		    ByteArrayOutputStream out = new ByteArrayOutputStream();
-			document.write(out);
-			out.close();
-			document.close();
-			
-			byte[] xwpfDocumentBytes = out.toByteArray();
-			return xwpfDocumentBytes;
+		    try(ByteArrayOutputStream out = new ByteArrayOutputStream()) {
+				document.write(out);
+				//document.close(); // байтовый поток по цепочке закроет документ.
+				DOCX = out.toByteArray();
+			}
 		}catch (Exception e) {
 				e.printStackTrace();
-				return new byte[0];
+				DOCX= new byte[0];
 			}
-
+		return  DOCX;
 	}
-
 }
