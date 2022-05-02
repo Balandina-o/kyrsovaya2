@@ -26,7 +26,6 @@ public enum CoffRegionAdmin {
 
     public static void FillFromFile() {
         ReadFromFile files = new ReadFromFile();
-        //FIXME  - 26 строка для сервлетов.
         String path = AccessResourcePath.PATH_resources.getPath() + PATH;
         LinkedHashMap<String, String> readPair = new LinkedHashMap<>(files.readFileAsPair((path)));
         for (var LogInFile : readPair.entrySet()) {
@@ -69,7 +68,7 @@ public enum CoffRegionAdmin {
 
     // - Пример как вызывать.
     //Сначала Заполняется из файла на сервлет админа?
-    //Потом при нажатии на кнопку вызывается метод changeCoff. куда передаются данные из формы
+    //Потом при нажатии на кнопку вызывается метод changeCoff. Куда передаются данные из формы
     public static void main(String[] args) throws IOException {
         CoffRegionAdmin.FillFromFile();
         CoffRegionAdmin.changeCoffADMIN("1.0", "3.0", "4.0", "5.0");

@@ -1,8 +1,6 @@
 package abstracts;
 
-import enums.CoffRegionAdmin;
 import enums.EnumSwitch;
-import enums.ReaderCoff;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

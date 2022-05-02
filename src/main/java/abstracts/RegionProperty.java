@@ -103,7 +103,7 @@ public class RegionProperty implements ClearRes {
     }
 
     /**
-     * Вложенный класс  пока для удобства.
+     * Вложенный класс пока для удобства.
      * Здесь хранятся параметры зависящие от ComboBox
      */
     private static class Dependencies {
