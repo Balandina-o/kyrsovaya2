@@ -40,14 +40,6 @@ public class UtilServlets {
         RegionProperty.getInstance().clearEntity();
         ReaderCoff.Instance().clearEntity();
     }
-
-    // Это чтобы протестить функционал
-    public static void main(String[] args) {
-        System.out.println(checkLine(""));
-        System.out.println(checkLine(";"));
-        System.out.println(checkLine(" "));
-        clearAll();
-    }
     
     public static String PathToResPDF(String str) { // для пдф документа
     	var fullPath = AccessResourcePath.PATH_resources.getPath();

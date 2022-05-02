@@ -55,10 +55,4 @@ public class ReadFromFile implements ReadingFile {
         }
         return list1;
     }
-
-    public static void main(String[] args) {
-        ReadFromFile readFromFile = new ReadFromFile();
-        var x = readFromFile.readFileAsTriple("Test11");
-        System.out.println(x.get(0).toString());
-    }
 }

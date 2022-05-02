@@ -3,7 +3,6 @@ package document;
 public class ChoiceOfFormat {
 	 private String cadastralValue, inventoryTax, square, portion, holdingPeriodRatio,
      childrenCount, exemption, result;
-	 byte[] bytes;
 			 
 	public ChoiceOfFormat(String cadastralValue, String inventoryTax, String square,
             String portion, String holdingPeriodRatio, String childrenCount,

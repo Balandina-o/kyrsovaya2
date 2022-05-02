@@ -1,8 +1,6 @@
 package UtilFiles;
 
 
-import java.util.ArrayList;
-
 /**
  * @author Artyom Zlygostev
  * <br> Класс для удобного хранения данных при чтении
@@ -36,9 +34,5 @@ public class Triple< Log extends String, Pass extends String, Role extends Strin
     @Override
     public String toString() {
         return String.format("login: %s, pass: %s, Role: %s",login,pass,role);
-    }
-    public static void main(String[] args) {
-         Triple<String,String,String> str = new Triple<>("user", "user", "USER");
-         ArrayList<Triple<String,String,String>> list = new ArrayList<>();
     }
 }

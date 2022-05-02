@@ -45,7 +45,7 @@
                 </div>
 
                 <div class="input-box input-box__one-column">
-                    <label for="">Кадровая стоимость объекта (₽)</label>
+                    <label for="">Кадастровая стоимость объекта (₽)</label>
                     <input type="text" name="kadastr" value="${kadastr}" />
                 </div>
 
