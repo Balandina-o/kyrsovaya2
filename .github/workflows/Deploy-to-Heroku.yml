@@ -6,7 +6,7 @@ on:
       
     paths-ignore:
       - 'README.md'
-      - 'workflows/'
+      - 'workflows/Deploy-to-Heroku.yml'
    
 jobs:
   build:
