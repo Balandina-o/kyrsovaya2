@@ -5,7 +5,7 @@
 [![build-test](https://github.com/Balandina-o/kyrsovaya2/actions/workflows/Deploy-to-Heroku.yml/badge.svg)](https://github.com/Balandina-o/kyrsovaya2/actions/workflows/Deploy-to-Heroku.yml)
 
 ## Commit
-![GitHub commit activity](https://img.shields.io/github/commit-activity/y/Balandina-o/kyrsovaya2?color=d)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/y/Balandina-o/kyrsovaya2?color=blue)
 
 ## Version JDK
 ![](https://img.shields.io/badge/java%20-11-orange)
