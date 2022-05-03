@@ -19,7 +19,7 @@ jobs:
       - name: check-out reposotiry
         uses: actions/checkout@v3
       - name: run-test
-        uses:  mvn -B clean test -f pom.xml
+        run:  mvn -B clean test -f pom.xml
   Build:
     name: Build
     needs: test
