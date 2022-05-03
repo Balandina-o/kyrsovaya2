@@ -31,7 +31,7 @@ public class AdminServlet extends HttpServlet {
 		response.setContentType("text/html");
 		
 		if (request.getSession().getAttribute("role") == null) {
-			response.sendRedirect(request.getContextPath() + "/autho");
+			response.sendRedirect(request.getContextPath() + "/autho");//перенаправление на форму авторизации
 			return;
 		} else if(!request.getSession().getAttribute("role").equals("ADMIN")){ 
 			response.sendRedirect(request.getContextPath() + "/autho");
