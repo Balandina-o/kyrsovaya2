@@ -8,7 +8,7 @@
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/y/Balandina-o/kyrsovaya2?color=blue)
 
 ## Version JDK
-![](https://img.shields.io/badge/java%20-11-orange)
+[![](https://img.shields.io/badge/java%20-11-orange)](https://www.oracle.com/cis/java/technologies/javase/jdk11-archive-downloads.html)
 
 ## Supported OS
 [![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?logo=ubuntu\&logoColor=white)](https://ubuntu.com/)
