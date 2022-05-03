@@ -7,23 +7,44 @@ on:
     paths-ignore:
       - 'README.md'
       - '.github/workflows/Deploy-to-Heroku.yml'
- 
- 
+
 jobs:
-  build:
+  Test:
+    name: Test
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
-      
     steps:
       - name: check-out reposotiry
         uses: actions/checkout@v3
-        
+      - name: run-test
+        uses:  mvn -B clean test -f pom.xml
+  Build:
+    name: Build
+    needs: test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: check-out reposotiry
+        uses: actions/checkout@v3
+
       - name: Build with Maven
-        run: mvn -B clean package --file pom.xml
-    
-      - name: Deploy to heroku 
+        run: mvn -B clean package -DskipTests -f pom.xml
+
+  deploy-Heroku:
+    name: deploy-Heroku
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: check-out reposotiry
+        uses: actions/checkout@v3
+      - name: Deploy to heroku
         uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
