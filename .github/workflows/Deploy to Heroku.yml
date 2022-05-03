@@ -11,9 +11,9 @@ jobs:
       contents: read
       packages: write
       
-    steps:
+    steps:         
       - name: Build with Maven
-        run: mvn -B clean package 
+        run: mvn -B package -f pom.xml
     
       - uses: actions/checkout@v2
       - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
