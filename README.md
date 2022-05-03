@@ -11,8 +11,8 @@
 ![](https://img.shields.io/badge/java%20-11-orange)
 
 ## Supported OS
-[![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?logo=ubuntu\&logoColor=white)](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on)
-[![Windows](https://img.shields.io/badge/Windows-0078D6?logo=windows\&logoColor=white)](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on)
+[![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?logo=ubuntu\&logoColor=white)](https://ubuntu.com/)
+[![Windows](https://img.shields.io/badge/Windows-0078D6?logo=windows\&logoColor=white)](https://ru.wikipedia.org/wiki/Windows)
 
 ## Developers
 <a href="https://github.com/Balandina-o/kyrsovaya2/graphs/contributors">
