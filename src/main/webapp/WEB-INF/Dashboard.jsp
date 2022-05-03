@@ -21,7 +21,7 @@
         </header>
       
 		<main>
-            <form action="${pageContext.request.contextPath}/admin"  onsubmit="coeffChange();" class="container" name="adminform" method="POST">
+            <form action="${pageContext.request.contextPath}/admin" class="container" name="adminform" method="POST">
                 
                 <h2>Панель изменения коэффициентов</h2>
                 <div class="input-box input-box__one-column">
@@ -50,16 +50,17 @@
                 </div>
             </form>
         </main>
-
+		<input type="hidden" name="hidden" value="${hidden}" />
         <footer>
             <a href="./info.html" target="_blank">О разработчиках</a>
         </footer>
     </body>
     
-     <script>
-         function coeffChange() {
-				alert('Коэффициенты успешно изменены');
-         };
-	</script>
-                
+    <script defer>        
+        window.onload = function() {
+			if (document.querySelector("input[name='hidden']").value != "noMessage"){	
+					alert('Коэффициенты успешно изменены');
+        	}
+		}
+		</script>            
 </html>
