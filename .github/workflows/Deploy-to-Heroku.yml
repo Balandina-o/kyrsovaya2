@@ -7,7 +7,7 @@ on:
     paths-ignore:
       - 'README.md'
       - '.github/workflows/Deploy-to-Heroku.yml'
-      - 'documentation/**'
+      - '.documentation/**'
 permissions:
   contents: read
   packages: write
