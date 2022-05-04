@@ -2,7 +2,7 @@
 Курсовой проект подгруппы 2 группы ПИ-226, разработанный в рамках дисциплины<br /> "Информационные системы".<br />
 Уфимский государственный авиационный технический университет, 2022 г.
 
-[Ссылка на проект, развернутый на платформе Heroku](https://propertytaxwebapp.herokuapp.com/){:target="_blank"}
+[Ссылка на проект, развернутый на платформе Heroku](https://propertytaxwebapp.herokuapp.com/ target="_blank")
 
 ## Build Status
 [![build-test](https://github.com/Balandina-o/kyrsovaya2/actions/workflows/Deploy-to-Heroku.yml/badge.svg)](https://github.com/Balandina-o/kyrsovaya2/actions/workflows/Deploy-to-Heroku.yml)
