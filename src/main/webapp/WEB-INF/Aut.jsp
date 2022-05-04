@@ -17,7 +17,7 @@
                     Расчет налога на имущество физических лиц
                 </h2>  
             </div>
-            <img src="./picture/usatu.png" alt="Логотип УГАТУ" />
+            <img src="./picture/logo.png" alt="Логотип УГАТУ" />
         </header>
         <main>
             <form class="container" name="authoForm" action="${pageContext.request.contextPath}/autho" method="POST">
