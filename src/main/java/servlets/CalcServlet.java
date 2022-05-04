@@ -58,7 +58,6 @@ public class CalcServlet extends HttpServlet {
 		} else if(request.getSession().getAttribute("role").equals("EMPTY")){ 
 			response.sendRedirect(request.getContextPath() + "/autho");
 			return;
-			
 		}
 		
 		String kadastr, tax, square, part, period, childrens, benefit, regionIndex, propertyIndex;

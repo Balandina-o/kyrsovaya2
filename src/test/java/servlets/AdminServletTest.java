@@ -41,6 +41,8 @@ public class AdminServletTest {
 		when(servletContext.getRequestDispatcher("/WEB-INF/Dashboard.jsp")).thenReturn(dispatcher);
 		
 		when(request.getSession()).thenReturn(session);
+		when(session.getAttribute("role")).thenReturn("ADMIN"); //Задается сессия администратора
+		// Если задачать сессию USER - тест провалится, пользователя перекинет на страницу авторизации и сервлет не получит доступа к полям
 		
 		servlet = new AdminServlet() {
 			private static final long serialVersionUID = 1L;

@@ -49,7 +49,8 @@ public class CalcServletTest {
 		when(request.getParameter("button")).thenReturn("pdfButton");
 
 		when(request.getSession()).thenReturn(session);
-
+		when(session.getAttribute("role")).thenReturn("USER");
+		
 		when(servletContext.getRequestDispatcher("/WEB-INF/Calc.jsp")).thenReturn(dispatcher);
 
 		servlet = new CalcServlet() {

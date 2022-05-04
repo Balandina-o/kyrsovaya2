@@ -59,9 +59,8 @@ public class AdminServlet extends HttpServlet {
 		} else if(!request.getSession().getAttribute("role").equals("ADMIN")){ 
 			response.sendRedirect(request.getContextPath() + "/autho");
 			return;
-		} else {
+		} 
 			
-		
 		if (request.getParameter("changeButton") != null) { // если нажата кнопка "change and save"
 			request.setAttribute("hidden", "Message"); 
 			String coeffUfa = request.getParameter("coeffUfa");
@@ -96,6 +95,5 @@ public class AdminServlet extends HttpServlet {
 
 		//перенаправление, чтобы юзер остался на той же форме
 		getServletContext().getRequestDispatcher("/WEB-INF/Dashboard.jsp").forward(request, response);
-	}
 	}
 }
