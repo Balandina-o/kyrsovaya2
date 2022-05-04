@@ -32,7 +32,7 @@ jobs:
       - name: Upload war
         uses: actions/upload-artifact@v3
         with:
-          name: PropertyTaxWebApp.war
+          name: warFile
           path: artifacts/PropertyTaxWebApp.war
 
   deploy-Heroku:
@@ -46,7 +46,7 @@ jobs:
       - name: Dowload art
         uses: actions/download-artifact@v3
         with:
-          name: PropertyTaxWebApp.war
+          name: warFile
           path: artifacts
 
       - name: Display structure of downloaded files
