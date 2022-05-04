@@ -35,10 +35,6 @@ jobs:
           name: PropertyTaxWebApp.war
           path: artifacts/PropertyTaxWebApp.war
 
-      - name: Display structure of downloaded files
-        run: ls -R
-        working-directory: path/to/artifact
-
   deploy-Heroku:
     name: deploy-Heroku
     needs: build
@@ -46,11 +42,16 @@ jobs:
     steps:
       - name: check-out reposotiry
         uses: actions/checkout@v3
+
       - name: Dowload art
         uses: actions/download-artifact@v3
         with:
           name: PropertyTaxWebApp.war
-          path:
+          path: artifacts
+
+      - name: Display structure of downloaded files
+        run: ls -R
+        working-directory: artifacts
 
       - name: Deploy to heroku
         uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
