@@ -7,14 +7,13 @@ on:
     paths-ignore:
       - 'README.md'
       - '.github/workflows/Deploy-to-Heroku.yml'
+permissions:
+  contents: read
+  packages: write
 
 jobs:
   Test:
-    name: Test
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
     steps:
       - name: check-out reposotiry
         uses: actions/checkout@v3
@@ -24,26 +23,35 @@ jobs:
     name: Build
     needs: test
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
     steps:
       - name: check-out reposotiry
         uses: actions/checkout@v3
 
       - name: Build with Maven
-        run: mvn -B clean package -DskipTests -f pom.xml
+        run: mvn package -DskipTests -f pom.xml
+      - name: Upload war
+        uses: actions/upload-artifact@v3
+        with:
+          name: PropertyTaxWebApp.war
+          path: artifacts/PropertyTaxWebApp.war
+
+      - name: Display structure of downloaded files
+        run: ls -R
+        working-directory: path/to/artifact
 
   deploy-Heroku:
     name: deploy-Heroku
     needs: build
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
     steps:
       - name: check-out reposotiry
         uses: actions/checkout@v3
+      - name: Dowload art
+        uses: actions/download-artifact@v3
+        with:
+          name: PropertyTaxWebApp.war
+          path:
+
       - name: Deploy to heroku
         uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
         with:
