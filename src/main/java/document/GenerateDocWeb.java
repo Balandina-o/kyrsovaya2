@@ -149,7 +149,8 @@ public class GenerateDocWeb implements GenerateChoiceDoc {
 		run.setFontFamily(Font);
 		run.setBold(Bold);
 	}
-	
+
+	// метод для создания изображения
 	public void createImage(XWPFDocument document) throws InvalidFormatException, IOException {
 		XWPFParagraph image = document.createParagraph();
 		image.setAlignment(ParagraphAlignment.RIGHT);
