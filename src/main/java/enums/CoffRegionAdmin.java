@@ -73,7 +73,7 @@ public enum CoffRegionAdmin {
         CoffRegionAdmin.FillFromFile();
         CoffRegionAdmin.changeCoffADMIN("1.0", "3.0", "4.0", "5.0");
         for (var x : CoffRegionAdmin.values()) {
-            System.out.println(x.getValue());
+            //System.out.println(x.getValue());
         }
     }
 }

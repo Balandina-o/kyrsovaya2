@@ -44,6 +44,7 @@ public class AdminServlet extends HttpServlet {
 		request.setAttribute("coeffMoscow", CoffRegionAdmin.Moscow_COFF.getValue());
 		request.setAttribute("coeffGorn", CoffRegionAdmin.Gorn_COFF.getValue());
 		request.setAttribute("hidden", "noMessage"); 
+		
 		getServletContext().getRequestDispatcher("/WEB-INF/Dashboard.jsp").forward(request, response);
 	}
 
@@ -51,6 +52,16 @@ public class AdminServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html");
+		
+		if (request.getSession().getAttribute("role") == null) {
+			response.sendRedirect(request.getContextPath() + "/autho");//перенаправление на форму авторизации
+			return;
+		} else if(!request.getSession().getAttribute("role").equals("ADMIN")){ 
+			response.sendRedirect(request.getContextPath() + "/autho");
+			return;
+		} else {
+			
+		
 		if (request.getParameter("changeButton") != null) { // если нажата кнопка "change and save"
 			request.setAttribute("hidden", "Message"); 
 			String coeffUfa = request.getParameter("coeffUfa");
@@ -85,5 +96,6 @@ public class AdminServlet extends HttpServlet {
 
 		//перенаправление, чтобы юзер остался на той же форме
 		getServletContext().getRequestDispatcher("/WEB-INF/Dashboard.jsp").forward(request, response);
+	}
 	}
 }

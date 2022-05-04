@@ -51,6 +51,16 @@ public class CalcServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html");
+		
+		if (request.getSession().getAttribute("role") == null) {
+			response.sendRedirect(request.getContextPath() + "/autho");
+			return;
+		} else if(request.getSession().getAttribute("role").equals("EMPTY")){ 
+			response.sendRedirect(request.getContextPath() + "/autho");
+			return;
+			
+		}
+		
 		String kadastr, tax, square, part, period, childrens, benefit, regionIndex, propertyIndex;
 
 		String formatDoc = request.getParameter("format");
