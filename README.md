@@ -11,6 +11,7 @@
 
 ##Project Description
 Какой-то текст про проект
+
 ###Stack Technologies
 Какой-то Текст про стек
 
