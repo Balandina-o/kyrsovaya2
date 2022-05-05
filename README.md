@@ -13,8 +13,8 @@ Project Description
 ---
 Какой-то текст про проект
 
-Stack Technologies
----
+##Stack Technologies
+
 Какой-то Текст про стек
 
 ### Version JDK
