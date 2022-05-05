@@ -17,6 +17,7 @@
 ## Supported OS
 [![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?logo=ubuntu\&logoColor=white)](https://ubuntu.com/)
 [![Windows](https://img.shields.io/badge/Windows-0078D6?logo=windows\&logoColor=white)](https://ru.wikipedia.org/wiki/Windows)
+[![Debian](https://img.shields.io/badge/Debian-fc2847?logo=debian\&logoColor=white)](https://ru.wikipedia.org/wiki/Debian)
 
 ## Developers
 <a href="https://github.com/Balandina-o/kyrsovaya2/graphs/contributors">
