@@ -13,14 +13,14 @@ Project Description
 ---
 Какой-то текст про проект
 
-##Stack Technologies
+## Stack Technologies
 
 Какой-то Текст про стек
 
 ### Version JDK
 [![3](https://img.shields.io/badge/java%20-11-orange)](https://www.oracle.com/cis/java/technologies/javase/jdk11-archive-downloads.html)
 
-###Deployment
+### Deployment
 [![](https://img.shields.io/badge/Heroku-430098?style=for-the-badge&logo=heroku&logoColor=white)](https://propertytaxwebapp.herokuapp.com/)
 
 ### Supported OS
