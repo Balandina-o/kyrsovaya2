@@ -11,7 +11,7 @@ public class Validation implements ClearRes {
     private InputChildrenCount childrenCountErr;
     private InputExemption exemptionErr;
     private List<InputError> errors;
-    private String squareText, result; // squareText не используется птмч он в init
+    private String squareText, result; 
     private double cadastralValue, inventoryTax, square, portion, holdingPeriodRatio, childrenCount, exemption;
 
 // Вместо индексов
@@ -98,7 +98,7 @@ public class Validation implements ClearRes {
     }
 
     /**
-     * Метод для инициализации Текста из сервлета. ЧТО ДЕЛАТЬ С squareText хз.
+     * Метод для инициализации Текста из сервлета.
      **/
     private void init(String cadastralValueText, String inventoryTaxText, String portionText,
                       String holdingPeriodRatioText, String childrenCountText, String exemptionText) {

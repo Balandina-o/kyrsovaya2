@@ -50,7 +50,7 @@
                 </div>
 
                 <div class="input-box input-box__one-column">
-                    <label for="">Налог на инвертариз. стоимости (₽)</label>
+                    <label for="">Налог от инвертариз. стоимости (₽)</label>
 					<input type="text" name="tax" value="${tax}" />
                 </div>
 
@@ -65,7 +65,7 @@
                 </div>
 
                 <div class="input-box input-box__one-column">
-                    <label for="">Переод владения (в мес. от 1 до 12)</label>
+                    <label for="">Период владения (в мес. от 1 до 12)</label>
                     <input type="text" name="period" value="${period}" />
                 </div>
 
@@ -75,7 +75,7 @@
                 </div>
 
                 <div class="input-box input-box__one-column">
-                    <label for="">Введите размер льготы (%)</label>
+                    <label for="">Размер льготы (%)</label>
                    	<input type="text" name="benefit" min="0" max="100" value="${benefit}" />
                 </div>
 

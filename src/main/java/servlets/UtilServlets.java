@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
+ * Класс, упращающий работу с сервлетами
  * @version 1.0
  */
 public class UtilServlets {

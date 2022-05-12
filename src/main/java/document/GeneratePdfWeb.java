@@ -21,17 +21,47 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
-
+/**
+ * The The Class GeneratePdfWeb.
+ * Класс, отвечающий за генерацию Pdf-документа
+ * 
+ * @author разработчик 3
+ * @version 1.0
+ */
 public class GeneratePdfWeb implements GenerateChoiceDoc {
+    
+    /** Строковые переменные, хранящие пользовательские значения, поступившие из сервлета */
     private String cadastralValue, inventoryTax, square, portion, holdingPeriodRatio,
             childrenCount, exemption, result;
 
+    /** Пусть к используемому в документе шрифту */
     private static String fullPath1 = "/fonts/times.ttf"; 
+    
+    /** Путь к использованной в документе картинке */
     private static String fullPath2 = "/picture/usatu.png";
+    
+    /** Название региона, для которого считается налог*/
     private String regionName;
+    
+    /** Тип имущества, для которого считается налог*/
     private String propertyName;
+    
+    /** Переменная использоемого в документе шрифта */
     private BaseFont times;
     
+    /**
+     * Метод Generate(), в котором происходит создание, заполнение и последующая передача документа, преобразованного в массив байтов, в сервлет.
+     *
+     * @param cadastralValue - кадастровая стоимость объекта
+     * @param inventoryTax - инвентаризационный налог
+     * @param square - площадь объекта
+     * @param portion - доля в праве
+     * @param holdingPeriodRatio - период владения
+     * @param childrenCount - кол-во детей
+     * @param exemption - размер льготы
+     * @param result - исчисленный результат
+     * @return the byte[] - документ в виде массива байтов
+     */
     public byte[] generate(String cadastralValue, String inventoryTax, String square,
                                   String portion, String holdingPeriodRatio, String childrenCount,
                                   String exemption, String result) {
@@ -116,6 +146,11 @@ public class GeneratePdfWeb implements GenerateChoiceDoc {
         }
     }
 
+    /**
+     * Gets the font.
+     *
+     * @return the font
+     */
     public BaseFont getFont() {
         try {
             times = BaseFont.createFont(UtilServlets.PathToResPDF(fullPath1), "cp1251", BaseFont.EMBEDDED, true);
@@ -125,6 +160,10 @@ public class GeneratePdfWeb implements GenerateChoiceDoc {
         return times;
     }
 
+    /**
+     * Метод, отвечающий за подготовку картинки ко вставке в документ
+     * @return the image - изображение, которое можно поместить в документ
+     */
     private Image getImage() {
         Image img = null;
         try {
@@ -143,6 +182,10 @@ public class GeneratePdfWeb implements GenerateChoiceDoc {
         return img;
     }
 
+    /**
+     * Метод, отвечающий за добавление строк в таблицу
+     * @param table - таблица, в которую следует добавить строки
+     */
     private void addRows(PdfPTable table) {
         String[] cell = {"Муниципальное образование: ", regionName,
                 "Тип недвижимости: ", propertyName,
@@ -162,6 +205,10 @@ public class GeneratePdfWeb implements GenerateChoiceDoc {
         }
     }
 
+    /**
+     * Метод, отвечающий за формирования "заголовка" в таблице
+     * @param table - таблица, для которой формируется заголовок
+     */
     private void addHeader(PdfPTable table) {
         Stream.of("Характеристики", " Вводимые параметры")
                 .forEach(columnTitle -> {

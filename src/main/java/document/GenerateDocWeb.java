@@ -16,14 +16,48 @@ import org.apache.poi.xwpf.usermodel.*;
 
 import servlets.UtilServlets;
 
+/**
+ * The The Class GenerateDocWeb.
+ * Класс, отвечающий за генерацию Doc-документа
+ * 
+ * @author balandina-o
+ * @author Artyom
+ * @version 2.0
+ */
+
 public class GenerateDocWeb implements GenerateChoiceDoc {
 
+	 /** Путь к использованной в документе картинке */
 	private static final String fullPath2 = "/picture/usatu.png";
+	
+	/** используемый в документе шрифт 1*/
 	private static final String FONT_TIMES_NEW_ROMAN = "Times New Roman";
+	
+	/** используемый в документе шрифт 2*/
 	private static final String FONT_ARIAL = "Arial";
+	
+	/** Константа для размера шрифта 12 */
 	private static final int SIZE_FONT_12 = 12;
+	
+	/** Константа для размера шрифта 14 */
 	private static final int SIZE_FONT_14 = 14;
+	
+	/** Константа для размера шрифта 20 */
 	private static final int SIZE_FONT_20 = 20;
+	
+    /**
+     * Метод Generate(), в котором происходит создание, заполнение и последующая передача документа, преобразованного в массив байтов, в сервлет.
+     *
+     * @param cadastralValue - кадастровая стоимость объекта
+     * @param inventoryTax - инвентаризационный налог
+     * @param square - площадь объекта
+     * @param portion - доля в праве
+     * @param holdingPeriodRatio - период владения
+     * @param childrenCount - кол-во детей
+     * @param exemption - размер льготы
+     * @param result - исчисленный результат
+     * @return the byte[] - документ в виде массива байтов
+     */
 	@Override
 	public byte[] generate(String cadastralValue, String inventoryTax, String square,
 			String portion, String holdingPeriodRatio, String childrenCount,
@@ -90,7 +124,8 @@ public class GenerateDocWeb implements GenerateChoiceDoc {
 	}
 
 	/**
-	 *  Метод для добавления таблицы в документ
+	 *  Метод, добавляющий таблицу в документ.
+	 *
 	 * @param inArgs - массив аргументов введенных пользователем
 	 * @param table - таблица для заполнения
 	 */
@@ -115,8 +150,10 @@ public class GenerateDocWeb implements GenerateChoiceDoc {
 		// Цикл по второму столбцу
 		fillColumnData(table, inArgs, 1);
 	}
+	
 	/**
-	 * Метод для заполнения переданной таблицы определенного столбца в документе
+	 * Метод для заполнения переданной таблицы определенного столбца в документе.
+	 *
 	 * @param table - таблица для заполнения
 	 * @param arg - аргументы которые нужно вставить в таблицу столбца
 	 * @param columnNumber - номер столбца для заполнения
@@ -125,10 +162,10 @@ public class GenerateDocWeb implements GenerateChoiceDoc {
 		for (int i = 0; i < 11; i++) {
 			//удаляет знак параграфа
 			table.getRow(i).getCell(columnNumber).removeParagraph(0);
-			// Строка i - столбец 1. Создание параграфа, выравнивание по центру.
+			//Строка i - столбец 1. Создание параграфа, выравнивание по центру.
 			var paragraph =table.getRow(i).getCell(columnNumber).addParagraph();
 			paragraph.setAlignment(ParagraphAlignment.CENTER);
-//             установка текста/шрифта/размера в ячейку ИЗ переданных параметров
+			//установка текста/шрифта/размера в ячейку ИЗ переданных параметров
 			var run = paragraph.createRun();
 			int titleFontSize = i == 0 ? SIZE_FONT_14 : SIZE_FONT_12;
 			setText_FontSize_Font_Bold(run, arg.get(i),titleFontSize,FONT_ARIAL,i == 10);
@@ -136,7 +173,7 @@ public class GenerateDocWeb implements GenerateChoiceDoc {
 	}
 
 	/**
-	 * Установка Текста и тд......
+	 * Установка текста внутри параграфа, размера шрифта, шрифта, степени жирности 
 	 * @param run - вывод текста внутри параграфа
 	 * @param text -  Текст  внутри параграфа
 	 * @param fontSize - размер текста
@@ -150,7 +187,13 @@ public class GenerateDocWeb implements GenerateChoiceDoc {
 		run.setBold(Bold);
 	}
 
-	// метод для создания изображения
+	/**
+	 * Метод, создающий изображение в документе
+	 *
+	 * @param document t- документ, в октором создается изобраджение
+	 * @throws InvalidFormatException - исключение поврежденного формата 
+	 * @throws IOException сообщающее, что возникло I/O исключение
+	 */
 	public void createImage(XWPFDocument document) throws InvalidFormatException, IOException {
 		XWPFParagraph image = document.createParagraph();
 		image.setAlignment(ParagraphAlignment.RIGHT);

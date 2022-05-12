@@ -9,20 +9,29 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class AdminServlet.
- */
-/**
+ * Класс-сервлет, обслуживающий форму Dashboard.jsp
+ * 
  * @author balandina-o
- *
+ * @version 1.0
  */
 @WebServlet(name = "AdminServlet", urlPatterns = {"/admin"})
 public class AdminServlet extends HttpServlet {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
+	
 	/**
+	 * Метод DoGet() вызывается всегда при запуске страницы. Осуществляет проверку пользователя на соответствие роли администратора,
+	 * а также установку текущих расчетных коэффициентов в поля формы
+	 *
+	 * @param request the request
+	 * @param response the response
+	 * @throws ervletException - исключение, которое может быть выброшено сервлетом
+	 * @throws IOException сообщающее, что возникло I/O исключение
 	 * @see CoffRegionAdmin#main(String[])
-	 * 
 	 */
 	
 	@Override
@@ -48,6 +57,15 @@ public class AdminServlet extends HttpServlet {
 		getServletContext().getRequestDispatcher("/WEB-INF/Dashboard.jsp").forward(request, response);
 	}
 
+	/**
+	 * Метод doPost() вызывается при взаимодействии с jsp-формой Dashboard - кнопами, выполняющими функцию submit, передачу данных в сервлет
+	 * Осуществляет проверку пользователя на соответствие роли администратора, получение коэффициентов из формы и из передачи для последующей записи в файл
+	 *
+	 * @param request the request
+	 * @param response the response
+	 * @throws ervletException - исключение, которое может быть выброшено сервлетом
+	 * @throws IOException сообщающее, что возникло I/O исключение
+	 */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");

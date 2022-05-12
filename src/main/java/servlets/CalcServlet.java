@@ -15,21 +15,37 @@ import abstracts.Validation;
 import document.ChoiceOfFormat;
 import document.GenerateDocWeb;
 import document.GeneratePdfWeb;
+
 /**
  * The Class CalcServlet.
- */
-/**
+ * Класс-сервлет, обслуживающий форму Reg.jsp
+ * 
  * @author balandina-o
- *
+ * @version 1.0
  */
 @WebServlet(name = "CalcServlet", urlPatterns = {"/calc"})
 public class CalcServlet extends HttpServlet {
 	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
+	
+	/** Переменная resultat, хранящая в себе результат вычислений */
 	private String resultat = "";
+	
+	/** Переменная, хранящая значение true или false в зависимости от того, пусто ли поле результата */
 	private Boolean emptyOrNot;
+	
+	/** TСтроковая переменная, содержащая в себе текст сообщений об ошибках в полях */
 	private String errorsList = "";
 
+	/**
+	 * Метод DoGet() вызывается всегда при запуске страницы. Осуществляет проверку, не является ли пользователь пользователем незарегистирированным
+	 *
+	 * @param request the request
+	 * @param response the response
+	 * @throws ServletException - исключение, которое может быть выброшено сервлетом
+	 * @throws IOException сообщающее, что возникло I/O исключение
+	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
@@ -47,6 +63,20 @@ public class CalcServlet extends HttpServlet {
 		}
 	}
 	
+	/**
+	 * Метод doPost() вызывается при взаимодействии с jsp-формой Calc - кнопами, выполняющими функцию submit, передачу данных в сервлет
+	 * Осуществляет проверку пользователя на соответствие роли простого пользователя или администратора,
+	 * Передает данные в метод, осуществляющий проверку введенных пользователем данных в поля, посредством вызова других методов, и вызывающий
+	 * впоследствии метод, отвечающий за расчет суммы налога.
+	 * Передает данные в метод, отвечающий за генерацию документа
+	 * Выставляет посчитанную сумму на форму, непосредственно устанавливает переданный методом valid.validate() текст JS-сообщениям об ошибках
+	 * в случае, если в поля были введены некорректные значения
+	 *
+	 * @param request the request
+	 * @param response the response
+	 * @throws ervletException - исключение, которое может быть выброшено сервлетом
+	 * @throws IOException сообщающее, что возникло I/O исключение
+	 */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
