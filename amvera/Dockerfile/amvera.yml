@@ -1,0 +1,4 @@
+run:
+  command: /app/propertytaxwebapp
+  args: --port 8080
+  containerPort: 8080
