@@ -1,4 +1,13 @@
+meta:
+  environment: jvm
+  toolchain:
+    name: maven
+    version: 3.8.6
+build:
+  artifacts:
+    target/*.war: /
 run:
-  command: /app/propertytaxwebapp
-  args: --port 8080
-  containerPort: 8080
+  jarName: /kyrsovaya2/artifacts/PropertyTaxWebApp.war
+  persistence_mount: /data
+  container_port: 80
+
